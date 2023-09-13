@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="50dp">
+
+        <TextView
+            android:id="@+id/comp_date"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_date" />
+
+        <TextView
+            android:id="@+id/sup_ord_no"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/suppOrdNo" />
+
+        <TextView
+            android:id="@+id/comp_recipient"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/reci" />
+
+        <TextView
+            android:id="@+id/comp_step"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:text="@string/step" />
+
+        <TextView
+            android:id="@+id/comp_status"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_status" />
+
+        <TextView
+            android:id="@+id/comp_deadline"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="@string/textview_deadline" />
+
+        <CheckBox
+            android:id="@+id/selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/comp_instruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/inst"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/comp_remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+</LinearLayout>

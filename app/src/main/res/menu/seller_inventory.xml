@@ -1,0 +1,36 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.aguadeoro.activity.InventoryActivity">
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Home" />
+    <!--     <item
+            android:id="@+id/action_select_mul"
+            android:orderInCategory="99"
+            android:showAsAction="ifRoom"
+            android:title="@string/select_mul"/>
+        <item
+            android:id="@+id/action_select_single"
+            android:orderInCategory="99"
+            android:showAsAction="ifRoom"
+            android:title="@string/cancel"/>
+        <item
+            android:id="@+id/action_distribute"
+            android:orderInCategory="99"
+            android:showAsAction="ifRoom"
+            android:title="@string/output"/>
+        <item
+            android:id="@+id/action_return"
+            android:orderInCategory="99"
+            android:showAsAction="ifRoom"
+            android:title="@string/returned"/>
+            <item
+            android:id="@+id/action_sold"
+            android:orderInCategory="99"
+            android:showAsAction="ifRoom"
+            android:title="@string/sold"/>
+     -->
+</menu>

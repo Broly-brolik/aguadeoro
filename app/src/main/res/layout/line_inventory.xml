@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/artno"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="@string/artno" />
+
+    <TextView
+        android:id="@+id/mark"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Mark" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Category" />
+
+    <TextView
+        android:id="@+id/width"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Description" />
+
+    <!--<TextView
+        android:id="@+id/price"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Price" />-->
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:padding="1dp"
+        android:text="Location" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Quantity" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:text="Date" />
+
+    <CheckBox
+        android:id="@+id/checked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:visibility="gone" />
+
+</LinearLayout>

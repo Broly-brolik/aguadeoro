@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/ord_no" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/textview_date" />
+
+    <TextView
+        android:id="@+id/customer"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/cust" />
+
+    <TextView
+        android:id="@+id/paymode"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/paymode" />
+
+    <TextView
+        android:id="@+id/amt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/amt" />
+
+    <TextView
+        android:id="@+id/checkedby"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/validate_by" />
+
+    <TextView
+        android:id="@+id/checkedon"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/textview_date" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp" />
+
+</LinearLayout>

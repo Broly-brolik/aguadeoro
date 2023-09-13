@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="xx-xx"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/stonesNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:text="xx stones"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/warning"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/color1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="White" />
+
+            <TextView
+                android:id="@+id/color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Yellow" />
+
+            <TextView
+                android:id="@+id/color3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Red" />
+
+            <TextView
+                android:id="@+id/color4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="Platinum" />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/w100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/w90"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/w75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/w50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/w25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/y100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/y90"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/y75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/y50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/y25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/r100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/r90"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/r75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/r50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/r25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/p100"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/p90"
+                    android:layout_margin="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/p75"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/p50"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/p25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Order Confirmation"
+        android:inputType="text"
+        android:key="email_cust_subject_en"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\n\nWe would like to thank you for your order. It was a great pleasure to help you choose your rings, please find attached the confirmation of your order.\nBest regards,\nAGUA de ORO"
+        android:inputType="textMultiLine"
+        android:key="email_cust_body_en"
+        android:persistent="true"
+        android:title="Body" />
+    <EditTextPreference
+        android:defaultValue="Confirmation de commande"
+        android:inputType="text"
+        android:key="email_cust_subject_fr"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Chère Madame, Cher Monsieur,\n\nNous vous remercions pour votre commande. Ce fut un plaisir de vous conseiller lors de votre achat, veuillez trouver ci-joint la confirmation.\n\nNous demeurons à votre disposition pour tout renseignement complémentaire et dans l'attente de vous rencontrer prochainement, veuillez bien agréer, Madame, Monsieur, nos plus sincères salutations."
+        android:inputType="textMultiLine"
+        android:key="email_cust_body_fr"
+        android:persistent="true"
+        android:title="Body" />
+
+</PreferenceScreen>

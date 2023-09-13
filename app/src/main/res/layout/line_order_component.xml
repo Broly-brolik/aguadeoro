@@ -1,0 +1,409 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/order_component"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/order_comp_line05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artno"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/article_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/artno"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/catalog_code"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/catalog_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/catalog_code"
+            android:inputType="textCapCharacters"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <LinearLayout
+            android:id="@+id/order_comp_line5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/itemprice"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/itemprice"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="0" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:contentDescription="@string/search"
+            android:onClick="searchInfo"
+            android:src="@android:drawable/ic_menu_search" />
+
+        <ImageView
+            android:id="@+id/inventory_detail_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/search"
+            android:onClick="viewInventoryDetail"
+            android:src="@android:drawable/ic_menu_info_details" />
+
+        <ImageView
+            android:id="@+id/inventory_detail_stock_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/search"
+            android:onClick="viewInventoryDetailStock"
+            android:src="@android:drawable/ic_dialog_info" />
+
+        <ImageView
+            android:id="@+id/confirm_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:contentDescription="@string/search"
+            android:onClick="confirmInfo"
+            android:src="@android:drawable/ic_menu_save" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_comp_line0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/arttp"
+            android:textStyle="bold" />
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/article_type"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:hint="@string/arttp"
+            android:inputType="text"
+            android:maxLines="1" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artpf"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/article_prefix"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/artpf"
+            android:inputType="text"
+            android:maxLines="1" />
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/ringName"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Name"
+            android:inputType="text"
+            android:maxLines="1" />-->
+
+        <ImageView
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:contentDescription="@string/edit"
+            android:src="@android:drawable/ic_menu_edit" />
+
+        <ImageView
+            android:id="@+id/takepic_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <ImageView
+            android:id="@+id/viewpic_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_gallery" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_comp_line1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/material"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/color"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/len"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/ht"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/sz"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/surface"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/stone"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_comp_line2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/material"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:hint="@string/material"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/color"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:hint="@string/color"
+            android:inputType="text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/length"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/len"
+            android:inputType="number|text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/height"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/ht"
+            android:inputType="number|text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/size"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/sz"
+            android:inputType="number|text"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/surface"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:gravity="center"
+            android:hint="@string/surface"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/stone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/stone"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/order_comp_line3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/engravetext"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/engraving_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/engravetext"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/order_comp_line4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/engravetype"
+            android:textStyle="bold" />
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/engraving_type"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:hint="@string/engravetype"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/engravefont"
+            android:textStyle="bold" />
+
+        <com.aguadeoro.utils.EditTextDropdownCustomFont
+            android:id="@+id/engraving_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:hint="@string/engravefont"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <CheckBox
+            android:id="@+id/fingerprint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fingerprint" />
+
+        <CheckBox
+            android:id="@+id/microtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/microtext" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:text="@string/engravecost"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/engraving_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="0" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/textview_remark"
+        android:inputType="textMultiLine" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+</LinearLayout>

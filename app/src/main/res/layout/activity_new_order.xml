@@ -1,0 +1,285 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.NewOrderActivity">
+
+    <LinearLayout
+        android:id="@+id/register_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/register_status_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/saving_ord"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <!-- Register form -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/order_component_holder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/line_order_component" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LoginFormContainer"
+                android:layout_gravity="right"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_orderdate"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/order_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/textview_orderdate"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="dd/mm/yyyy" />
+
+                    <EditText
+                        android:id="@+id/order_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:text="HH:mm" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_orddeadline"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/order_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusableInTouchMode="false"
+                        android:hint="@string/textview_orddeadline"
+                        android:maxLines="1"
+                        android:text="20/10/2014" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_total"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/order_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/textview_total"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text="0" />
+
+                    <TextView
+                        android:id="@+id/order_discount_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_discnt"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/order_discount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/textview_discnt"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text="0"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_remain"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/order_remaining"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="@string/textview_remain"
+                        android:inputType="numberDecimal"
+                        android:maxLines="1"
+                        android:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TVA"
+                        android:textStyle="bold" />
+
+                    <CheckBox
+                        android:id="@+id/tva"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/order_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/textview_remark" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/sellertext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/seller"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/seller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/sellertext"
+
+                    android:hint="@string/seller" />
+
+
+                <TextView
+                    android:id="@+id/textView96"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:layout_toEndOf="@+id/seller"
+                    android:text="Store" />
+
+                <Spinner
+                    android:id="@+id/storeSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="-183dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@+id/textView96" />
+
+                <Button
+                    android:id="@+id/copy_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:onClick="addComponent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/copy_comp" />
+
+
+                <Button
+                    android:id="@+id/add_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@id/copy_button"
+                    android:onClick="addComponent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/add_comp" />
+
+                <Spinner
+                    android:id="@+id/comp_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_toLeftOf="@id/add_button"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/remove_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/copy_button"
+                    android:onClick="removeComponent"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/remove_comp"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/total_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/remove_button"
+                    android:layout_toLeftOf="@+id/save_button"
+                    android:onClick="updateTotal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/update_total" />
+
+                <Button
+                    android:id="@+id/save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/remove_button"
+                    android:onClick="saveOrder"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="@string/save" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</merge>

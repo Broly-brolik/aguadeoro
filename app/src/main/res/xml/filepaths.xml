@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-files-path
+        name="my_images"
+        path="/" />
+    <external-path
+        name="/02_orders/"
+        path="/02_orders/" />
+    <external-path
+        name="/01_invoices/"
+        path="/01_invoices/" />
+    <external-path
+        name="/03_supplierorders/"
+        path="/03_supplierorders/" />
+</paths>

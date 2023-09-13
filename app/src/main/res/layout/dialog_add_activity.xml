@@ -1,0 +1,201 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Date"
+        android:inputType="datetime" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Facture" />
+
+        <EditText
+            android:id="@+id/invoice"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:hint="Facture"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Facture" />
+
+        <EditText
+            android:id="@+id/invoiceDate"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Date Facture"
+            android:inputType="date" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dest." />
+
+        <EditText
+            android:id="@+id/recipient"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Destinataire"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Details"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty" />
+
+        <EditText
+            android:id="@+id/quantity"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:hint="Quantité "
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transport" />
+
+        <EditText
+            android:id="@+id/transport"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Transport"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="VAT" />
+
+        <EditText
+            android:id="@+id/vat"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="VAT"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Montant" />
+
+        <EditText
+            android:id="@+id/amount"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Montant"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Délai PMT" />
+
+        <EditText
+            android:id="@+id/paymentDeadline"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Délai PMT"
+            android:inputType="date" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date PMT" />
+
+        <EditText
+            android:id="@+id/paymentDate"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="Date PMT"
+            android:inputType="date" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PMT Par" />
+
+        <EditText
+            android:id="@+id/paymentBy"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:hint="PMT Par"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Remark"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.aguadeoro.utils.EditTextDropdown
+            android:id="@+id/suppOrdNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:hint="Commande Fournisseur"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory Code" />
+
+        <EditText
+            android:id="@+id/inventoryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Inventory Code"
+            android:inputType="textCapCharacters" />
+
+    </LinearLayout>
+
+</LinearLayout>

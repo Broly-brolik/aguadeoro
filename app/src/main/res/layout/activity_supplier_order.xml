@@ -1,0 +1,141 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="activity.CustomerDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/animation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:text="@string/to_invoice" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="ArticleNumber"
+                    android:text="@string/suppOrdNo"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="Deadline"
+                    android:text="@string/ord_dl"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="ArticleNumber"
+                    android:text="@string/artno"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="CreatedDate"
+                    android:text="@string/textview_created"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/reci"
+                    android:textStyle="bold" />
+
+                <!--<TextView
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="Step"
+                    android:text="@string/step"
+                    android:textStyle="bold" />-->
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:onClick="sortOrder"
+                    android:padding="5dp"
+                    android:tag="CustomerName"
+                    android:text="@string/textview_status"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/textview_deadline"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/instruction"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:choiceMode="multipleChoice" />
+
+            <TextView
+                android:id="@android:id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/noorder" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</merge>

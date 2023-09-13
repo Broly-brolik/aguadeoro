@@ -1,0 +1,615 @@
+package com.aguadeoro.activity;
+
+import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.aguadeoro.R;
+import com.aguadeoro.adapter.StockAdapter;
+import com.aguadeoro.utils.Query;
+import com.aguadeoro.utils.Utils;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class StockActivity extends ListActivity {
+
+    private View wheelView;
+    private View mainView;
+    private String[] locationID, locationDescription, products, dates, locationImages;
+    ArrayList<Map<String, String>> notes;
+    private Activity acv;
+    private String location;
+    private int locationId;
+    private ArrayList<Map<String, String>> checkedIDs, data;
+    private String doneBy;
+    private boolean isCheckAll = false;
+    boolean previous = false;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST);
+        setContentView(R.layout.activity_stock);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        wheelView = findViewById(R.id.animation_layout);
+        mainView = findViewById(R.id.main_layout);
+        acv = this;
+        showProgress(true);
+        new PopulateSpinner().execute();
+        final Spinner locations = findViewById(R.id.location_spinner);
+        final Spinner datesSpinner = findViewById(R.id.spinner_date);
+        final Button check = findViewById(R.id.confirm_location);
+        final TextView description = findViewById(R.id.description);
+        final Button checkAll = findViewById(R.id.checkAll);
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if (extras.containsKey("from")) {
+                previous = true;
+            }
+        }
+        locations.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!locations.getSelectedItem().toString().equals("")) {
+                    showProgress(true);
+                    int selectedItemPos = Integer.parseInt(locations.getSelectedItem().toString().replaceAll("[^0-9]", ""));
+                    description.setText(locationDescription[selectedItemPos]);
+                    new FetchLocationData().execute(selectedItemPos);
+                    location = locations.getSelectedItem().toString();
+                    locationId = selectedItemPos;
+                    new PopulateDateSpinner().execute();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        datesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                new FetchQuantities().execute(String.valueOf(locationId), datesSpinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        checkAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isCheckAll = !isCheckAll;
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll);
+                StockActivity.this.setListAdapter(stockAdapter);
+            }
+        });
+
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(StockActivity.this);
+                dialog.setTitle("Location picture");
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_stock_location, null);
+                dialog.setContentView(dialogView);
+                /*String filename = locationImages[location - 1];
+                Log.d("test", "test " + filename);
+                StringBuilder tempFileName = new StringBuilder();
+                for (int i = 0; i < filename.length(); i++) {
+                    if (filename.charAt(i) == ';') {
+                        break;
+                    } else {
+                        tempFileName.append(filename.charAt(i));
+                    }
+                }
+                filename = tempFileName.toString();
+
+                if (filename != null && !filename.isEmpty()) {
+                    File path = new File(Environment.getExternalStorageDirectory()
+                            + "/07_locations/" + filename);
+                    Log.d("test", "" + path.getPath());
+                    ImageView img = dialogView.findViewById(R.id.locationImage);
+                    Picasso.with(dialog.getContext()).load(path).placeholder(R.drawable.logo_small).into(img);
+                    //check all needed permissions together
+
+                    //img.setImageURI(Uri.fromFile(path));
+                }*/
+                Button close = dialogView.findViewById(R.id.close);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ListView list = StockActivity.this.findViewById(android.R.id.list);
+                checkedIDs = ((StockAdapter) list.getAdapter()).getCheckedIDs();
+                final Dialog dialog = new Dialog(StockActivity.this);
+                dialog.setTitle("Stock confirmation");
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_stock, null);
+                ListView lv2 = dialogView.findViewById(R.id.list);
+                StockAdapter2 sa = new StockAdapter2(StockActivity.this, checkedIDs);
+                lv2.setAdapter(sa);
+                dialog.setContentView(dialogView);
+                Button confirm = dialogView.findViewById(R.id.confirm);
+                final Spinner regBy = dialogView.findViewById(R.id.checkedBy);
+                ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(StockActivity.this, R.array.regby_array, android.R.layout.simple_spinner_item);
+                adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                regBy.setAdapter(adapter2);
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String[] checkedCodes = new String[checkedIDs.size()];
+                        Log.d("click", "click");
+                        for (int i = 0; i < checkedIDs.size(); i++) {
+                            checkedCodes[i] = checkedIDs.get(i).get("InventoryCode");
+                        }
+                        doneBy = regBy.getSelectedItem().toString();
+                        Toast.makeText(StockActivity.this, "Please wait...", Toast.LENGTH_SHORT).show();
+                        showProgress(true);
+                        new sendData().execute(checkedCodes);
+                    }
+                });
+                dialog.show();
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.stock, menu);
+        return true;
+    }
+
+    class sendData extends AsyncTask<String[], String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String[]... params) {
+            String query = "";
+            Query q;
+            boolean s;
+            java.util.Date utilDate = new java.util.Date();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(utilDate);
+            cal.set(Calendar.MILLISECOND, 0);
+            Log.d("time", String.valueOf(new java.sql.Timestamp(cal.getTimeInMillis())));
+            String time = String.valueOf(new java.sql.Timestamp(cal.getTimeInMillis()));
+            time = time.substring(0, time.length() - 2);
+            for (int i = 0; i < params[0].length; i++) {
+                query = "update Inventory set Status ='Check' where InventoryCode=" + Utils.escape(params[0][i]);
+                q = new Query(query);
+                s = q.execute();
+                if (!s) {
+                    return false;
+                }
+            }
+            ArrayList<String> products2 = new ArrayList<>();
+            String[] actions = Utils.getSetSetting("InventoryAction");
+            for (int i = 0; i < data.size(); i++) {
+                String action = "";
+                String note = "";
+                for (int i0 = 0; i0 < checkedIDs.size(); i0++) {
+                    if (checkedIDs.get(i0).get("InventoryCode").equals(data.get(i).get("InventoryCode"))) {
+                        if (Objects.requireNonNull(checkedIDs.get(i0).get("note")).length() > 0) {
+                            note = Objects.requireNonNull(checkedIDs.get(i0).get("note"));
+                        }
+                        if (!products2.contains(checkedIDs.get(i0).get("InventoryCode"))) {
+                            products2.add(checkedIDs.get(i0).get("InventoryCode"));
+                            query = "insert into StockHistory (HistoryDate,InventoryCode,IDLocation,Notes,DoneBy,Action) values (#" + time + "#," + Utils.escape(checkedIDs.get(i0).get("InventoryCode")) + "," + locationId + "," + Utils.escape(note) + "," + Utils.escape(doneBy) + ", " + Utils.escape(actions[3]) + ")";
+                            q = new Query(query);
+                            s = q.execute();
+                            if (!s) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            for (int i0 = 0; i0 < data.size(); i0++) {
+                if (products2.size() < 1) {
+                    if (data.get(i0).get("note") == null) {
+                        query = "insert into StockHistory (HistoryDate,InventoryCode,IDLocation,Notes,DoneBy, Action) values (#" + time + "#," + Utils.escape(data.get(i0).get("InventoryCode")) + "," + locationId + ",''," + Utils.escape(doneBy) + ", " + Utils.escape(actions[2]) + ")";
+                    } else {
+                        query = "insert into StockHistory (HistoryDate,InventoryCode,IDLocation,Notes,DoneBy, Action) values (#" + time + "#," + Utils.escape(data.get(i0).get("InventoryCode")) + "," + locationId + "," + Utils.escape(data.get(i0).get("note")) + "," + Utils.escape(doneBy) + ", " + Utils.escape(actions[2]) + ")";
+                    }
+                    q = new Query(query);
+                    s = q.execute();
+                    if (!s) {
+                        return false;
+                    }
+                }
+            }
+            if (products2.size() > 0) {
+                for (int i0 = 0; i0 < data.size(); i0++) {
+                    if (!products2.contains(data.get(i0).get("InventoryCode"))) {
+                        if (data.get(i0).get("note") == null) {
+                            query = "insert into StockHistory (HistoryDate,InventoryCode,IDLocation,Notes,DoneBy,Action) values (#" + time + "#," + Utils.escape(data.get(i0).get("InventoryCode")) + "," + locationId + ",''," + Utils.escape(doneBy) + ", " + Utils.escape(actions[2]) + ")";
+                        } else {
+                            query = "insert into StockHistory (HistoryDate,InventoryCode,IDLocation,Notes,DoneBy,Action) values (#" + time + "#," + Utils.escape(data.get(i0).get("InventoryCode")) + "," + locationId + "," + Utils.escape(data.get(i0).get("note")) + "," + Utils.escape(doneBy) + ", " + Utils.escape(actions[2]) + ")";
+                        }
+                        q = new Query(query);
+                        s = q.execute();
+                        if (!s) {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            //gress(false);
+            Toast.makeText(StockActivity.this, "Done", Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    class StockAdapter2 extends ArrayAdapter<Map<String, String>> {
+
+        ArrayList<Map<String, String>> data;
+
+        public StockAdapter2(Context context, ArrayList<Map<String, String>> data) {
+            super(context, R.layout.line_dialog_stock, data);
+            this.data = data;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup container) {
+            if (convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.line_dialog_stock, container, false);
+            }
+            ((TextView) convertView.findViewById(R.id.inventoryCode)).setText(data.get(position).get("InventoryCode"));
+            ((TextView) convertView.findViewById(R.id.note)).setText(data.get(position).get("note"));
+
+            return convertView;
+        }
+    }
+
+    public static <T> T[] add2BeginningOfArray(T[] elements, T element) {
+        T[] newArray = Arrays.copyOf(elements, elements.length + 1);
+        newArray[0] = element;
+        System.arraycopy(elements, 0, newArray, 1, elements.length);
+
+        return newArray;
+    }
+
+    class PopulateSpinner extends AsyncTask<String, String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String query = "select * from StockLocation order by ID";
+            Query q = new Query(query);
+            boolean s = q.execute();
+            if (!s) {
+                return false;
+            }
+            ArrayList<Map<String, String>> res = q.getRes();
+            locationID = new String[res.size()];
+            locationDescription = new String[res.size()];
+            locationImages = new String[res.size()];
+            for (int i = 0; i < res.size(); i++) {
+                locationID[i] = res.get(i).get("PlaceNumber");
+                locationDescription[i] = res.get(i).get("Description");
+                locationImages[i] = res.get(i).get("Picture");
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            showProgress(false);
+            if (locationID != null) {
+                Spinner locations = findViewById(R.id.location_spinner);
+                ArrayAdapter<CharSequence> adapter = new ArrayAdapter(StockActivity.this, android.R.layout.simple_spinner_item, locationID);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                locations.setAdapter(adapter);
+            } else {
+                Toast.makeText(StockActivity.this, "error could not fetch data", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    class PopulateDateSpinner extends AsyncTask<String, String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String query = "select distinct HistoryDate from StockHistory where IDLocation =" + locationId + " group by HistoryDate HAVING count(HistoryDate)>1 order by HistoryDate desc";
+            Query q = new Query(query);
+            boolean s = q.execute();
+            if (!s) {
+                return false;
+            }
+            ArrayList<Map<String, String>> res = q.getRes();
+            Log.d("date", String.valueOf(res));
+            dates = new String[res.size()];
+            for (int i = 0; i < res.size(); i++) {
+                dates[i] = res.get(i).get("HistoryDate");
+            }
+            dates = add2BeginningOfArray(dates, "Now");
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            showProgress(false);
+            Spinner datesSpin = findViewById(R.id.spinner_date);
+            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(StockActivity.this, android.R.layout.simple_spinner_item, dates);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            datesSpin.setAdapter(adapter);
+        }
+    }
+
+    class FetchQuantities extends AsyncTask<String, String, Boolean> {
+        int stockQuantity, checkQuantity, total;
+        String selectedDate;
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            selectedDate = params[1];
+            if (params[1].equals("Now")) {
+                for (int i = 0; i < data.size(); i++) {
+                    if (data.get(i).get("Status").equals("Stock")) {
+                        stockQuantity += 1;
+                    } else if (data.get(i).get("Status").equals("Check")) {
+                        checkQuantity += 1;
+                    } else {
+                        total += 1;
+                    }
+                }
+                total += stockQuantity;
+                total += checkQuantity;
+            } else {
+                String query = "select distinct StockHistory.InventoryCode FROM StockHistory INNER JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where Status = 'Stock' and IDLocation = " + params[0] + " and StockHistory.HistoryDate = #" + params[1] + "# ;";
+                Query q = new Query(query);
+                boolean s = q.execute();
+                if (!s) {
+                    return false;
+                }
+                ArrayList<Map<String, String>> res = q.getRes();
+                stockQuantity = res.size();
+                Log.d("stock", String.valueOf(res));
+
+                query = "select distinct StockHistory.InventoryCode FROM StockHistory INNER JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where Status = 'Check' and IDLocation = " + params[0] + " and StockHistory.HistoryDate =#" + params[1] + "#;";
+                q = new Query(query);
+                s = q.execute();
+                if (!s) {
+                    return false;
+                }
+                res = q.getRes();
+                checkQuantity = res.size();
+                Log.d("check", String.valueOf(res));
+                query = "select distinct StockHistory.InventoryCode FROM StockHistory INNER JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where IDLocation = " + params[0] + " and StockHistory.HistoryDate =#" + params[1] + "#;";
+                q = new Query(query);
+                s = q.execute();
+                if (!s) {
+                    return false;
+                }
+                res = q.getRes();
+                total = res.size();
+                Log.d("check", String.valueOf(res));
+
+            }
+            return true;
+
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            TextView quant = findViewById(R.id.quantities);
+            showProgress(false);
+            if (selectedDate.equals("Now")) {
+                quant.setText("Stock (Now) : " + stockQuantity + "\nCheck (Now) : " + checkQuantity + "\nTotal (Now) : " + (total));
+
+            } else {
+                quant.setText("Stock (Now) : " + stockQuantity + "\nCheck (Now) : " + checkQuantity + "\nTotal (" + selectedDate.substring(0, 10) + ") : " + (total));
+            }
+        }
+    }
+
+    class FetchLocationData extends AsyncTask<Integer, String, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            String query;
+            Query q;
+            boolean s;
+            query = "select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where IDLocation = " + params[0] + " and (Status='Stock' or Status='Check') order by Inventory.CatalogCode asc;";
+            q = new Query(query);
+            s = q.execute();
+            if (!s) {
+                return false;
+            }
+            ArrayList<Map<String, String>> res = q.getRes();
+            Log.d("initial size", "" + res.size());
+            data = FilterLocationData(res);
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (data.size() > 0) {
+                PermissionListener permissionlistener = new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted() {
+                        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes);
+                        StockActivity.this.setListAdapter(stockAdapter);
+
+                    }
+
+                    @Override
+                    public void onPermissionDenied(List<String> deniedPermissions) {
+                        Toast.makeText(StockActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                };
+                TedPermission.with(StockActivity.this).setPermissionListener(permissionlistener).setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]").setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
+
+            } else {
+                Toast.makeText(StockActivity.this, "Empty location", Toast.LENGTH_LONG).show();
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, new ArrayList(), notes);
+                StockActivity.this.setListAdapter(stockAdapter);
+            }
+        }
+    }
+
+    public ArrayList<Map<String, String>> FilterLocationData(ArrayList<Map<String, String>> res) {
+        notes = new ArrayList<>();
+        ArrayList<String> codes = new ArrayList<>();
+        ArrayList<Map<String, String>> data = new ArrayList<>();
+        for (int i = 0; i < res.size(); i++) {
+            boolean transferred = false;
+            Timestamp timestamp1 = new Timestamp(1);
+            Timestamp timestamp2 = new Timestamp(0);
+            if (!res.get(i).get("HistoryDate").equals("")) {
+                if (res.get(i).get("Action") != null) {
+                    if (res.get(i).get("Action").equals("Transferred")) {
+                        transferred = true;
+                    }
+                }
+                if (!transferred) {
+                    for (int j = 0; j < res.size(); j++) {
+                        if (res.get(i).get("InventoryCode").equals(res.get(j).get("InventoryCode"))) {
+                            if (!res.get(j).get("HistoryDate").equals("")) {
+                                if (res.get(j).get("Action") != null) {
+                                    if (res.get(j).get("Action").equals("Transferred")) {
+                                        try {
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                            Date parsedDate = dateFormat.parse(res.get(i).get("HistoryDate"));
+                                            timestamp1 = new java.sql.Timestamp(parsedDate.getTime());
+                                        } catch (Exception e) {
+                                            Log.d("error 1", "" + e);
+                                        }
+                                        try {
+                                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                                            Date parsedDate = dateFormat.parse(res.get(j).get("HistoryDate"));
+                                            timestamp2 = new java.sql.Timestamp(parsedDate.getTime());
+                                        } catch (Exception e) {
+                                            Log.d("error 2", "" + e);
+                                        }
+                                        if (timestamp2.getTime() > timestamp1.getTime()) {
+                                            Log.d("t1t2", "code " + res.get(j).get("InventoryCode") + " t1 " + timestamp1.getTime() + " t2 " + timestamp2.getTime());
+                                            transferred = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                Log.d("OK", "" + res.get(i).get("InventoryCode") + " " + transferred);
+                if (!codes.contains(res.get(i).get("InventoryCode")) && !transferred) {
+                    HashMap<String, String> map = new HashMap<>();
+                    map.put(res.get(i).get("InventoryCode"), res.get(i).get("Notes"));
+                    codes.add(res.get(i).get("InventoryCode"));
+                    data.add(res.get(i));
+                    notes.add(map);
+                }
+            }
+        }
+        return data;
+    }
+
+
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            wheelView.setVisibility(View.VISIBLE);
+            wheelView.animate().setDuration(shortAnimTime).alpha(show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    wheelView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+
+            mainView.setVisibility(View.VISIBLE);
+            mainView.animate().setDuration(shortAnimTime).alpha(show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mainView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            wheelView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mainView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        if (id == android.R.id.home) {
+            if (previous) {
+                finish();
+            } else {
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }
+        if (id == R.id.editStock) {
+            Intent intent = new Intent(this, EditStockActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+}

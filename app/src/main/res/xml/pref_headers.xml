@@ -1,0 +1,26 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$GeneralPreferenceFragment"
+        android:title="General" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$ThankYouNotePreferenceFragment"
+        android:title="ThankYou Note" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$CustomerEmailPreferenceFragment"
+        android:title="Customer Email Template" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$OrderReadyEmailPreferenceFragment"
+        android:title="Order Ready Email Template" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$OrderClosedEmailPreferenceFragment"
+        android:title="Order Closed Email Template" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$InvoiceEmailPreferenceFragment"
+        android:title="Invoice Email Template" />
+    <header
+        android:fragment="com.aguadeoro.activity.SettingsActivity$SupplierEmailPreferenceFragment"
+        android:title="Supplier Email Template" />
+</preference-headers>

@@ -1,0 +1,44 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="http://195.15.223.234/aguadeoro/connect.php"
+        android:inputType="text"
+        android:key="server_address"
+        android:maxLines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="Server Address" />
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/prefs_stores"
+        android:entryValues="@array/prefs_stores"
+        android:key="store_selected"
+        android:title="Store" />
+    <EditTextPreference
+        android:defaultValue="50"
+        android:inputType="number"
+        android:key="max_results"
+        android:maxLines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="Max number of records" />
+    <EditTextPreference
+        android:defaultValue="7.7"
+        android:inputType="numberDecimal"
+        android:key="tva_rate"
+        android:maxLines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="TVA" />
+    <EditTextPreference
+        android:defaultValue="CHE-114.798.474"
+        android:inputType="text|numberDecimal"
+        android:key="tva_number"
+        android:maxLines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="TVA Number" />
+
+</PreferenceScreen>

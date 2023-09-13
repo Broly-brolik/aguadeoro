@@ -1,0 +1,53 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Facture"
+        android:inputType="text"
+        android:key="email_invoice_subject_fr"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Chère Madame, Cher Monsieur,\nVous trouverez ci-joint la facture mise à jour de votre commande. Nous vous remercions pour votre confiance, et vous souhaitons le meilleur pour la suite. Nous espérons que vous avez été pleinement satisfait(e) de votre bijou et que nous aurons le plaisir de vous compter à nouveau parmi nos clients dans le futur.\nNos meilleures salutations,\nAgua de Oro\nGarantie\nAgua de Oro accorde une garantie de trois ans sur votre alliance à partir de la date d’achat. La garantie ne couvre pas les dommages consécutifs à un accident (choc), au manque de soin ou à l’usure normale des bijoux. Cette garantie couvre aussi la perte de petits diamants (mêlée) : si une des petites pierres tombe de votre bijou, nous nous engageons à le remplacer gratuitement.\nService\nLa révision et le nettoyage sont offerts à vie.\nSi vous faites réviser votre bijou pendant la période couverte par la garantie, le service de remplacement des mêlées sera renouvelé pour un an à chaque nouvelle révision qui suivra."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_jewel_fr"
+        android:persistent="true"
+        android:title="Body Bijoux généraux" />
+    <EditTextPreference
+        android:defaultValue="Chère Madame, Cher Monsieur,\nVous trouverez ci-joint la facture mise à jour de votre commande. Nous vous remercions pour votre confiance. Nous espérons que vous avez été pleinement satisfait(e) de votre alliance et que nous aurons le plaisir de vous compter à nouveau parmi nos clients dans le futur.\nMerci de nous avoir permis de contribuer à votre histoire d’amour, nous vous souhaitons le meilleur pour cette nouvelle vie à deux.\nNos meilleures salutations,\nAgua de Oro\nGarantie\nAgua de Oro accorde pendant trois ans à partir de la date d’achat une garantie sur votre alliance. La garantie ne couvre pas les dommages consécutifs à un accident (choc), au manque de soin ou à l’usure normale des bijoux. Cette garantie couvre aussi la perte de petits diamants (mêlée) : si une des petites pierres tombe de votre bijou, nous nous engageons à le remplacer gratuitement.\nService\nAgua de Oro vous offre un service spécial pour votre alliance : pendant les deux années suivant la date d’achat, nous assurerons gratuitement le rafraîchissement de votre bague pour raviver son éclat et nous contrôlerons également la monture des pierres. Nous vous recommandons de faire soumettre votre alliance à un contrôle régulier qui, suivant l’usage que vous en faites, devra être effectué tous les un à trois ans.\nLa révision et le nettoyage sont offerts à vie.\nSi vous faites réviser votre alliance pendant la période couverte par la garantie, le service de remplacement des mêlées sera renouvelé pour un an à chaque nouvelle révision qui suivra."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_alliances_fr"
+        android:persistent="true"
+        android:title="Body Alliances" />
+    <EditTextPreference
+        android:defaultValue="Chère Madame, Cher Monsieur,\nVous trouverez ci-joint la facture mise à jour de votre commande. Nous vous remercions pour votre confiance. Nous espérons que vous avez été pleinement satisfait(e) de votre bague de fiançailles et que nous aurons le plaisir de vous compter à nouveau parmi nos clients dans le futur.\nLes fiançailles sont la promesse d'un bonheur éternel, c'est du moins le vœu que nous formulons pour vous, et nous vous souhaitons le meilleur pour votre nouvelle vie à deux.\nNos meilleures salutations,\nAgua de Oro\nGarantie\nAgua de Oro accorde pendant trois ans à partir de la date d’achat une garantie sur votre bague de fiançailles. La garantie ne couvre pas les dommages consécutifs à un accident (choc), au manque de soin ou à l’usure normale des bijoux. Cette garantie couvre aussi la perte de petits diamants (mêlée) : si une des petites pierres tombe de votre bijou, nous nous engageons à le remplacer gratuitement.\nService\nAgua de Oro vous offre un service spécial pour votre bague de fiançailles : pendant les deux années suivant la date d’achat, nous assurerons gratuitement le rafraîchissement de votre bague pour raviver son éclat et nous contrôleront également la monture des pierres. Nous vous recommandons de faire soumettre votre bijou à un contrôle régulier qui, suivant l’usage que vous en faites, devra être effectué tous les un à trois ans. Si un des petits diamants (mêlée) tombe de votre bijou dans cette période de trois ans, nous nous engageons à le remplacer gratuitement. Si vous passez en boutique pour une révision dans l’année précédant la fin de la garantie, ce service est renouvelé. Nous vous offrons également un agrandissement ou rétrécissement gratuit (si la variation ne dépasse pas deux numéros et vous nous notifiez de ceci lors des trois premiers mois suivant la date d’achat)\nLa révision et le nettoyage sont offerts à vie.\nSi vous faites réviser votre alliance pendant la période couverte par la garantie, le service de remplacement des mêlées sera renouvelé pour un an à chaque nouvelle révision qui suivra."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_bague_fr"
+        android:persistent="true"
+        android:title="Body Bague de fiançailles" />
+    <EditTextPreference
+        android:defaultValue="Invoice Order "
+        android:inputType="text"
+        android:key="email_invoice_subject_en"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nPlease see the attached file for an updated invoice of your purchase. We thank you for the trust you placed in us, and wish you the best for the future. We hope that you have been fully satisfied with your purchase and that we will have the pleasure to count you amongst our clients again.\nKindest regards,\nAgua de Oro\nGuarantee\nAgua de Oro grants a three-year guarantee from the date of purchase. The warranty does not cover damage resulting from accidents (knock), lack of care or normal wear and tear of jewellery. This warranty also covers the loss of smaller diamonds (mêlée): should one of them fall off, we will replace it for you, free of charge.\nServices\nRevisions and cleaning are offered as a lifetime service.\nIf you have your purchase revised during the time covered by the warranty, the replacement service for mêlées is extended for one year with every revision you have made."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_jewel_en"
+        android:persistent="true"
+        android:title="Body General Jewellery" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nPlease see the attached file for an updated invoice of your purchase. We thank you for the trust you placed in us, and wish you the best for the future. We hope that you have been fully satisfied with your purchase and that we will have the pleasure to count you amongst our clients again.\nKindest regards,\nAgua de Oro\nGuarantee\nAgua de Oro grants a three-year guarantee from the date of purchase. The warranty does not cover damage resulting from accidents (knock), lack of care or normal wear and tear of jewellery. This warranty also covers the loss of smaller diamonds (mêlée): should one of them fall off, we will replace it for you, free of charge.\nServices\nRevisions and cleaning are offered as a lifetime service.\nIf you have your purchase revised during the time covered by the warranty, the replacement service for mêlées is extended for one year with every revision you have made."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_alliances_en"
+        android:persistent="true"
+        android:title="Body Wedding Rings" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nPlease see the attached file for an updated invoice of your purchase. We thank you for the trust you placed in us, and wish you the best for the future. We hope that you have been fully satisfied with your purchase and that we will have the pleasure to count you amongst our clients again.\nKindest regards,\nAgua de Oro\nGuarantee\nAgua de Oro grants a three-year guarantee from the date of purchase. The warranty does not cover damage resulting from accidents (knock), lack of care or normal wear and tear of jewellery. This warranty also covers the loss of smaller diamonds (mêlée): should one of them fall off, we will replace it for you, free of charge.\nServices\nRevisions and cleaning are offered as a lifetime service.\nIf you have your purchase revised during the time covered by the warranty, the replacement service for mêlées is extended for one year with every revision you have made."
+        android:inputType="textMultiLine"
+        android:key="email_invoice_body_bague_en"
+        android:persistent="true"
+        android:title="Body Engagement" />
+</PreferenceScreen>

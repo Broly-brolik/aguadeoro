@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2]\nBlah blah blah.\nBlah blah blah"
+        android:inputType="textMultiLine"
+        android:key="thankyou_template_en"
+        android:persistent="true"
+        android:title="Message template(en)" />
+    <EditTextPreference
+        android:defaultValue="Chere [1] et [2]\nBlah blah blah.\nBlah blah blah"
+        android:inputType="textMultiLine"
+        android:key="thankyou_template_fr"
+        android:persistent="true"
+        android:title="Message template(fr)" />
+
+</PreferenceScreen>

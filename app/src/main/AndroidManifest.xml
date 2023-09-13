@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aguadeoro"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk android:targetSdkVersion="29" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.aguadeoro.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.CustomerActivity"
+            android:label="@string/title_activity_customer" />
+        <activity
+            android:name=".activity.OrderActivity"
+            android:label="@string/title_activity_order" />
+        <activity
+            android:name=".activity.SupplierOrderActivity"
+            android:label="@string/title_activity_supplier_order" />
+        <activity
+            android:name=".activity.ReportActivity"
+            android:label="@string/button_report" />
+        <activity
+            android:name=".activity.CustomerDetailActivity"
+            android:label="@string/title_activity_customer_detail" />
+        <activity
+            android:name=".activity.NewCustomerActivity"
+            android:label="@string/title_activity_new_customer" />
+        <activity
+            android:name=".activity.NewOrderActivity"
+            android:label="@string/title_activity_new_order" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".activity.OrderDetailActivity"
+            android:exported="true"
+            android:label="@string/title_activity_order_detail" />
+        <activity
+            android:name=".activity.PrintDialogActivity"
+            android:label="Print" />
+        <activity
+            android:name=".activity.InventoryActivity"
+            android:label="@string/title_activity_inventory" />
+        <activity
+            android:name=".activity.AddInventoryActivity"
+            android:label="@string/title_activity_add_invt" />
+        <activity
+            android:name=".activity.ViewInventoryActivity"
+            android:label="@string/title_activity_invt_detail" />
+        <activity
+            android:name=".activity.SellerActivity"
+            android:label="@string/title_activity_seller" />
+        <activity
+            android:name=".activity.ComponentActivityDetailActivity"
+            android:label="Article Activities" />
+        <activity
+            android:name=".activity.ActivitiesActivity"
+            android:label="Activities" />
+        <activity
+            android:name=".activity.WeddingActivity"
+            android:label="Mariage" />
+        <activity
+            android:name=".activity.CreateInvoiceActivity"
+            android:label="Create Invoice"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.PricesActivity"
+            android:label="Prices" />
+        <activity
+            android:name=".activity.CalculatorActivity"
+            android:label="Calculator" />
+        <activity
+            android:name=".activity.StockActivity"
+            android:label="Inventory Locations"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".activity.EditStockActivity"
+            android:label="Edit Locations"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.StonesPricesActivity"
+            android:label="Stones prices" />
+        <activity
+            android:name=".activity.PricesAlliancesActivity"
+            android:label="Alliance prices" />
+        <activity
+            android:name=".activity.PriceMemoiresActivity"
+            android:label="Memoires prices" />
+
+        <activity
+            android:name=".activity.WeddingFollowUpActivity"
+            android:label="Wedding follow up" />
+        <activity
+            android:name=".activity.PricesTearsOfJoyActivity"
+            android:label="Tear Of Joy prices" />
+    </application>
+
+</manifest>

@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.aguadeoro.activity.OrderActivity">
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Home" />
+    <item
+        android:id="@+id/action_validate"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/validate" />
+
+</menu>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/catCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="Catalog code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Name"
+        app:layout_constraintStart_toEndOf="@+id/catCode"
+        app:layout_constraintTop_toTopOf="@+id/catCode" />
+
+    <TextView
+        android:id="@+id/whitePrice"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
+        android:padding="5dp"
+        android:text="Wprice"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/yellowPrice"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:padding="5dp"
+
+        android:layout_marginTop="32dp"
+        android:text="Yprice"
+        app:layout_constraintStart_toEndOf="@+id/whitePrice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/redPrice"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:padding="5dp"
+
+        android:text="Rprice"
+        app:layout_constraintStart_toEndOf="@+id/yellowPrice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/platPrice"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:padding="5dp"
+
+        android:layout_marginTop="32dp"
+        android:text="Pprice"
+        app:layout_constraintStart_toEndOf="@+id/redPrice"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

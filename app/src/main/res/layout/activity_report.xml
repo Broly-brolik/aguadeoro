@@ -1,0 +1,377 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="activity.CustomerDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/animation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <Spinner
+                    android:id="@+id/range"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/until"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/until"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="chooseDate"
+                    android:text="Date"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/cash_flow"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderNumber"
+                android:text="@string/ord_no"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderDate"
+                android:text="@string/textview_date"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="CustomerName"
+                android:text="@string/cust"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/paymode"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/amt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/validate_by"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/textview_date"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/payment_list"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/pay_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/total_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_total"
+                android:paddingLeft="15dp"
+                android:text="Total:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pay_postcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/total_text"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/postcard_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_postcard"
+                android:paddingLeft="15dp"
+                android:text="Post/Maestro:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pay_credit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/postcard_text"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/credit_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_credit"
+                android:paddingLeft="15dp"
+                android:text="Credit Card:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pay_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/credit_text"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/cash_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_cash"
+                android:paddingLeft="15dp"
+                android:text="Cash:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pay_bull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/cash_text"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/bull_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_bull"
+                android:paddingLeft="15dp"
+                android:text="Bulletin:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/pay_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/bull_text"
+                android:focusableInTouchMode="false"
+                android:minWidth="50dp"
+                android:text="0" />
+
+            <TextView
+                android:id="@+id/other_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/pay_other"
+                android:paddingLeft="15dp"
+                android:text="Autres:"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/title_activity_order"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderNumber"
+                android:text="@string/ord_no"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderType"
+                android:text="@string/type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderDate"
+                android:text="@string/textview_date"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="CustomerName"
+                android:text="@string/cust"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/textview_total"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/textview_remain"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="OrderStatus"
+                android:text="@string/textview_status"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:tag="Deadline"
+                android:text="@string/textview_deadline"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:minHeight="200dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/order_total_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/order_total"
+                android:text="Total:"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/order_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:text="0"></EditText>
+        </RelativeLayout>
+    </LinearLayout>
+
+</merge>

@@ -1,0 +1,710 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="activity.CustomerDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/animation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/invt_code" />
+
+                    <EditText
+                        android:id="@+id/inventory_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="none"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/catalog_code" />
+
+                    <EditText
+                        android:id="@+id/catalog_code"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/supp_code" />
+
+                    <EditText
+                        android:id="@+id/code"
+                        android:layout_width="0dp"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mark" />
+
+                    <EditText
+                        android:id="@+id/mark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category" />
+
+                    <EditText
+                        android:id="@+id/category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/desc" />
+
+                    <EditText
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/width" />
+
+                    <EditText
+                        android:id="@+id/width"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ht" />
+
+                    <EditText
+                        android:id="@+id/height"
+                        android:layout_width="0dp"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/material" />
+
+                    <EditText
+                        android:id="@+id/material"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color" />
+
+                    <EditText
+                        android:id="@+id/color"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/weight" />
+
+                    <EditText
+                        android:id="@+id/weight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sz" />
+
+                    <EditText
+                        android:id="@+id/size"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stone" />
+
+                    <EditText
+                        android:id="@+id/stone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity" />
+
+                    <EditText
+                        android:id="@+id/stone_quantity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type" />
+
+                    <EditText
+                        android:id="@+id/stone_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sz" />
+
+                    <EditText
+                        android:id="@+id/stone_size"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stone_carat" />
+
+                    <EditText
+                        android:id="@+id/carat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/color" />
+
+                    <EditText
+                        android:id="@+id/stone_color"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stone_clarity" />
+
+                    <EditText
+                        android:id="@+id/stone_clarity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cut" />
+
+                    <EditText
+                        android:id="@+id/stone_cut"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/polish" />
+
+                    <EditText
+                        android:id="@+id/stone_polish"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/symm" />
+
+                    <EditText
+                        android:id="@+id/stone_symetry"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lab" />
+
+                    <EditText
+                        android:id="@+id/lab"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cert" />
+
+                    <EditText
+                        android:id="@+id/certificate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cost" />
+
+                    <EditText
+                        android:id="@+id/cost"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price" />
+
+                    <EditText
+                        android:id="@+id/price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantity" />
+
+                    <EditText
+                        android:id="@+id/quantity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_status" />
+
+                    <EditText
+                        android:id="@+id/status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="1"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/textview_remark" />
+
+                    <EditText
+                        android:id="@+id/remark"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="none"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Line" />
+
+                    <EditText
+                        android:id="@+id/line"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Collection" />
+
+                    <EditText
+                        android:id="@+id/collection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Style" />
+
+                    <EditText
+                        android:id="@+id/style"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forme" />
+
+                    <EditText
+                        android:id="@+id/forme"
+                        android:layout_width="0dp"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Setting" />
+
+                    <EditText
+                        android:id="@+id/setting"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name" />
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ring Prize" />
+
+                    <EditText
+                        android:id="@+id/ringPrize"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Melee Prize" />
+
+                    <EditText
+                        android:id="@+id/meleePrize"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:textSize="14sp"
+                        android:inputType="none" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Stone Prize" />
+
+                    <EditText
+                        android:id="@+id/stonePrize"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="none" />
+                </LinearLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/linearLayout17"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/priceRed"
+                    app:layout_constraintStart_toStartOf="@+id/priceRed">
+
+                    <TextView
+                        android:id="@+id/textView88"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Total Price (White) "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/priceWhite"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="118dp" />
+
+                    <EditText
+                        android:id="@+id/priceWhite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView89"
+                        app:layout_constraintStart_toEndOf="@+id/textView88"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
+                    <TextView
+                        android:id="@+id/textView89"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Total Price (Yellow) "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/priceYellow"
+                        app:layout_constraintStart_toEndOf="@+id/priceWhite"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="124dp" />
+
+                    <EditText
+                        android:id="@+id/priceYellow"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView90"
+                        app:layout_constraintStart_toEndOf="@+id/textView89"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
+                    <TextView
+                        android:id="@+id/textView90"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Total Price (Red) "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/priceRed"
+                        app:layout_constraintStart_toEndOf="@+id/priceYellow"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="107dp" />
+
+                    <EditText
+                        android:id="@+id/priceRed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView91"
+                        app:layout_constraintStart_toEndOf="@+id/textView90"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
+                    <TextView
+                        android:id="@+id/textView91"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Total Price (Plat) "
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/pricePlatinum"
+                        app:layout_constraintStart_toEndOf="@+id/priceRed"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="107dp" />
+
+                    <EditText
+                        android:id="@+id/pricePlatinum"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView91"
+                        tools:layout_conversion_absoluteHeight="32dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
+                </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center|top"
+            android:src="@android:drawable/ic_menu_gallery" />
+
+
+    </LinearLayout>
+
+</merge>

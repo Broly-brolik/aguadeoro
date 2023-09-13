@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Thank you for ordering with us"
+        android:inputType="text"
+        android:key="email_order_closed_subject_en"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nThank you for ordering with us. If you are pleased with our service, please blah blah blah.\nRegards,\nAGUA de ORO"
+        android:inputType="textMultiLine"
+        android:key="email_order_closed_body_en"
+        android:persistent="true"
+        android:title="Body" />
+    <EditTextPreference
+        android:defaultValue="Merci pour votre commande"
+        android:inputType="text"
+        android:key="email_order_closed_subject_fr"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nThank you for ordering with us. If you are pleased with our service, please blah blah blah.\nRegards,\nAGUA de ORO"
+        android:inputType="textMultiLine"
+        android:key="email_order_closed_body_fr"
+        android:persistent="true"
+        android:title="Body" />
+
+</PreferenceScreen>

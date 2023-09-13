@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Your order is ready for collection"
+        android:inputType="text"
+        android:key="email_order_ready_subject_en"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Dear [1] and [2],\nYour order is ready for collection.\nRegards,\nAGUA de ORO"
+        android:inputType="textMultiLine"
+        android:key="email_order_ready_body_en"
+        android:persistent="true"
+        android:title="Body" />
+    <EditTextPreference
+        android:defaultValue="Votre commande est prête"
+        android:inputType="text"
+        android:key="email_order_ready_subject_fr"
+        android:persistent="true"
+        android:title="Subject" />
+    <EditTextPreference
+        android:defaultValue="Chère Madame, Cher Monsieur,\n\nNous avons le plaisir de vous informer que vos articles sont prêts et que vous pouvez venir les récupérer à votre convenance.\nMerci de nous confirmer le jour qui vous convient le mieux.\nNous vous souhaitons une agréable journée.\n\nNos meilleures salutations,\nAGUA de ORO"
+        android:inputType="textMultiLine"
+        android:key="email_order_ready_body_fr"
+        android:persistent="true"
+        android:title="Body" />
+
+</PreferenceScreen>

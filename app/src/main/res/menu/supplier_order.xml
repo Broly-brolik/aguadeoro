@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.aguadeoro.activity.OrderActivity">
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="900"
+        android:showAsAction="never"
+        android:title="Home" />
+    <item
+        android:id="@+id/filter_status"
+        android:orderInCategory="900"
+        android:showAsAction="never"
+        android:title="Filter Status" />
+    <item
+        android:id="@+id/action_search_order"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/selected_orders"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Selected orders" />
+    <item
+        android:id="@+id/send_selected_orders"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Send orders" />
+</menu>

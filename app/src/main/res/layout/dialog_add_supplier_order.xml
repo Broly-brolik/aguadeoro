@@ -1,0 +1,375 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/main_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/art_line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Supplier Code"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/suppCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="TextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:text="Catalog Code" />
+
+            <TextView
+                android:id="@+id/catalogCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/art_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Width"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/art_line3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Height"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mat_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Stone"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/stone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/color_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Stone Quantity"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/stoneQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/len_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Stone Type"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/stoneType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/height_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Stone Size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/stoneSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/size_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Setting"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/surface_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="Remark"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/stone_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:id="@+id/engrave_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:id="@+id/remark_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:id="@+id/reci_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/comp_step"
+                android:layout_width="250dp"
+                android:layout_height="40dp" />
+
+            <Spinner
+                android:id="@+id/comp_status"
+                android:layout_width="250dp"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/comp_deadline"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/textview_deadline" />
+
+            <Spinner
+                android:id="@+id/comp_recipient"
+                android:layout_width="300dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/outButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Out" />
+
+            <TextView
+                android:id="@+id/outItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/left_checkboxes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addPictures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="5dp"
+                    android:paddingStart="5dp"
+                    android:text="Add pictures links" />
+
+                <CheckBox
+                    android:id="@+id/comp_article_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/arttp" />
+
+                <CheckBox
+                    android:id="@+id/comp_article_pre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/artpf" />
+
+                <CheckBox
+                    android:id="@+id/comp_article_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/artno" />
+
+                <CheckBox
+                    android:id="@+id/comp_material"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/material" />
+
+                <CheckBox
+                    android:id="@+id/comp_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/color" />
+
+                <CheckBox
+                    android:id="@+id/comp_lenth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/len" />
+
+                <CheckBox
+                    android:id="@+id/comp_height"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/ht" />
+
+                <CheckBox
+                    android:id="@+id/comp_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/sz" />
+
+                <CheckBox
+                    android:id="@+id/comp_surface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/surface" />
+
+                <CheckBox
+                    android:id="@+id/comp_stone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/stone" />
+
+                <CheckBox
+                    android:id="@+id/comp_engraving"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/engravetext" />
+
+                <CheckBox
+                    android:id="@+id/comp_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:tag="@string/textview_remark" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/comp_add_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/textview_add_remark" />
+    </LinearLayout>
+
+</ScrollView>

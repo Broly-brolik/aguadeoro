@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout10"
+    android:layout_width="500dp"
+    android:layout_height="500dp">
+
+    <TextView
+        android:id="@+id/Recipient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="20dp"
+        android:text="N/A"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/invoiceNumberTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--
+
+
+
+        <TextView
+            android:id="@+id/RecipientTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:text="Recipient : "
+            android:textSize="15sp" />
+-->
+    <TextView
+        android:id="@+id/InvoiceDateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:text="Invoice Date : "
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/invoiceDate"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/invoiceDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="25dp"
+        android:padding="5dp"
+        android:text="DD/MM/YYYY"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/totalTitle"
+        app:layout_constraintTop_toBottomOf="@+id/Recipient" />
+
+    <TextView
+        android:id="@+id/invoiceNumberTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Invoice Number : "
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/invoiceDate"
+        app:layout_constraintStart_toEndOf="@+id/invoiceDate" />
+
+    <TextView
+        android:id="@+id/invoiceNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="0"
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/invoiceNumberTitle"
+        app:layout_constraintStart_toEndOf="@+id/invoiceNumberTitle" />
+
+
+    <TextView
+        android:id="@+id/totalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:text="Total Amount : "
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/total"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="9dp"
+        android:padding="5dp"
+        android:text="Amount"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/invoiceDate"
+        app:layout_constraintTop_toBottomOf="@+id/invoiceDate" />
+
+
+    <TextView
+        android:id="@+id/tvaTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:text="TVA : "
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tva"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="9dp"
+        android:padding="5dp"
+        android:text="0"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/shipCostTitle"
+        app:layout_constraintStart_toEndOf="@+id/tvaTitle" />
+
+
+    <TextView
+        android:id="@+id/shipCostTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:padding="5dp"
+        android:text="Shipping cost :"
+        android:textSize="15sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ShipCost"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/ShipCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:padding="5dp"
+        android:text="0"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/shipCostTitle"
+        app:layout_constraintTop_toBottomOf="@+id/total" />
+
+
+    <TextView
+        android:id="@+id/NewStatusTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:padding="5dp"
+        android:text="New status"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/status" />
+
+    <Spinner
+        android:id="@+id/status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="250dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/dropdown_status2"
+        android:padding="5dp"
+        android:spinnerMode="dropdown"
+        android:text="Status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/NewStatusTitle"
+        app:layout_constraintTop_toBottomOf="@+id/ShipCost" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:padding="5dp"
+        android:text="SAVE"
+        app:layout_constraintStart_toStartOf="@+id/shippingRemark"
+        app:layout_constraintTop_toBottomOf="@+id/shippingRemark" />
+
+    <TextView
+        android:id="@+id/textView37"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Shipping company"
+        app:layout_constraintEnd_toStartOf="@+id/shippingCompanies"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NewStatusTitle" />
+
+    <Spinner
+        android:id="@+id/shippingCompanies"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@android:drawable/btn_dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/shippingRemark"
+        app:layout_constraintStart_toEndOf="@+id/textView37"
+        app:layout_constraintTop_toTopOf="@+id/textView37" />
+
+    <EditText
+        android:id="@+id/shippingRemark"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Shipping remark"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shippingCompanies"
+        app:layout_constraintTop_toTopOf="@+id/textView37" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:text="Cancel"
+        app:layout_constraintEnd_toStartOf="@+id/saveBtn"
+        app:layout_constraintTop_toTopOf="@+id/saveBtn" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,66 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.aguadeoro.activity.CustomerDetailActivity">
+
+    <item
+        android:id="@+id/action_home"
+        android:orderInCategory="900"
+        android:showAsAction="never"
+        android:title="Home" />
+    <item
+        android:id="@+id/action_print_note_en"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/print_note_en" />
+    <item
+        android:id="@+id/action_print_note_fr"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/print_note_fr" />
+    <item
+        android:id="@+id/action_edit_customer"
+        android:orderInCategory="800"
+        android:showAsAction="ifRoom"
+        android:title="@string/editcust" />
+    <item
+        android:id="@+id/action_add_rdv"
+        android:orderInCategory="60"
+        android:showAsAction="never"
+        android:title="@string/addRDV" />
+    <item
+        android:id="@+id/action_add_history"
+        android:orderInCategory="500"
+        android:showAsAction="ifRoom"
+        android:title="@string/addhist" />
+    <item
+        android:id="@+id/action_view_actions"
+        android:orderInCategory="500"
+        android:showAsAction="ifRoom"
+        android:title="@string/viewaction" />
+    <item
+        android:id="@+id/action_add_order"
+        android:orderInCategory="80"
+        android:showAsAction="always"
+        android:title="@string/addord" />
+    <item
+        android:id="@+id/action_add_sale_order"
+        android:orderInCategory="80"
+        android:showAsAction="always"
+        android:title="@string/addsaleord" />
+    <item
+        android:id="@+id/action_add_preview_order"
+        android:orderInCategory="70"
+        android:showAsAction="ifRoom"
+        android:title="@string/addpreord" />
+    <item
+        android:id="@+id/action_add_repair_order"
+        android:orderInCategory="70"
+        android:showAsAction="ifRoom"
+        android:title="@string/addrepord" />
+    <item
+        android:id="@+id/action_email"
+        android:orderInCategory="70"
+        android:showAsAction="ifRoom"
+        android:title="Email" />
+
+</menu>

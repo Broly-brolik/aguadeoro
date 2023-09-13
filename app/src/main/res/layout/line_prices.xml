@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:text="x.xx-x.xx"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/warning"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/color1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="D" />
+
+            <TextView
+                android:id="@+id/color2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="E, F" />
+
+            <TextView
+                android:id="@+id/color3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="G, H" />
+
+            <TextView
+                android:id="@+id/color4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="I, J" />
+
+            <TextView
+                android:id="@+id/color5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="K, L, M" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/d0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/d1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/d2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/d3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/e0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/e1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/e2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/e3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/g0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/g1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/g2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/g3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/i0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/i1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/i2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/i3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/k0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/k1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/k2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+
+                <TextView
+                    android:id="@+id/k3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:text="N/A" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prefs_stores">
+        <item>Geneva</item>
+        <item>Zurich</item>
+    </string-array>
+    <string-array name="prefs_stores_keys">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

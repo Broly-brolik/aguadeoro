@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/customerName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/customerEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/customerEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/customerOrderDate"
+        app:layout_constraintStart_toEndOf="@+id/customerName"
+        app:layout_constraintTop_toTopOf="@+id/customerName" />
+
+    <TextView
+        android:id="@+id/customerOrderDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/customerOrderName"
+        app:layout_constraintStart_toEndOf="@+id/customerEmail"
+        app:layout_constraintTop_toTopOf="@+id/customerEmail" />
+
+    <TextView
+        android:id="@+id/customerOrderName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/customerTotal"
+        app:layout_constraintStart_toEndOf="@+id/customerOrderDate"
+        app:layout_constraintTop_toTopOf="@+id/customerOrderDate" />
+
+    <TextView
+        android:id="@+id/customerTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/isMarried"
+        app:layout_constraintStart_toEndOf="@+id/customerOrderName"
+        app:layout_constraintTop_toTopOf="@+id/customerOrderName" />
+
+    <CheckBox
+        android:id="@+id/isMarried"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/customerTotal"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout16"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="50dp"
+    android:paddingStart="50dp"
+    android:paddingBottom="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="What do you want to do ?"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Spinner
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="24dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/dropdown_status"
+        android:padding="5dp"
+        android:spinnerMode="dropdown"
+        android:text="Status"
+        app:layout_constraintBottom_toTopOf="@+id/btn_change_status"
+        app:layout_constraintEnd_toStartOf="@+id/btn_filter_name" />
+
+    <Button
+        android:id="@+id/btn_change_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Change Status"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_filter_name"
+        app:layout_constraintEnd_toEndOf="@+id/status"
+        app:layout_constraintStart_toStartOf="@+id/status" />
+
+
+    <CheckBox
+        android:id="@+id/st12Check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Status 1 + 2"
+        app:layout_constraintEnd_toEndOf="@+id/txt_dia"
+        app:layout_constraintStart_toStartOf="@+id/txt_dia"
+        app:layout_constraintTop_toBottomOf="@+id/txt_dia" />
+
+    <CheckBox
+        android:id="@+id/st3Check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Status 3"
+        app:layout_constraintStart_toStartOf="@+id/st12Check"
+        app:layout_constraintTop_toBottomOf="@+id/st12Check" />
+
+
+    <Button
+        android:id="@+id/btn_filter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="Filter by name and status"
+        app:layout_constraintEnd_toEndOf="@+id/st12Check"
+        app:layout_constraintStart_toStartOf="@+id/st12Check"
+        app:layout_constraintTop_toBottomOf="@+id/st3Check" />
+
+    <Spinner
+        android:id="@+id/approval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:padding="5dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toEndOf="@+id/btn_filter_name"
+        app:layout_constraintTop_toTopOf="@+id/status" />
+
+    <Button
+        android:id="@+id/approval_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change approval"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/approval"
+        app:layout_constraintStart_toStartOf="@+id/approval"
+        app:layout_constraintTop_toTopOf="@+id/btn_filter_name" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Date" />
+
+        <TextView
+            android:id="@+id/suppOrdNo"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Commande" />
+
+        <TextView
+            android:id="@+id/unites"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Units" />
+
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Detail" />
+
+        <TextView
+            android:id="@+id/grs_livres"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Grs livres" />
+
+        <TextView
+            android:id="@+id/grs_rendus"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Grs rendus" />
+
+        <TextView
+            android:id="@+id/prix"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Prix" />
+
+        <TextView
+            android:id="@+id/signature_liv"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Sig Liv" />
+
+        <TextView
+            android:id="@+id/date_liv"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Date Liv" />
+
+        <TextView
+            android:id="@+id/paye"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/signature"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Signature" />
+
+        <CheckBox
+            android:id="@+id/selected"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/comp_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Instruction" />
+
+</LinearLayout>

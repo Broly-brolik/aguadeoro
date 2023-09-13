@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .body,
+      html {
+        /* --large-row-width: 30% */
+        font-family: avenir-medium;
+        font-size: 10px;
+      }
+      table,
+      tr {
+        width: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        border-spacing: 10px;
+      }
+      tr {
+        border: solid;
+        border-width: 1px 0;
+      }
+
+      th,
+      td {
+        /* background-color: blue; */
+        border-bottom: 1px solid black;
+        /* border-top: 1px solid black; */
+        border-collapse: collapse;
+        padding: 2rem 1rem;
+        font-size: 1.6rem;
+        font-weight: 300;
+      }
+      th {
+        color: gray;
+      }
+      /* .cell {
+        display: table-cell;
+        vertical-align: top;
+        text-align: left;
+        font-size: 2rem;
+        width: 13.3%;
+        margin-left: 10rem;
+      }
+      .double {
+        width: 30%;
+      } */
+      @page {
+        size: A4 landscape;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th class="cell">Date</th>
+        <th class="cell">Order number</th>
+        <th class="cell">Deadline</th>
+        <th class="cell double">Instruction</th>
+        <th class="cell double">Remark</th>
+      </tr>
+      {orderEntries}
+      <!-- <tr>
+        <td class="cell">{date}</td>
+        <td class="cell">{orderNumber}</td>
+        <td class="cell">{deadline}</td>
+        <td class="cell double">{instruction}</td>
+        <td class="cell double">{remark}</td>
+      </tr>
+      <tr>
+        <td class="cell">{date}</td>
+        <td class="cell">{orderNumber}</td>
+        <td class="cell">{deadline}</td>
+        <td class="cell double">{instruction}</td>
+        <td class="cell double">{remark}</td>
+      </tr>
+      <tr>
+        <td class="cell">{date}</td>
+        <td class="cell">{orderNumber}</td>
+        <td class="cell">{deadline}</td>
+        <td class="cell double">{instruction}</td>
+        <td class="cell double">{remark}</td>
+      </tr> -->
+    </table>
+  </body>
+</html>

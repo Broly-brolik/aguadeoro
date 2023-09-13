@@ -1,0 +1,317 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.CreateInvoiceActivity">
+
+    <LinearLayout
+        android:id="@+id/animation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="450dp"
+            android:animationCache="false"
+            android:choiceMode="multipleChoice"
+            android:descendantFocusability="beforeDescendants"
+            android:minHeight="450dp"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView83"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="IN items"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/orderNumber"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Order Number"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView83" />
+
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="ID"
+                app:layout_constraintStart_toEndOf="@+id/orderNumber"
+                app:layout_constraintTop_toTopOf="@+id/orderNumber" />
+
+            <TextView
+                android:id="@+id/textView86"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="shortcode"
+                app:layout_constraintStart_toEndOf="@+id/id"
+                app:layout_constraintTop_toTopOf="@+id/id" />
+
+            <TextView
+                android:id="@+id/out"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="out quantity"
+                app:layout_constraintStart_toEndOf="@+id/textView86"
+                app:layout_constraintTop_toTopOf="@+id/textView86" />
+
+            <TextView
+                android:id="@+id/used"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="used quantity"
+                app:layout_constraintBottom_toBottomOf="@+id/out"
+                app:layout_constraintStart_toEndOf="@+id/out"
+                app:layout_constraintTop_toTopOf="@+id/out" />
+
+            <TextView
+                android:id="@+id/returned"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="return quantty"
+                app:layout_constraintStart_toEndOf="@+id/used"
+                app:layout_constraintTop_toTopOf="@+id/used" />
+
+            <TextView
+                android:id="@+id/lost"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="lost quantity"
+                app:layout_constraintStart_toEndOf="@+id/returned"
+                app:layout_constraintTop_toTopOf="@+id/returned" />
+
+            <ImageView
+                android:id="@+id/add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@android:drawable/ic_input_add"
+                app:layout_constraintBottom_toBottomOf="@+id/lost"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/lost"
+                app:layout_constraintTop_toTopOf="@+id/lost" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:scrollbars="vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id" />
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/retrieveStockButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:text="Retrieve Stock Data"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Invoice Info"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:text="Invoice Date"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/invoice_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <DatePicker
+                android:id="@+id/invoice_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:calendarViewShown="false"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                app:layout_constraintEnd_toStartOf="@+id/received_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView39" />
+
+
+            <TextView
+                android:id="@+id/textView40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:text="Received Date"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/received_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <DatePicker
+                android:id="@+id/received_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:calendarViewShown="false"
+                android:scaleX="0.70"
+                android:scaleY="0.70"
+                app:layout_constraintEnd_toStartOf="@+id/shipping"
+                app:layout_constraintStart_toEndOf="@id/invoice_date"
+                app:layout_constraintTop_toBottomOf="@+id/textView40" />
+
+
+            <EditText
+                android:id="@+id/shipping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Shipping Cost"
+                android:inputType="numberDecimal"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/received_date"
+                app:layout_constraintTop_toTopOf="@+id/received_date" />
+
+            <Spinner
+                android:id="@+id/registered_by"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:entries="@array/regby_array"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/received_date"
+                app:layout_constraintTop_toBottomOf="@+id/shipping" />
+
+
+            <EditText
+                android:id="@+id/invoice_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:hint="Invoice Number"
+                android:padding="5dp"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/received_date"
+                app:layout_constraintTop_toBottomOf="@+id/registered_by" />
+
+            <Spinner
+                android:id="@+id/currency_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:entries="@array/curr_array"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/received_date"
+                app:layout_constraintTop_toBottomOf="@+id/invoice_number" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/remark"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:hint="Remark"
+                android:padding="5dp"
+                android:textSize="15sp" />
+
+            <CheckBox
+                android:id="@+id/tvaCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TVA"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_create_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="200dp"
+                android:padding="10dp"
+                android:text="Create"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</merge>

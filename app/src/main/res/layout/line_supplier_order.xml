@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/checkBoxInvoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:id="@+id/sup_ord_no"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="SupOrdNo" />
+    <!--
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="OrderNo" />-->
+
+    <TextView
+        android:id="@+id/order_deadline"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Deadline" />
+
+    <TextView
+        android:id="@+id/art_no"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="ArtNo" />
+
+
+    <TextView
+        android:id="@+id/created_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="CreatedDate" />
+
+    <TextView
+        android:id="@+id/recipient"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Recipient" />
+
+    <!--<TextView
+        android:id="@+id/step"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Step" />-->
+
+    <!--<Spinner
+        android:id="@+id/status"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Status"
+        android:background="@android:drawable/btn_dropdown"
+        android:entries="@array/dropdown_status"
+        android:spinnerMode="dropdown"/>-->
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/deadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Deadline" />
+
+    <TextView
+        android:id="@+id/instruction"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/instruction" />
+
+
+</LinearLayout>

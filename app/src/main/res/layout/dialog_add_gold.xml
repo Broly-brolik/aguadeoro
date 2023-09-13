@@ -1,0 +1,131 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Date"
+        android:inputType="datetime" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unités" />
+
+        <EditText
+            android:id="@+id/unites"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:hint="Unités"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grs livres" />
+
+        <EditText
+            android:id="@+id/grs_livres"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Grs livres"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grs rendus" />
+
+        <EditText
+            android:id="@+id/grs_rendus"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Grs rendus"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prix Total" />
+
+        <EditText
+            android:id="@+id/prix"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Prix"
+            android:inputType="numberDecimal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Details"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signature liv" />
+
+        <EditText
+            android:id="@+id/signature_liv"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Signature liv"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date livraison" />
+
+        <EditText
+            android:id="@+id/date_liv"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Date livraison"
+            android:inputType="datetime" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Payé" />
+
+        <EditText
+            android:id="@+id/paye"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Date Payé" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signature" />
+
+        <EditText
+            android:id="@+id/signature"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="Signature"
+            android:inputType="text" />
+    </LinearLayout>
+
+</LinearLayout>
