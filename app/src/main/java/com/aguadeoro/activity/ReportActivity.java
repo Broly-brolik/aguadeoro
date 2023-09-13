@@ -283,6 +283,8 @@ public class ReportActivity extends ListActivity {
                 pmt[5] = result2.get(i).get(Utils.CHECKED_BY);
                 pmt[6] = result2.get(i).get(Utils.CHECKED_ON);
                 pmt[7] = result2.get(i).get(Utils.ID);
+
+
                 pmt[8] = result2.get(i).get("PaymentDate");
 
                 paymentList.add(pmt);
