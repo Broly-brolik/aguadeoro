@@ -454,11 +454,10 @@ public class InventoryActivity extends ListActivity {
             lastSearchingItems.add(new SearchingItem(SearchingType.CARAT, editText_carat_1.getText().toString() + "~" + editText_carat_2.getText().toString(), true));
 
             if (filter.toString().equals(" where ")) {
-                filter.append(" Carat between  ").append(Utils.escape(editText_carat_1.getText().toString())).append(" and ")
-                        .append(Utils.escape(editText_carat_2.getText().toString())).append(" ");
+                filter.append(" Carat like '%").append(editText_carat_1.getText().toString()).append("%'");
             } else {
-                filter.append(" and  Carat between  ").append(Utils.escape(editText_carat_1.getText().toString())).append(" and ")
-                        .append(Utils.escape(editText_carat_2.getText().toString())).append(" ");
+                filter.append(" and  Carat like '%").append(editText_carat_1.getText().toString()).append("%'");
+
             }
         }
         if (checkBox_search_color.isChecked()) {
