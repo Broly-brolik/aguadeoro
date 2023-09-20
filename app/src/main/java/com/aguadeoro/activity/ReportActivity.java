@@ -257,7 +257,7 @@ public class ReportActivity extends ListActivity {
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
                     + whereClause2 + " and oh.PaymentMode is not null "
                     + "and oh.PaymentMode <> " + Utils.escape(Utils.DISCOUNT)
-                    + " order by EntryDate desc";
+                    + " order by PaymentDate desc";
             q = new Query(query);
 
 //            String[] pmt = new String[8];

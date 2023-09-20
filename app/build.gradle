@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "25.0.3"
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -13,7 +12,6 @@ android {
         versionCode 1000
         versionName "1.0.0"
     }
-
 
     buildTypes {
         release {
@@ -31,19 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-
     packagingOptions {
-        exclude("META-INF/DEPENDENCIES")
-        exclude("META-INF/LICENSE")
-        exclude("META-INF/LICENSE.txt")
-        exclude("META-INF/license.txt")
-        exclude("META-INF/NOTICE")
-        exclude("META-INF/NOTICE.txt")
-        exclude("META-INF/notice.txt")
-        exclude("META-INF/ASL2.0")
-        exclude("META-INF/*.kotlin_module")
-        exclude("META-INF/*")
+        jniLibs {
+            excludes += ['META-INF/*']
+        }
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0', 'META-INF/*.kotlin_module', 'META-INF/*']
+        }
     }
+
+    namespace 'com.aguadeoro'
 }
 
 dependencies {
@@ -53,30 +48,30 @@ dependencies {
     implementation 'android.arch.navigation:navigation-ui:1.0.0'
 
     //noinspection GradleCompatible
-    compile 'com.android.support:support-v4:19.1.0'
+    implementation 'com.android.support:support-v4:19.1.0'
     //noinspection GradleCompatible
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    implementation 'com.android.support:appcompat-v7:23.0.1'
     implementation 'gun0912.ted:tedpermission:2.2.3'
-    compile files('libs/commons-io-2.4.jar')
-    compile files('libs/itextg-5.5.1.jar')
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    implementation files('libs/commons-io-2.4.jar')
+    implementation files('libs/itextg-5.5.1.jar')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     //noinspection GradleCompatible
-    compile 'com.android.support:recyclerview-v7:23.0.1'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-auth:15.0.1'
-    compile 'pub.devrel:easypermissions:0.3.0'
-    compile('com.google.api-client:google-api-client-android:1.23.0') {
+    implementation 'com.android.support:recyclerview-v7:23.0.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'pub.devrel:easypermissions:0.3.0'
+    implementation('com.google.api-client:google-api-client-android:1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    compile('com.google.apis:google-api-services-drive:v3-rev110-1.23.0') {
+    implementation('com.google.apis:google-api-services-drive:v3-rev110-1.23.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-    compile 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
-    compile 'com.google.apis:google-api-services-people:v1-rev277-1.23.0'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.23.0'
+    implementation 'com.google.apis:google-api-services-people:v1-rev277-1.23.0'
     implementation "android.arch.navigation:navigation-ui-ktx:1.0.0"
     implementation "android.arch.navigation:navigation-fragment-ktx:1.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile 'com.thoughtbot:expandablerecyclerview:1.4'
+    implementation 'com.thoughtbot:expandablerecyclerview:1.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
 //    implementation 'com.ironsoftware:ironpdf:2023.4.4'
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
