@@ -2,4 +2,7 @@
 <resources>
     <color name="transparent">#80FFFFFF</color>
     <color name="green">#862FAE0C</color>
+    <color name="color_geneva">#FF0000</color> <!-- Red color for Geneva -->
+    <color name="color_zurich">#00FF00</color> <!-- Green color for Zurich -->
+    <color name="color_online">#0000FF</color> <!-- Blue color for Online -->
 </resources>

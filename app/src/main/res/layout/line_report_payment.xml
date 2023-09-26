@@ -5,7 +5,7 @@
 
     <TextView
         android:id="@+id/order_number"
-        android:layout_width="85dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/ord_no" />
@@ -26,21 +26,21 @@
 
     <TextView
         android:id="@+id/paymode"
-        android:layout_width="130dp"
+        android:layout_width="84dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/paymode" />
 
     <TextView
         android:id="@+id/amt"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/amt" />
 
     <TextView
         android:id="@+id/checkedby"
-        android:layout_width="100dp"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/validate_by" />

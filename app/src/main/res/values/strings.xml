@@ -31,6 +31,7 @@
     <string name="value_wedding"> DD/MM/YYYY </string>
     <string name="textview_cust_hist">Customer History</string>
     <string name="textview_date">Date</string>
+    <string name="textview_payment_date">PMNT Date</string>
     <string name="textview_order_hist">Order History</string>
     <string name="textview_remark">Remark</string>
     <string name="textview_add_remark">Additional Remark</string>
@@ -61,7 +62,8 @@
     <string name="add_comp">Add component</string>
     <string name="copy_comp">Copy last component</string>
     <string name="remove_comp">Remove last component</string>
-    <string name="ord_no">Order number </string>
+    <string name="ord_no">Order number</string>
+    <string name="ord_no_short">Order</string>
     <string name="cust">Customer </string>
     <string name="ord_stat">Order Status</string>
     <string name="ord_date">Order Date </string>
@@ -72,9 +74,11 @@
     <string name="payhist">Order History</string>
     <string name="mode">Mode</string>
     <string name="amt">Amount</string>
+    <string name="amt_short">AMNT</string>
     <string name="ord_cmp">Order components</string>
     <string name="reci">Recipient</string>
     <string name="paymode">Payment mode</string>
+    <string name="paymode_short">PMNT mode</string>
     <string name="artno">Article No.</string>
     <string name="arttp">Article Type</string>
     <string name="artpf">Description</string>
@@ -181,6 +185,7 @@
     <string name="choose_date">Choose Date</string>
     <string name="validate">Validate</string>
     <string name="validate_by">Validated by</string>
+    <string name="validate_by_short">Val. by</string>
     <string name="cash_flow">Cash Flow</string>
 
     <string name="mark">Mark</string>

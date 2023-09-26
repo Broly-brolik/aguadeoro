@@ -252,7 +252,7 @@ public class ReportActivity extends ListActivity {
             paymentList = new ArrayList<String[]>();
             query = "select "
                     + " o.OrderNumber, o.CustomerNumber, c.CustomerName, "
-                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate "
+                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder "
                     + "from MainOrder o, Customer c, OrderHistory oh "
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
                     + whereClause2 + " and oh.PaymentMode is not null "
@@ -274,7 +274,8 @@ public class ReportActivity extends ListActivity {
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
                 String[] pmt = new String[9];
-                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
+                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
+                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
                         + result2.get(i).get(Utils.CUST_NAME);
