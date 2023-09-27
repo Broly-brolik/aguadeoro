@@ -274,7 +274,18 @@ public class ReportActivity extends ListActivity {
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
                 String[] pmt = new String[9];
-                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
+/*                switch (result2.get(i).get("StoreMainOrder")) {
+                    case "Geneva":
+                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_geneva));
+                        break;
+                    case "Zurich":
+                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_zurich));
+                        break;
+                    case "Online":
+                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_online));
+                        break;
+                }
+*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
                         + " [" + result2.get(i).get("StoreMainOrder") + "]";
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
