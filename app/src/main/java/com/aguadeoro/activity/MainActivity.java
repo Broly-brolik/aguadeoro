@@ -3,8 +3,10 @@ package com.aguadeoro.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aguadeoro.BuildConfig;
 import com.aguadeoro.R;
+import com.aguadeoro.utils.Functions;
 import com.aguadeoro.utils.Query;
 import com.aguadeoro.utils.Utils;
 
@@ -27,6 +32,7 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class MainActivity extends Activity {
+    MainActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,31 @@ public class MainActivity extends Activity {
         if (Utils.getStringSetting("store_selected").equals("null")) {
             new FetchStores().execute();
         }
-        // Toast.makeText(this, Build.VERSION.SDK, Toast.LENGTH_SHORT).show();
+        activity = this;
+
+        TextView appVersion = findViewById(R.id.textViewAppVersion);
+        appVersion.setText("Version " + BuildConfig.VERSION_NAME);
+
+        appVersion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                 Toast.makeText(getApplicationContext(), "whats new !", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                builder.setTitle("What's new ?");
+                builder.setMessage(Functions.openAssetFile("whatsnew.txt", getApplicationContext()))
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // START THE GAME!
+                                dialog.cancel();
+                            }
+                        });
+
+                // Create the AlertDialog object and return it
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+//        Toast.makeText(this, BuildConfig.VERSION_NAME, Toast.LENGTH_SHORT).show();
         // Utils.test(this);
     }
 

@@ -106,6 +106,20 @@
             android:layout_marginBottom="10dp"
             android:onClick="weddingFollowUp"
             android:text="Wedding follow up" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|right"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewAppVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
     </LinearLayout>
 
 </RelativeLayout>

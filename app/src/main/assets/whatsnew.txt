@@ -1,0 +1,3 @@
+- Solving the conflict when updating the app
+
+- Solving location problem

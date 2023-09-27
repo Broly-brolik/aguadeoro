@@ -1,6 +1,8 @@
 package com.aguadeoro.utils;
 
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,5 +24,22 @@ public class Functions {
             }
         }
         return resultStringBuilder.toString();
+    }
+
+    public static String openAssetFile(String filename, Context context
+    ) {
+        try {
+            InputStream assetFile = context.getAssets().open(filename);
+            StringBuilder assetStringBuilder = new StringBuilder();
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(assetFile))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    assetStringBuilder.append(line).append("\n");
+                }
+            }
+            return assetStringBuilder.toString();
+        } catch (IOException e) {
+            return "";
+        }
     }
 }

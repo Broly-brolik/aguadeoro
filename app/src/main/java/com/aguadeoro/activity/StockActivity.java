@@ -86,7 +86,8 @@ public class StockActivity extends ListActivity {
                 if (!locations.getSelectedItem().toString().equals("")) {
                     showProgress(true);
                     int selectedItemPos = Integer.parseInt(locations.getSelectedItem().toString().replaceAll("[^0-9]", ""));
-                    description.setText(locationDescription[selectedItemPos]);
+                    Log.e("pos", selectedItemPos +"");
+                    description.setText(locationDescription[selectedItemPos - 1]);
                     new FetchLocationData().execute(selectedItemPos);
                     location = locations.getSelectedItem().toString();
                     locationId = selectedItemPos;
