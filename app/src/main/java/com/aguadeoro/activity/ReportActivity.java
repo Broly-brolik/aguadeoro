@@ -10,7 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -252,12 +256,12 @@ public class ReportActivity extends ListActivity {
             paymentList = new ArrayList<String[]>();
             query = "select "
                     + " o.OrderNumber, o.CustomerNumber, c.CustomerName, "
-                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate "
+                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder "
                     + "from MainOrder o, Customer c, OrderHistory oh "
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
                     + whereClause2 + " and oh.PaymentMode is not null "
                     + "and oh.PaymentMode <> " + Utils.escape(Utils.DISCOUNT)
-                    + " order by EntryDate desc";
+                    + " order by PaymentDate desc";
             q = new Query(query);
 
 //            String[] pmt = new String[8];
@@ -274,7 +278,33 @@ public class ReportActivity extends ListActivity {
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
                 String[] pmt = new String[9];
-                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
+ /*               switch (result2.get(i).get("StoreMainOrder")) {
+                    case "Geneva":
+                        " [" + result2.get(i).get("StoreMainOrder") + "]".setForeground(R.color.color_geneva);
+                        break;
+                    case "Zurich":
+                        int colorG = getResources().getColor(R.color.color_zurich);
+
+                        SpannableString spannableStringZ = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
+                        ForegroundColorSpan foregroundColorSpanZ = new ForegroundColorSpan(colorG);
+
+                        spannableStringZ.setSpan(foregroundColorSpanZ, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        orderNo.setText(spannableStringZ);
+                        break;
+                    case "Online":
+                        int colorB = ContextCompat.getColor(context, R.color.color_online);
+
+                        SpannableString spannableStringO = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
+                        ForegroundColorSpan foregroundColorSpanO = new ForegroundColorSpan(colorB);
+
+                        spannableStringO.setSpan(foregroundColorSpanO, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        orderNo.setText(spannableStringO);
+                        break;
+                }
+*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
+                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
                         + result2.get(i).get(Utils.CUST_NAME);

@@ -5,17 +5,17 @@
 
     <TextView
         android:id="@+id/order_number"
-        android:layout_width="85dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="@string/ord_no" />
+        android:text="@string/ord_no_short" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="@string/textview_date" />
+        android:text="@string/textview_payment_date" />
 
     <TextView
         android:id="@+id/customer"
@@ -26,35 +26,35 @@
 
     <TextView
         android:id="@+id/paymode"
-        android:layout_width="130dp"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="@string/paymode" />
+        android:text="@string/paymode_short" />
 
     <TextView
         android:id="@+id/amt"
-        android:layout_width="100dp"
+        android:layout_width="90dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="@string/amt" />
+        android:text="@string/amt_short" />
 
     <TextView
         android:id="@+id/checkedby"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:text="@string/validate_by" />
+        android:text="@string/validate_by_short" />
 
     <TextView
         android:id="@+id/checkedon"
-        android:layout_width="100dp"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/textview_date" />
 
     <CheckBox
         android:id="@+id/checkbox"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:padding="5dp" />
 

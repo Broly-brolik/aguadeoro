@@ -31,6 +31,7 @@
     <string name="value_wedding"> JJ/MM/AAAA </string>
     <string name="textview_cust_hist"> Histoire Clientèle </string>
     <string name="textview_date">Date</string>
+    <string name="textview_payment_date">Date PMNT</string>
     <string name="textview_order_hist">Histoire Commande</string>
     <string name="textview_remark">Remarques</string>
     <string name="textview_add_remark">Remarque Additionnel</string>
@@ -61,6 +62,7 @@
     <string name="copy_comp">Copier Dernier Article</string>
     <string name="remove_comp">Enlever Dernier Article</string>
     <string name="ord_no">Numéro Cmd</string>
+    <string name="ord_no_short">Order</string>
     <string name="cust">Client </string>
     <string name="ord_stat">Status Cmd</string>
     <string name="ord_date">Date Cmd</string>
@@ -71,9 +73,11 @@
     <string name="payhist">Historique Cmd</string>
     <string name="mode">Mode</string>
     <string name="amt">Montant</string>
+    <string name="amt_short">Montant</string>
     <string name="ord_cmp">Articles de la commande</string>
     <string name="reci"> Destinataire </string>
     <string name="paymode">Mode de paiement</string>
+    <string name="paymode_short">PMNT mode</string>
     <string name="artno">No. Art.</string>
     <string name="arttp">Type Art.</string>
     <string name="artpf">Déscription</string>
@@ -180,6 +184,7 @@
     <string name="choose_date">Choisir Date</string>
     <string name="validate">Contrôler</string>
     <string name="validate_by">Contrôlé par</string>
+    <string name="validate_by_short">Contr. par</string>
     <string name="cash_flow">Entrées</string>
 
     <string name="mark">Marque</string>
