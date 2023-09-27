@@ -64,6 +64,7 @@ import com.aguadeoro.utils.Utils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -967,6 +968,9 @@ public class OrderDetailActivity extends ListActivity {
             String[] compInst = new String[15];
             String[] component = componentList.get(componentPositions.get(i));
 
+
+
+
             compInst[0] = "";
             if (inst.charAt(0) == '1') {
                 compInst[0] = component[2];
@@ -1040,6 +1044,7 @@ public class OrderDetailActivity extends ListActivity {
     }
 
     public void showAllOrderHist(View v) {
+        Log.e("SHOW ALL ORDER HIST", "");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.comp_hist));
         final View view = inflater.inflate(
@@ -1061,9 +1066,12 @@ public class OrderDetailActivity extends ListActivity {
                         ArrayList<Integer> compPosts = new ArrayList<Integer>();
                         ListAdapter adapter = list.getAdapter();
                         for (int i = 0; i < list.getChildCount(); i++) {
+                                String[] array = (String[]) adapter.getItem(i);
+                            Log.e("INST", Arrays.toString(array));
+                            suppOrderListSelectedToSendToSupplier.add(array);
                             if (((CheckBox) list.getChildAt(i).findViewById(R.id.selected)).isChecked()) {
-                                suppOrderListSelectedToSendToSupplier.add((String[]) adapter.getItem(i));
                                 int pos = 0;
+                                Log.e("COMPONENT LIST", Arrays.toString(componentList.get(0)));
                                 for (int j = 1; j < componentList.size(); j++) {
                                     if (((String[]) adapter.getItem(i))[10]
                                             .equals(componentList.get(j)[0])) {
@@ -1779,6 +1787,8 @@ public class OrderDetailActivity extends ListActivity {
 
         @Override
         protected Boolean doInBackground(Integer... args) {
+            Log.e("LIST HIST", "");
+
             if (!Utils.isOnline()) {
                 return false;
             }
@@ -1806,7 +1816,7 @@ public class OrderDetailActivity extends ListActivity {
             }
             ArrayList<Map<String, String>> result = q.getRes();
             for (int i = 0; i < result.size(); i++) {
-                Log.d("here2", "" + result.get(i).get("ID"));
+                Log.d("LOCCC", "" + result.get(i).toString());
                 //compID1[i] = result.get(i).get(Utils.ID);
                 String[] hist = new String[21];
                 hist[0] = result.get(i).get(Utils.ID);

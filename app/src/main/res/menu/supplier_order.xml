@@ -23,6 +23,11 @@
         android:showAsAction="always"
         android:title="Selected orders" />
     <item
+        android:id="@+id/unselect_all"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Unselect all" />
+    <item
         android:id="@+id/send_selected_orders"
         android:orderInCategory="98"
         android:showAsAction="always"

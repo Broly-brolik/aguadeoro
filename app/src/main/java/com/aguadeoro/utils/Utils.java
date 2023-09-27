@@ -3378,6 +3378,7 @@ public class Utils {
                     table.addCell(cell);
 
                     //engraving text
+                    Log.e("GRAVURE", "C'EST LE MOMENT DE GRAVER");
                     cell = new PdfPCell(new Phrase(orderComp[8]));
                     cell.setHorizontalAlignment(Element.ALIGN_CENTER);
                     cell.setVerticalAlignment(Element.ALIGN_BOTTOM);

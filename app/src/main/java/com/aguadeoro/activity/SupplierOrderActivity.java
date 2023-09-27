@@ -166,6 +166,12 @@ public class SupplierOrderActivity extends ListActivity implements AdapterView.O
                 showSendSupplierOrderDialog();
             }
         }
+        if (id == R.id.unselect_all){
+            showProgress(true);
+            selectedOrders.clear();
+            showSelectedOrders = false;
+            new ListOrders().execute("");
+        }
 
         return true;
     }
