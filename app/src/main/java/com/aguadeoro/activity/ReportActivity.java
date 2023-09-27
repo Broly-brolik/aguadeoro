@@ -10,7 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -274,15 +278,29 @@ public class ReportActivity extends ListActivity {
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
                 String[] pmt = new String[9];
-/*                switch (result2.get(i).get("StoreMainOrder")) {
+ /*               switch (result2.get(i).get("StoreMainOrder")) {
                     case "Geneva":
-                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_geneva));
+                        " [" + result2.get(i).get("StoreMainOrder") + "]".setForeground(R.color.color_geneva);
                         break;
                     case "Zurich":
-                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_zurich));
+                        int colorG = getResources().getColor(R.color.color_zurich);
+
+                        SpannableString spannableStringZ = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
+                        ForegroundColorSpan foregroundColorSpanZ = new ForegroundColorSpan(colorG);
+
+                        spannableStringZ.setSpan(foregroundColorSpanZ, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        orderNo.setText(spannableStringZ);
                         break;
                     case "Online":
-                        yourLayout.setColor(ContextCompat.getColor(this, R.color.color_online));
+                        int colorB = ContextCompat.getColor(context, R.color.color_online);
+
+                        SpannableString spannableStringO = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
+                        ForegroundColorSpan foregroundColorSpanO = new ForegroundColorSpan(colorB);
+
+                        spannableStringO.setSpan(foregroundColorSpanO, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                        orderNo.setText(spannableStringO);
                         break;
                 }
 */                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
