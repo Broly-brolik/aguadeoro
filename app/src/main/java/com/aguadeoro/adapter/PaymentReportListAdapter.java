@@ -54,7 +54,7 @@ public class PaymentReportListAdapter extends ArrayAdapter<String[]> {
         TextView checkedBy = rowView.findViewById(R.id.checkedby);
         TextView checkedOn = rowView.findViewById(R.id.checkedon);
         CheckBox selected = rowView.findViewById(R.id.checkbox);
-        orderNo.setText(objects.get(position)[0]);
+        orderNo.setText(objects.get(position)[9]);
         date.setText(Utils.shortDateFromDB(objects.get(position)[8]));
         customer.setText(Utils.shortDateFromDB(objects.get(position)[2]));
         paymode.setText(objects.get(position)[3]);

@@ -277,7 +277,7 @@ public class ReportActivity extends ListActivity {
             totalBill = 0;
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
-                String[] pmt = new String[9];
+                String[] pmt = new String[10];
  /*               switch (result2.get(i).get("StoreMainOrder")) {
                     case "Geneva":
                         " [" + result2.get(i).get("StoreMainOrder") + "]".setForeground(R.color.color_geneva);
@@ -303,8 +303,7 @@ public class ReportActivity extends ListActivity {
                         orderNo.setText(spannableStringO);
                         break;
                 }
-*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
-                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
+*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
                         + result2.get(i).get(Utils.CUST_NAME);
@@ -314,6 +313,8 @@ public class ReportActivity extends ListActivity {
                 pmt[6] = result2.get(i).get(Utils.CHECKED_ON);
                 pmt[7] = result2.get(i).get(Utils.ID);
                 pmt[8] = result2.get(i).get("PaymentDate");
+                pmt[9] = result2.get(i).get(Utils.ORDER_NO)
+                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
 
                 paymentList.add(pmt);
                 if (!pmt[4].isEmpty())
