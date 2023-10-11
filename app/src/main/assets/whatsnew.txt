@@ -1,3 +1,8 @@
 - Solving the conflict when updating the app
 
 - Solving location problem
+
+
+- Solved Order Details not displayed after pressing on Order in Journal
+
+- Solved back button from Order Details to Journal and to Customer Details

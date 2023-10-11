@@ -112,7 +112,6 @@ public class CustomerActivity extends ListActivity {
         Intent intent = new Intent(this, CustomerDetailActivity.class);
         intent.putExtra(Utils.CUST_REL_ID, object[0]);
         startActivity(intent);
-
     }
 
     public void sortCustomer(View v) {
