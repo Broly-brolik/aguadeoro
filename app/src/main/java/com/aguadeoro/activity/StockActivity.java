@@ -39,9 +39,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class StockActivity extends ListActivity {
 
@@ -49,6 +51,8 @@ public class StockActivity extends ListActivity {
     private View mainView;
     private String[] locationID, locationDescription, products, dates, locationImages;
     ArrayList<Map<String, String>> notes;
+    Map<String, String> previousLocs = new HashMap();
+    Set<String> detected = new HashSet<>();
     private Activity acv;
     private String location;
     private int locationId;
@@ -56,6 +60,7 @@ public class StockActivity extends ListActivity {
     private String doneBy;
     private boolean isCheckAll = false;
     boolean previous = false;
+    boolean scanStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,7 @@ public class StockActivity extends ListActivity {
         final Button check = findViewById(R.id.confirm_location);
         final TextView description = findViewById(R.id.description);
         final Button checkAll = findViewById(R.id.checkAll);
+        final Button buttonScan = findViewById(R.id.buttonScan);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -86,7 +92,7 @@ public class StockActivity extends ListActivity {
                 if (!locations.getSelectedItem().toString().equals("")) {
                     showProgress(true);
                     int selectedItemPos = Integer.parseInt(locations.getSelectedItem().toString().replaceAll("[^0-9]", ""));
-                    Log.e("pos", selectedItemPos +"");
+                    Log.e("pos", selectedItemPos + "");
                     description.setText(locationDescription[selectedItemPos - 1]);
                     new FetchLocationData().execute(selectedItemPos);
                     location = locations.getSelectedItem().toString();
@@ -116,7 +122,7 @@ public class StockActivity extends ListActivity {
             @Override
             public void onClick(View view) {
                 isCheckAll = !isCheckAll;
-                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll);
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detected);
                 StockActivity.this.setListAdapter(stockAdapter);
             }
         });
@@ -193,6 +199,19 @@ public class StockActivity extends ListActivity {
                     }
                 });
                 dialog.show();
+            }
+        });
+
+
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanStarted = true;
+                detected.add("S-1272");
+
+                Toast.makeText(getApplicationContext(), "start scanning", Toast.LENGTH_LONG).show();
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detected);
+                StockActivity.this.setListAdapter(stockAdapter);
             }
         });
     }
@@ -480,7 +499,7 @@ public class StockActivity extends ListActivity {
                 PermissionListener permissionlistener = new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-                        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes);
+                        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, previousLocs, scanStarted, detected);
                         StockActivity.this.setListAdapter(stockAdapter);
 
                     }
@@ -495,7 +514,7 @@ public class StockActivity extends ListActivity {
 
             } else {
                 Toast.makeText(StockActivity.this, "Empty location", Toast.LENGTH_LONG).show();
-                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, new ArrayList(), notes);
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, new ArrayList(), notes, previousLocs, scanStarted, detected);
                 StockActivity.this.setListAdapter(stockAdapter);
             }
         }
@@ -555,6 +574,22 @@ public class StockActivity extends ListActivity {
                 }
             }
         }
+//        Log.e("codes mec", Arrays.toString(codes.toArray()));
+        for (String code : codes) {
+            Query q = new Query(String.format("select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where StockHistory.InventoryCode = '%s' AND StockHistory.Action = 'Transferred' Order By StockHistory.HistoryDate Desc", code));
+            Boolean s = q.execute();
+            if (q.getRes().size() ==0 ){
+                continue;
+            }
+
+            String previousLoc =  q.getRes().get(0).getOrDefault("IDLocation", "");
+            if (!previousLoc.isEmpty()){
+                previousLocs.put(code, previousLoc);
+            }
+//            Log.e("previous loc", q.getRes().get(0).getOrDefault("IDLocation", ""));
+
+        }
+        Log.e("previous locss", previousLocs.toString());
         return data;
     }
 

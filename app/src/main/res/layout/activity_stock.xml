@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -114,6 +115,16 @@
 
         </ListView>
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/buttonScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Scan location"
+        app:layout_constraintBottom_toBottomOf="@+id/checkAll"
+        app:layout_constraintStart_toEndOf="@+id/checkAll"
+        app:layout_constraintTop_toTopOf="@+id/checkAll" />
 
 
 </android.support.constraint.ConstraintLayout>
