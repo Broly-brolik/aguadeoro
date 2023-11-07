@@ -1,5 +1,6 @@
 package com.aguadeoro.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
@@ -25,11 +26,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class StockAdapter extends ArrayAdapter<Map<String, String>> {
 
     Context context;
     ArrayList<Map<String, String>> data, dataNotes, dataNotes2;
+    Map<String, String> previousLocs;
     String filename;
     File path;
     private boolean isCheckAll;
@@ -37,14 +40,19 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
     private final HashMap<String, String> textValues = new HashMap<String, String>();
     String[] keys;
 
+    private boolean scanStarted = false;
+    Set<String> detected;
 
-    public StockAdapter(Context context, ArrayList<Map<String, String>> data, ArrayList<Map<String, String>> notes) {
+
+    public StockAdapter(Context context, ArrayList<Map<String, String>> data, ArrayList<Map<String, String>> notes, Map<String, String> previousLocs, boolean scanStarted, Set<String> detected) {
         super(context, R.layout.line_stock, data);
         this.context = context;
         this.data = data;
+        this.previousLocs = previousLocs;
         check = new boolean[data.size()];
         this.dataNotes = notes;
         keys = new String[dataNotes.size()];
+        this.detected = detected;
 
         for (int i = 0; i < dataNotes.size(); i++) {
             for (String key : dataNotes.get(i).keySet()) {
@@ -65,10 +73,13 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
         }
     }
 
-    public StockAdapter(StockActivity context, ArrayList<Map<String, String>> data, ArrayList<Map<String, String>> notes, boolean isCheckAll) {
+    public StockAdapter(StockActivity context, ArrayList<Map<String, String>> data, ArrayList<Map<String, String>> notes, boolean isCheckAll, Map<String, String> previousLocs, boolean scanStarted, Set<String> detected) {
         super(context, R.layout.line_stock, data);
 
         this.context = context;
+        this.previousLocs = previousLocs;
+        this.detected = detected;
+
         this.data = data;
         check = new boolean[data.size()];
         this.dataNotes = notes;
@@ -79,6 +90,7 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
                 keys[i] = key;
             }
         }
+        this.scanStarted = scanStarted;
         Arrays.sort(keys);
         Log.d("keys", Arrays.toString(keys));
         dataNotes2 = new ArrayList<>();
@@ -94,6 +106,7 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -108,7 +121,9 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
         } else {
             vh = (ViewHolder) rowView.getTag();
         }
-        ((TextView) rowView.findViewById(R.id.inventoryCode)).setText(data.get(position).get("InventoryCode"));
+
+        String inventoryCode = data.get(position).get("InventoryCode");
+        ((TextView) rowView.findViewById(R.id.inventoryCode)).setText(inventoryCode);
         ((TextView) rowView.findViewById(R.id.catalogueCode)).setText(data.get(position).get("CatalogCode"));
         ((TextView) rowView.findViewById(R.id.material)).setText(data.get(position).get("Material"));
         ((TextView) rowView.findViewById(R.id.color)).setText(data.get(position).get("Color"));
@@ -117,12 +132,22 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
         ((TextView) rowView.findViewById(R.id.previousNote)).setText("Previous note : " + dataNotes2.get(position).get(keys[position]));
         ((TextView) rowView.findViewById(R.id.previous_status)).setText("Previous status : " + data.get(position).get("Action"));
         ((TextView) rowView.findViewById(R.id.itemNumber)).setText("" + (position + 1));
+        ((TextView) rowView.findViewById(R.id.previous_location)).setText("Previous location " + previousLocs.getOrDefault(data.get(position).get("InventoryCode"), "N/A"));
         filename = (data.get(position).get(Utils.IMAGE));
         CheckBox checkbox = rowView.findViewById(R.id.stockCheck);
         if (isCheckAll) {
             checkbox.setChecked(true);
             check[position] = checkbox.isChecked();
         }
+
+        if (scanStarted){
+            CheckBox checkboxDetected = (CheckBox) rowView.findViewById(R.id.checkboxDetected);
+            checkboxDetected.setVisibility(View.VISIBLE);
+            if (this.detected.contains(inventoryCode)){
+                checkboxDetected.setChecked(true);
+            }
+        }
+
         vh.notes.setTag("note" + position);
         vh.notes.setText(textValues.get("note" + position));
         if (!filename.isEmpty()) {
