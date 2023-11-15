@@ -48,6 +48,7 @@ public class ReportActivity extends ListActivity {
     String date, date0, checkedBy;
     Calendar c, c0;
     Integer range;
+    String whereLocation;
 
     private View wheelView;
     private View mainView;
@@ -62,9 +63,12 @@ public class ReportActivity extends ListActivity {
         showProgress(true);
         c = Calendar.getInstance();
         c0 = Calendar.getInstance();
-        c0.add(Calendar.DAY_OF_MONTH, -7);
+        c0.add(Calendar.DAY_OF_MONTH, -6);
+        chooseDate(null);
         date = Utils.shortDateForInsert(c.getTime());
         date0 = Utils.shortDateForInsert(c0.getTime());
+        TextView test = findViewById(R.id.testDate);
+        test.setText(date0);
         Spinner rangeList = findViewById(R.id.range);
         rangeList.setAdapter(new ArrayAdapter<Integer>(this,
                 android.R.layout.simple_spinner_item, new Integer[]
@@ -74,7 +78,8 @@ public class ReportActivity extends ListActivity {
         rangeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                chooseDate(null);
+                //chooseDate(null);
+                daysUntilRange();
             }
 
             @Override
@@ -82,11 +87,38 @@ public class ReportActivity extends ListActivity {
 
             }
         });
+
+        Spinner locationFilter = findViewById(R.id.range2);
+        locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All","Geneva","Zurich", "Online"}));
+        locationFilter.setSelection(0);
+        locationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //chooseDate(null);
+                daysUntilRange();
+                Toast.makeText(ReportActivity.this, locationFilter.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                if (locationFilter.getSelectedItem().toString() == "All") {
+                    whereLocation = "All";
+                } else if (locationFilter.getSelectedItem().toString() == "Geneva") {
+                    whereLocation = "Geneva";
+                } else if (locationFilter.getSelectedItem().toString() == "Zurich") {
+                    whereLocation = "Zurich";
+                } else if (locationFilter.getSelectedItem().toString() == "Online") {
+                    whereLocation = "Online";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         String where1 = " and OrderDate <= #" + date + "# and OrderDate >= #"
                 + date0 + "#";
         String where2 = " and oh.EntryDate <= #" + date
                 + "# and EntryDate >= #" + date0 + "#";
-        //new ListReport().execute(Utils.ORD_DT, where1, where2);
+        //new ListReport().execute(Utils.ORD_DT, where1, where2, whereLocation);
     }
 
     @Override
@@ -159,22 +191,25 @@ public class ReportActivity extends ListActivity {
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, monthOfYear);
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                range = (Integer) ((Spinner) findViewById(R.id.range))
-                        .getSelectedItem();
-                date = Utils.shortDateForInsert(c.getTime());
-                c0 = (Calendar) c.clone();
-                c0.add(Calendar.DAY_OF_MONTH, -range);
-                date0 = Utils.shortDateForInsert(c0.getTime());
-                String where1 = " and OrderDate <= #" + date
-                        + "# and OrderDate >= #" + date0 + "#";
-                String where2 = " and oh.EntryDate <= #" + date
-                        + "# and EntryDate >= #" + date0 + "#";
-                new ListReport().execute(Utils.ORD_DT, where1, where2);
-
+                daysUntilRange();
             }
         };
         new DatePickerDialog(this, dateListener, c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    public void daysUntilRange() {
+        range = (Integer) ((Spinner) findViewById(R.id.range))
+                .getSelectedItem();
+        date = Utils.shortDateForInsert(c.getTime());
+        c0 = (Calendar) c.clone();
+        c0.add(Calendar.DAY_OF_MONTH, -range);
+        date0 = Utils.shortDateForInsert(c0.getTime());
+        String where1 = " and o.OrderDate <= #" + date
+                + "# and o.OrderDate >= #" + date0 + "#";
+        String where2 = " and oh.EntryDate <= #" + date
+                + "# and oh.EntryDate >= #" + date0 + "#";
+        new ListReport().execute(Utils.ORD_DT, where1, where2, whereLocation);
     }
 
     public void validate() {
@@ -219,10 +254,11 @@ public class ReportActivity extends ListActivity {
             if (!Utils.isOnline()) {
                 return false;
             }
-            String whereClause1 = "", whereClause2 = "";
+            String whereClause1 = "", whereClause2 = "", whereClauseLocation = "";
             if (args.length > 2) {
                 whereClause1 = args[1];
                 whereClause2 = args[2];
+                whereClauseLocation = args[3];
             }
             orderList = new ArrayList<String[]>();
             String sortBy = args[0];
@@ -253,13 +289,22 @@ public class ReportActivity extends ListActivity {
                     orderTotal += Double.parseDouble(order[4]);
             }
 
+            if (whereLocation == "All") {
+                whereClauseLocation = ""; // " and o.StoreMainOrder = 'Geneva' and o.StoreMainOrder = 'Zurich' and o.StoreMainOrder = 'Online'";
+            } else if(whereLocation == "Geneva") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Geneva'";
+            } else if (whereLocation == "Zurich") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Zurich'";
+            } else if (whereLocation == "Online") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Online'";
+            }
             paymentList = new ArrayList<String[]>();
             query = "select "
                     + " o.OrderNumber, o.CustomerNumber, c.CustomerName, "
-                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder "
+                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder, o.OrderDate "
                     + "from MainOrder o, Customer c, OrderHistory oh "
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
-                    + whereClause2 + " and oh.PaymentMode is not null "
+                    + whereClause2 + whereClauseLocation + " and oh.PaymentMode is not null "
                     + "and oh.PaymentMode <> " + Utils.escape(Utils.DISCOUNT)
                     + " order by PaymentDate desc";
             q = new Query(query);
@@ -387,11 +432,11 @@ public class ReportActivity extends ListActivity {
         @Override
         protected void onPostExecute(Boolean s) {
             if (s) {
-                String where1 = " and OrderDate <= #" + date
-                        + "# and OrderDate >= #" + date0 + "#";
+                String where1 = " and o.OrderDate <= #" + date
+                        + "# and o.OrderDate >= #" + date0 + "#";
                 String where2 = " and oh.EntryDate <= #" + date
-                        + "# and EntryDate >= #" + date0 + "#";
-                new ListReport().execute(Utils.DEADLINE, where1, where2);
+                        + "# and oh.EntryDate >= #" + date0 + "#";
+                new ListReport().execute(Utils.DEADLINE, where1, where2, whereLocation);
 
             } else {
                 Toast.makeText(ReportActivity.this,
