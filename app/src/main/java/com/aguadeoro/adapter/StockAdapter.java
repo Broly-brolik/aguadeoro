@@ -132,7 +132,7 @@ public class StockAdapter extends ArrayAdapter<Map<String, String>> {
         ((TextView) rowView.findViewById(R.id.previousNote)).setText("Previous note : " + dataNotes2.get(position).get(keys[position]));
         ((TextView) rowView.findViewById(R.id.previous_status)).setText("Previous status : " + data.get(position).get("Action"));
         ((TextView) rowView.findViewById(R.id.itemNumber)).setText("" + (position + 1));
-        ((TextView) rowView.findViewById(R.id.previous_location)).setText("Previous location " + previousLocs.getOrDefault(data.get(position).get("InventoryCode"), "N/A"));
+        ((TextView) rowView.findViewById(R.id.previous_location)).setText("detected: " + detected.toString());
         filename = (data.get(position).get(Utils.IMAGE));
         CheckBox checkbox = rowView.findViewById(R.id.stockCheck);
         if (isCheckAll) {

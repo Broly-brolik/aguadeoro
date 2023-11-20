@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.print.PdfPrint;
 import android.print.PrintAttributes;
-import android.support.v4.content.FileProvider;
+
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +31,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.FileProvider;
 
 import com.aguadeoro.R;
 import com.aguadeoro.adapter.SupplierOrderListAdapter;

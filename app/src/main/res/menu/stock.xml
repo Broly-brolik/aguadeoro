@@ -10,5 +10,15 @@
         android:orderInCategory="98"
         android:showAsAction="always"
         android:title="Edit Locations" />
+    <item
+        android:id="@+id/connectReader"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Connect Reader" />
+    <item
+        android:id="@+id/scanInventory"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Scan Inventory" />
 
 </menu>

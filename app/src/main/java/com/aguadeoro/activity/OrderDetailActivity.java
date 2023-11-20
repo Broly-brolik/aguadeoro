@@ -19,10 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -49,6 +46,11 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aguadeoro.R;
 import com.aguadeoro.adapter.ComponentHistoryListAdapter;
@@ -966,10 +968,14 @@ public class OrderDetailActivity extends ListActivity {
         for (int i = 0; i < instDetails.size(); i++) {
             String inst = instDetails.get(i)[7];
             String[] compInst = new String[15];
+//            Log.e("inst", inst);
+//            Log.e("inst list " + i, Arrays.toString(instDetails.get(i)));
+            Log.e("component position", Arrays.toString(componentPositions.toArray()));
+//            if (true) {
+//                continue;
+//            }
+            Log.e("inst size", instDetails.size()+"");
             String[] component = componentList.get(componentPositions.get(i));
-
-
-
 
             compInst[0] = "";
             if (inst.charAt(0) == '1') {
@@ -1066,10 +1072,11 @@ public class OrderDetailActivity extends ListActivity {
                         ArrayList<Integer> compPosts = new ArrayList<Integer>();
                         ListAdapter adapter = list.getAdapter();
                         for (int i = 0; i < list.getChildCount(); i++) {
-                                String[] array = (String[]) adapter.getItem(i);
+                            String[] array = (String[]) adapter.getItem(i);
                             Log.e("INST", Arrays.toString(array));
-                            suppOrderListSelectedToSendToSupplier.add(array);
                             if (((CheckBox) list.getChildAt(i).findViewById(R.id.selected)).isChecked()) {
+                            suppOrderListSelectedToSendToSupplier.add(array);
+                                Log.e("checked ?", i + "");
                                 int pos = 0;
                                 Log.e("COMPONENT LIST", Arrays.toString(componentList.get(0)));
                                 for (int j = 1; j < componentList.size(); j++) {
@@ -1873,6 +1880,7 @@ public class OrderDetailActivity extends ListActivity {
                         Toast.LENGTH_LONG).show();
                 return;
             }
+            Log.e("on va finir", "");
             final ListView compHistListView = view
                     .findViewById(R.id.comp_hist_list);
             compHistListView.setAdapter(new ComponentHistoryListAdapter(
@@ -1881,6 +1889,7 @@ public class OrderDetailActivity extends ListActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
+                    Log.e("click", "item click");
                     ListAdapter adapter = compHistListView.getAdapter();
                     // changeComponentHistoryStatus((String[])adapter.getItem(position));
                     String compHistID = ((String[]) adapter.getItem(position))[0];

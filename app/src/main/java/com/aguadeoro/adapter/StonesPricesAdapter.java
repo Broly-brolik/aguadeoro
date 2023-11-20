@@ -2,8 +2,7 @@ package com.aguadeoro.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,9 +55,9 @@ public class StonesPricesAdapter extends RecyclerView.Adapter<StonesPricesAdapte
         this.mInflater = LayoutInflater.from(context);
     }
 
-    @NonNull
+    
     @Override
-    public StonesPricesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public StonesPricesAdapter.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
         View view;
         if (isStock && isColor) {
             view = mInflater.inflate(R.layout.line_colored_stock, viewGroup, false);
@@ -74,7 +73,7 @@ public class StonesPricesAdapter extends RecyclerView.Adapter<StonesPricesAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StonesPricesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder( StonesPricesAdapter.ViewHolder holder, int position) {
         int greenColor = Color.parseColor("#862FAE0C");
         int redColor = Color.parseColor("#86E10D0D");
         double minRange = 0.04;

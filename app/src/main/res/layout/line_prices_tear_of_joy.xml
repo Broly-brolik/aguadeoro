@@ -27,7 +27,7 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout18"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -112,6 +112,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

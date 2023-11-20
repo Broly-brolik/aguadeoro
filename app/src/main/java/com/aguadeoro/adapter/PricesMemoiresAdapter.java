@@ -1,8 +1,7 @@
 package com.aguadeoro.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,16 +81,16 @@ public class PricesMemoiresAdapter extends RecyclerView.Adapter<PricesMemoiresAd
         this.isOffset = isOffset;
     }
 
-    @NonNull
+    
     @Override
-    public PricesMemoiresAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public PricesMemoiresAdapter.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
         View view;
         view = mInflater.inflate(R.layout.line_prices_memoires, viewGroup, false);
         return new PricesMemoiresAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PricesMemoiresAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder( PricesMemoiresAdapter.ViewHolder viewHolder, int i) {
         int stoneNumber = 0;
         ArrayList<Double> tempDiametre = new ArrayList<>();
         if (type.equals("Fixed")) {
