@@ -585,7 +585,7 @@
                         android:inputType="none" />
                 </LinearLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/linearLayout17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -689,7 +689,7 @@
                         tools:layout_conversion_absoluteHeight="32dp"
                         tools:layout_conversion_absoluteWidth="26dp" />
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
 

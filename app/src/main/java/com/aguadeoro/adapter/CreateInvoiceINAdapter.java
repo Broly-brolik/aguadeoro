@@ -1,14 +1,15 @@
 package com.aguadeoro.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aguadeoro.R;
 
@@ -26,7 +27,7 @@ public class CreateInvoiceINAdapter extends RecyclerView.Adapter<CreateInvoiceIN
         this.productsData = productsData;
     }
 
-    @NonNull
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();

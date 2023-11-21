@@ -1,11 +1,1 @@
-- Solving the conflict when updating the app
-
-- Solving location problem
-
-
-- Solved Order Details not displayed after pressing on Order in Journal
-
-- Solved back button from Order Details to Journal and to Customer Details
-
-
-- OrderNumber added to "comp_list" in "New Repair Order"
+- Test solving bug orderComponent pdf

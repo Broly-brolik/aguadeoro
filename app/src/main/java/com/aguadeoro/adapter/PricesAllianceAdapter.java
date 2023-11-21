@@ -2,8 +2,8 @@ package com.aguadeoro.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,16 +33,16 @@ public class PricesAllianceAdapter extends RecyclerView.Adapter<PricesAllianceAd
         this.mInflater = LayoutInflater.from(context);
     }
 
-    @NonNull
+    
     @Override
-    public PricesAllianceAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public PricesAllianceAdapter.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
         View view;
         view = mInflater.inflate(R.layout.line_prices_alliance, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PricesAllianceAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder( final PricesAllianceAdapter.ViewHolder viewHolder, int i) {
 
         double ringPrice, meleePrice, stonePrice;
 

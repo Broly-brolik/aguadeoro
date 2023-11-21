@@ -3,12 +3,13 @@ package com.aguadeoro.activity
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aguadeoro.R
 import com.aguadeoro.adapter.PricesTearsOfJoyAdapter
 import com.aguadeoro.utils.Query

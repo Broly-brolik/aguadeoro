@@ -39,6 +39,7 @@ public class CustomerActivity extends ListActivity {
         setContentView(R.layout.activity_customer);
         wheelView = findViewById(R.id.animation_layout);
         mainView = findViewById(R.id.main_layout);
+
         showProgress(true);
         new ListCustomers().execute(Utils.CREATED_DATE);
     }

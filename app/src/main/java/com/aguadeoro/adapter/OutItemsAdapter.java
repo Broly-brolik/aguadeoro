@@ -1,13 +1,14 @@
 package com.aguadeoro.adapter;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.aguadeoro.R;
 
@@ -24,9 +25,8 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
         Log.d("------", "" + count);
     }
 
-    @NonNull
     @Override
-    public OutItemsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public OutItemsAdapter.ViewHolder onCreateViewHolder( ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.line_out_item, viewGroup, false);
 
@@ -34,7 +34,7 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OutItemsAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder( OutItemsAdapter.ViewHolder viewHolder, int i) {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +63,7 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
         private final EditText productCode;
         private final EditText remark;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder( View itemView) {
             super(itemView);
             quantity = itemView.findViewById(R.id.itemQuantity);
             productId = itemView.findViewById(R.id.id);

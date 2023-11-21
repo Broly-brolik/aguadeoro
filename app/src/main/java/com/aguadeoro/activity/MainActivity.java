@@ -54,6 +54,10 @@ public class MainActivity extends Activity {
         TextView appVersion = findViewById(R.id.textViewAppVersion);
         appVersion.setText("Version " + BuildConfig.VERSION_NAME);
 
+
+//        AguaApplication aguaApplication = new AguaApplication();
+//        Toast.makeText(aguaApplication.getApplicationContext(), "bonjour", Toast.LENGTH_LONG).show();
+
         appVersion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

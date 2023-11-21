@@ -6,16 +6,16 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ListView
 import android.widget.ProgressBar
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aguadeoro.R
 import com.aguadeoro.adapter.WeddingFollowUpListAdapter
 import com.aguadeoro.utils.Query
@@ -110,7 +110,6 @@ class WeddingFollowUpActivity : Activity() {
 
         private var data = ArrayList<Map<String, String>>()
 
-        @RequiresApi(Build.VERSION_CODES.O)
         override fun doInBackground(vararg params: Int?): Boolean {
             var filter = ""
             val cal: Calendar = Calendar.getInstance()

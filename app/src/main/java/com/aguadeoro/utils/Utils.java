@@ -29,8 +29,8 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
+
+
 import android.text.Html;
 import android.util.Base64;
 import android.util.DisplayMetrics;
@@ -40,6 +40,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 
 import com.aguadeoro.R;
 import com.aguadeoro.activity.OrderDetailActivity;
@@ -2969,7 +2972,7 @@ public class Utils {
 
     public static void printSupplierOrder(Activity context, String orderType, Map<String, String> orderInfo,
                                           ArrayList<String[]> orderCompList, boolean toView, String name, ArrayList<String> links) {
-
+        Log.e("orderCompList", String.valueOf(orderCompList.size()));
         try {
             new File(Environment.getExternalStorageDirectory()
                     + "/03_supplierorders/").mkdir();
@@ -3334,7 +3337,7 @@ public class Utils {
                     table.addCell(new Phrase(name+"\n",font10));
                 }*/
                 OrderDetailActivity activity = (OrderDetailActivity) context;
-                table.addCell(new Phrase((activity.componentList.get(i)[2] + ", " + orderComp[0] + "\n"), font10));
+                table.addCell(new Phrase((activity.componentList.get(0)[2] + ", " + orderComp[0] + "\n"), font10));
                 table.addCell(new Phrase(orderComp[1], font10));
                 table.addCell(new Phrase(orderComp[2], font10));
                 table.addCell(new Phrase(orderComp[3], font10));
@@ -3589,6 +3592,7 @@ public class Utils {
             return document;
         } catch (Exception e) {
             Log.e("error", "error when creating document");
+            e.printStackTrace();
             return null;
 
         }

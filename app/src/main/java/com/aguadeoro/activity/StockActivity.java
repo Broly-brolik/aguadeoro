@@ -4,9 +4,13 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -27,6 +31,8 @@ import android.widget.Toast;
 
 import com.aguadeoro.R;
 import com.aguadeoro.adapter.StockAdapter;
+import com.aguadeoro.models.LocationInventory;
+import com.aguadeoro.threads.ConnectThread;
 import com.aguadeoro.utils.Query;
 import com.aguadeoro.utils.Utils;
 import com.gun0912.tedpermission.PermissionListener;
@@ -44,6 +50,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 public class StockActivity extends ListActivity {
 
@@ -52,7 +62,9 @@ public class StockActivity extends ListActivity {
     private String[] locationID, locationDescription, products, dates, locationImages;
     ArrayList<Map<String, String>> notes;
     Map<String, String> previousLocs = new HashMap();
-    Set<String> detected = new HashSet<>();
+    Set<String> detectedInventoryCodes = new HashSet<>();
+    Set<String> detectedRFID = new HashSet<>();
+    Set<String> previousRFID = new HashSet<>();
     private Activity acv;
     private String location;
     private int locationId;
@@ -61,6 +73,41 @@ public class StockActivity extends ListActivity {
     private boolean isCheckAll = false;
     boolean previous = false;
     boolean scanStarted = false;
+
+    ConnectThread connectThread = null;
+
+    Timer timer = new Timer();
+
+    boolean readerConnected = false;
+
+    Button buttonStartScan = null;
+
+    Set<String> inventoryCodes = new HashSet<>();
+
+    boolean inventoryScanStarted = false;
+
+    HashMap<Integer, LocationInventory> locationInventoryList = new HashMap();
+
+    Spinner locations;
+    Spinner datesSpinner;
+    Button check;
+    Button checkAll;
+
+    public void showDialog() {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_summary_scan_location, null);
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(dialogView);
+        dialog.show();
+
+//        if (detectedInventoryCodes.containsAll(inventoryCodes)) {
+//            Toast.makeText(getApplicationContext(), "All items were detected", Toast.LENGTH_LONG).show();
+//        } else {
+//            Set<String> missingCodes = new HashSet<>(inventoryCodes);
+//            missingCodes.removeAll(detectedInventoryCodes);
+//            Toast.makeText(getApplicationContext(), "missing: " + missingCodes.toString(), Toast.LENGTH_LONG).show();
+//        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +120,12 @@ public class StockActivity extends ListActivity {
         acv = this;
         showProgress(true);
         new PopulateSpinner().execute();
-        final Spinner locations = findViewById(R.id.location_spinner);
-        final Spinner datesSpinner = findViewById(R.id.spinner_date);
-        final Button check = findViewById(R.id.confirm_location);
+        locations = findViewById(R.id.location_spinner);
+        datesSpinner = findViewById(R.id.spinner_date);
+        check = findViewById(R.id.confirm_location);
         final TextView description = findViewById(R.id.description);
-        final Button checkAll = findViewById(R.id.checkAll);
-        final Button buttonScan = findViewById(R.id.buttonScan);
+        checkAll = findViewById(R.id.checkAll);
+        buttonStartScan = findViewById(R.id.buttonScan);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -97,6 +144,9 @@ public class StockActivity extends ListActivity {
                     new FetchLocationData().execute(selectedItemPos);
                     location = locations.getSelectedItem().toString();
                     locationId = selectedItemPos;
+                    detectedRFID = new HashSet<>();
+                    previousRFID = new HashSet<>();
+                    detectedInventoryCodes = new HashSet<>();
                     new PopulateDateSpinner().execute();
                 }
             }
@@ -122,7 +172,7 @@ public class StockActivity extends ListActivity {
             @Override
             public void onClick(View view) {
                 isCheckAll = !isCheckAll;
-                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detected);
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detectedInventoryCodes);
                 StockActivity.this.setListAdapter(stockAdapter);
             }
         });
@@ -203,15 +253,10 @@ public class StockActivity extends ListActivity {
         });
 
 
-        buttonScan.setOnClickListener(new View.OnClickListener() {
+        buttonStartScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scanStarted = true;
-                detected.add("S-1272");
-
-                Toast.makeText(getApplicationContext(), "start scanning", Toast.LENGTH_LONG).show();
-                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detected);
-                StockActivity.this.setListAdapter(stockAdapter);
+                startScanLocationHandler();
             }
         });
     }
@@ -490,6 +535,7 @@ public class StockActivity extends ListActivity {
             ArrayList<Map<String, String>> res = q.getRes();
             Log.d("initial size", "" + res.size());
             data = FilterLocationData(res);
+            inventoryCodes = data.stream().map(stringStringMap -> stringStringMap.getOrDefault("InventoryCode", "")).collect(Collectors.toSet());
             return true;
         }
 
@@ -499,7 +545,7 @@ public class StockActivity extends ListActivity {
                 PermissionListener permissionlistener = new PermissionListener() {
                     @Override
                     public void onPermissionGranted() {
-                        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, previousLocs, scanStarted, detected);
+                        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, previousLocs, scanStarted, detectedInventoryCodes);
                         StockActivity.this.setListAdapter(stockAdapter);
 
                     }
@@ -514,7 +560,7 @@ public class StockActivity extends ListActivity {
 
             } else {
                 Toast.makeText(StockActivity.this, "Empty location", Toast.LENGTH_LONG).show();
-                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, new ArrayList(), notes, previousLocs, scanStarted, detected);
+                StockAdapter stockAdapter = new StockAdapter(StockActivity.this, new ArrayList(), notes, previousLocs, scanStarted, detectedInventoryCodes);
                 StockActivity.this.setListAdapter(stockAdapter);
             }
         }
@@ -575,20 +621,20 @@ public class StockActivity extends ListActivity {
             }
         }
 //        Log.e("codes mec", Arrays.toString(codes.toArray()));
-        for (String code : codes) {
-            Query q = new Query(String.format("select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where StockHistory.InventoryCode = '%s' AND StockHistory.Action = 'Transferred' Order By StockHistory.HistoryDate Desc", code));
-            Boolean s = q.execute();
-            if (q.getRes().size() ==0 ){
-                continue;
-            }
-
-            String previousLoc =  q.getRes().get(0).getOrDefault("IDLocation", "");
-            if (!previousLoc.isEmpty()){
-                previousLocs.put(code, previousLoc);
-            }
-//            Log.e("previous loc", q.getRes().get(0).getOrDefault("IDLocation", ""));
-
-        }
+//        for (String code : codes) {
+//            Query q = new Query(String.format("select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where StockHistory.InventoryCode = '%s' AND StockHistory.Action = 'Transferred' Order By StockHistory.HistoryDate Desc", code));
+//            Boolean s = q.execute();
+//            if (q.getRes().size() == 0) {
+//                continue;
+//            }
+//
+//            String previousLoc = q.getRes().get(0).getOrDefault("IDLocation", "");
+//            if (!previousLoc.isEmpty()) {
+//                previousLocs.put(code, previousLoc);
+//            }
+////            Log.e("previous loc", q.getRes().get(0).getOrDefault("IDLocation", ""));
+//
+//        }
         Log.e("previous locss", previousLocs.toString());
         return data;
     }
@@ -646,6 +692,285 @@ public class StockActivity extends ListActivity {
             startActivity(intent);
         }
 
+        if (id == R.id.connectReader) {
+            Callable onConnection = new Callable() {
+                @Override
+                public Object call() throws Exception {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            item.setTitle("Disconnect Reader");
+
+                        }
+                    });
+                    readerConnected = true;
+                    return null;
+                }
+            };
+            Callable onDisconnection = new Callable() {
+                @Override
+                public Object call() throws Exception {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            item.setTitle("Connect Reader");
+
+                            scanStarted = false;
+                            try {
+                                timer.cancel();
+                            } catch (Exception e) {
+                            }
+
+                        }
+                    });
+                    readerConnected = false;
+                    return null;
+                }
+            };
+            if (!readerConnected) {
+                connectReader(onConnection, onDisconnection);
+            } else {
+                if (connectThread != null) {
+                    try {
+                        onDisconnection.call();
+                    } catch (Exception e) {
+
+                    }
+                    connectThread.closeConnection();
+                }
+            }
+        }
+
+        if (id == R.id.scanInventory) {
+            scanInventoryHandler(item);
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
+
+    boolean busy = false;
+
+    public void connectReader(Callable onConnection, Callable onDisconnection) {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        // Device doesn't support Bluetooth, handle accordingly.
+
+
+        if (!bluetoothAdapter.isEnabled()) {
+            // Bluetooth is not enabled, request to turn it on.
+            // You should implement the code to request Bluetooth enable here.
+            Log.e("enabled", "not");
+
+        }
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device : pairedDevices) {
+
+
+            String deviceName = device.getName();
+            Log.e("paired device !", deviceName);
+            if (deviceName.equals("RFID0")) {
+
+                MyRunnable r = new MyRunnable("");
+
+                connectThread = new ConnectThread(getApplicationContext(), device, r, onConnection, onDisconnection);
+                connectThread.run();
+
+
+//                startTimer();
+
+            }
+        }
+    }
+
+    public class MyRunnable implements Runnable {
+
+        public String tag;
+
+        public MyRunnable(String RFID) {
+            this.tag = RFID;
+        }
+
+        public void run() {
+            if (scanStarted) {
+                detectedRFID.add(this.tag);
+            }
+//            Log.e("detected", detectedRFID.toString());
+//            StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detectedRFID);
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    StockActivity.this.setListAdapter(stockAdapter);
+//                }
+//            });
+        }
+    }
+
+    public void scanInventoryHandler(MenuItem item) {
+        if (readerConnected) {
+            if (scanStarted) {
+                Toast.makeText(getApplicationContext(), "Finish to scan the location first ", Toast.LENGTH_LONG).show();
+                return;
+            }
+            //on a fini
+            if (inventoryScanStarted) {
+                item.setTitle("Scan inventory");
+                inventoryScanStarted = false;
+                Log.e("all codes", locationInventoryList.toString());
+                buttonStartScan.setVisibility(View.GONE);
+                Intent intent = new Intent(this, InventoryReportActivity.class);
+                intent.putExtra("location", locationInventoryList);
+                startActivity(intent);
+//                finish();
+
+//                    showDialog();
+
+            }
+            //on commence le scan
+            else {
+                buttonStartScan.setVisibility(View.VISIBLE);
+
+                locationInventoryList = new HashMap<>();
+                inventoryScanStarted = true;
+                item.setTitle("Finish scan");
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "please connect the reader first", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deactivateButtons(boolean yes) {
+        locations.setEnabled(yes);
+        datesSpinner.setEnabled(yes);
+        check.setEnabled(yes);
+        checkAll.setEnabled(yes);
+
+
+    }
+
+    public void startScanLocationHandler() {
+        scanStarted = !scanStarted;
+        //le scan a commencé
+        if (scanStarted) {
+            detectedRFID = new HashSet<>();
+            previousRFID = new HashSet<>();
+            detectedInventoryCodes = new HashSet<>();
+            deactivateButtons(false);
+            buttonStartScan.setText("Finish scan location");
+            LocationInventory inv = new LocationInventory();
+            inv.setInventoryCodes(inventoryCodes);
+
+
+            locationInventoryList.put(locationId, inv);
+            startTimer();
+
+
+        }
+        //le scan a fini
+        else {
+           showFinishLocationDialog();
+
+//                    showDialog();
+//
+        }
+
+//                Toast.makeText(getApplicationContext(), "start scanning", Toast.LENGTH_LONG).show();
+        StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detectedInventoryCodes);
+        StockActivity.this.setListAdapter(stockAdapter);
+    }
+
+    public void startTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                Set<String> newRFID = new HashSet<>(detectedRFID);
+//                        newRFID.removeAll(previousRFID);
+
+                if (!newRFID.isEmpty() & !busy) {
+                    busy = true;
+                    String allTags = "";
+                    for (String newTag : newRFID) {
+                        allTags += ("'" + newTag + "'" + ", ");
+                    }
+                    allTags = allTags.substring(0, allTags.length() - 2);
+
+                    Log.e("new rfid", newRFID.toString());
+                    String q = String.format("select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where Inventory.rfidTag in (%s) AND StockHistory.Action = 'New' Order By StockHistory.HistoryDate Desc", allTags);
+                    Query query = new Query(q);
+                    boolean s = query.execute();
+                    ArrayList<Map<String, String>> res = query.getRes();
+                    Set<String> newCodes = res.stream().map(stringStringMap -> stringStringMap.getOrDefault("InventoryCode", "")).collect(Collectors.toSet());
+                    detectedInventoryCodes.addAll(newCodes);
+//                            Log.e("new codes", newCodes.toString());
+
+                    StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detectedInventoryCodes);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            StockActivity.this.setListAdapter(stockAdapter);
+                        }
+                    });
+                }
+
+                previousRFID.addAll(detectedRFID);
+                busy = false;
+
+//                        Log.e("all rfid", previousRFID.toString());
+            }
+        }, 0, 1000);
+    }
+
+    public void showFinishLocationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Are you done with this location ?");
+        builder.setMessage("You scanned " + detectedInventoryCodes.size() + " items.");
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setPositiveButton("Finish location", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                buttonStartScan.setText("Scan location");
+                LocationInventory inv = locationInventoryList.get(locationId);
+                inv.setDetectedCodes(detectedInventoryCodes);
+
+                Set<String> missingCodes = inventoryCodes;
+                missingCodes.removeAll(detectedInventoryCodes);
+                inv.setMissingCodes(missingCodes);
+
+                Set<String> newCodes = detectedInventoryCodes;
+                newCodes.removeAll(inventoryCodes);
+                inv.setNewCodes(newCodes);
+
+
+                timer.cancel();
+                deactivateButtons(true);
+                dialogInterface.cancel();
+            }
+        });
+
+
+
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        timer.cancel();
+        detectedRFID.clear();
+        detectedInventoryCodes.clear();
+        connectThread.closeConnection();
+        super.onDestroy();
+    }
 }
+

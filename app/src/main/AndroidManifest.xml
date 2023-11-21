@@ -14,6 +14,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +26,7 @@
         android:theme="@style/AppTheme">
 
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.aguadeoro.android.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -39,6 +41,7 @@
 
         <activity
             android:name=".activity.MainActivity"
+            android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,6 +52,9 @@
         <activity
             android:name=".activity.CustomerActivity"
             android:label="@string/title_activity_customer" />
+        <activity
+            android:name=".activity.InventoryReportActivity"
+            android:label="Inventory Report" />
         <activity
             android:name=".activity.OrderActivity"
             android:label="@string/title_activity_order" />
