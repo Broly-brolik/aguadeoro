@@ -10,11 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.InputType;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,8 +41,8 @@ public class ReportActivity extends ListActivity {
     double payTotal = 0, orderTotal = 0, totalCash = 0, totalPost = 0,
             totalCredit = 0, totalBill = 0, totalOther = 0;
 
-    String date, date0, checkedBy;
-    Calendar c, c0;
+    String date, date0, checkedBy, actlDate;
+    Calendar c, c0, actualC;
     Integer range;
     String whereLocation;
 
@@ -61,25 +57,20 @@ public class ReportActivity extends ListActivity {
         wheelView = findViewById(R.id.animation_layout);
         mainView = findViewById(R.id.main_layout);
         showProgress(true);
+        actualC = Calendar.getInstance();
         c = Calendar.getInstance();
         c0 = Calendar.getInstance();
-        c0.add(Calendar.DAY_OF_MONTH, -6);
-        chooseDate(null);
-        date = Utils.shortDateForInsert(c.getTime());
-        date0 = Utils.shortDateForInsert(c0.getTime());
-        TextView test = findViewById(R.id.testDate);
-        test.setText(date0);
         Spinner rangeList = findViewById(R.id.range);
         rangeList.setAdapter(new ArrayAdapter<Integer>(this,
                 android.R.layout.simple_spinner_item, new Integer[]
-                {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
                         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}));
-        rangeList.setSelection(6);
+        rangeList.setSelection(5);
         rangeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //chooseDate(null);
-                daysUntilRange();
+                chooseRange();
             }
 
             @Override
@@ -87,6 +78,13 @@ public class ReportActivity extends ListActivity {
 
             }
         });
+        range = (Integer) ((Spinner) findViewById(R.id.range))
+                .getSelectedItem();
+        c0.add(Calendar.DAY_OF_MONTH, -range+1);
+        chooseDate(null);
+        actlDate = Utils.shortDateForInsert(actualC.getTime());
+        date = Utils.shortDateForInsert(c.getTime());
+        date0 = Utils.shortDateForInsert(c0.getTime());
 
         Spinner locationFilter = findViewById(R.id.range2);
         locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All","Geneva","Zurich", "Online"}));
@@ -95,7 +93,7 @@ public class ReportActivity extends ListActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //chooseDate(null);
-                daysUntilRange();
+                chooseRange();
                 Toast.makeText(ReportActivity.this, locationFilter.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 if (locationFilter.getSelectedItem().toString() == "All") {
                     whereLocation = "All";
@@ -191,20 +189,22 @@ public class ReportActivity extends ListActivity {
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, monthOfYear);
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                daysUntilRange();
+                chooseRange();
             }
         };
         new DatePickerDialog(this, dateListener, c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    public void daysUntilRange() {
+    public void chooseRange() {
         range = (Integer) ((Spinner) findViewById(R.id.range))
                 .getSelectedItem();
         date = Utils.shortDateForInsert(c.getTime());
         c0 = (Calendar) c.clone();
-        c0.add(Calendar.DAY_OF_MONTH, -range);
+        c0.add(Calendar.DAY_OF_MONTH, -range+1);
         date0 = Utils.shortDateForInsert(c0.getTime());
+        TextView test = findViewById(R.id.testDate);
+        test.setText(date0);
         String where1 = " and o.OrderDate <= #" + date
                 + "# and o.OrderDate >= #" + date0 + "#";
         String where2 = " and oh.EntryDate <= #" + date
