@@ -86,7 +86,7 @@ public class ReportActivity extends ListActivity {
         date = Utils.shortDateForInsert(c.getTime());
         date0 = Utils.shortDateForInsert(c0.getTime());
 
-        Spinner locationFilter = findViewById(R.id.range2);
+        Spinner locationFilter = findViewById(R.id.locationRange);
         locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All","Geneva","Zurich", "Online"}));
         locationFilter.setSelection(0);
         locationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
