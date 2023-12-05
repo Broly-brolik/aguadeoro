@@ -87,7 +87,7 @@ public class ReportActivity extends ListActivity {
         date0 = Utils.shortDateForInsert(c0.getTime());
 
         Spinner locationFilter = findViewById(R.id.locationRange);
-        locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All","Geneva","Zurich", "Online"}));
+        locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All locations","Geneva","Zurich", "Online"}));
         locationFilter.setSelection(0);
         locationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -95,8 +95,8 @@ public class ReportActivity extends ListActivity {
                 //chooseDate(null);
                 chooseRange();
                 Toast.makeText(ReportActivity.this, locationFilter.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-                if (locationFilter.getSelectedItem().toString() == "All") {
-                    whereLocation = "All";
+                if (locationFilter.getSelectedItem().toString() == "All locations") {
+                    whereLocation = "All locations";
                 } else if (locationFilter.getSelectedItem().toString() == "Geneva") {
                     whereLocation = "Geneva";
                 } else if (locationFilter.getSelectedItem().toString() == "Zurich") {
@@ -116,7 +116,7 @@ public class ReportActivity extends ListActivity {
                 + date0 + "#";
         String where2 = " and oh.EntryDate <= #" + date
                 + "# and EntryDate >= #" + date0 + "#";
-        //new ListReport().execute(Utils.ORD_DT, where1, where2, whereLocation);
+        //new ListReport().execute(Utils.ORD_DT, where1, where2);
     }
 
     @Override
@@ -203,13 +203,11 @@ public class ReportActivity extends ListActivity {
         c0 = (Calendar) c.clone();
         c0.add(Calendar.DAY_OF_MONTH, -range+1);
         date0 = Utils.shortDateForInsert(c0.getTime());
-        TextView test = findViewById(R.id.testDate);
-        test.setText(date0);
         String where1 = " and o.OrderDate <= #" + date
                 + "# and o.OrderDate >= #" + date0 + "#";
         String where2 = " and oh.EntryDate <= #" + date
                 + "# and oh.EntryDate >= #" + date0 + "#";
-        new ListReport().execute(Utils.ORD_DT, where1, where2, whereLocation);
+        new ListReport().execute(Utils.ORD_DT, where1, where2);
     }
 
     public void validate() {
@@ -258,7 +256,6 @@ public class ReportActivity extends ListActivity {
             if (args.length > 2) {
                 whereClause1 = args[1];
                 whereClause2 = args[2];
-                whereClauseLocation = args[3];
             }
             orderList = new ArrayList<String[]>();
             String sortBy = args[0];
@@ -289,7 +286,7 @@ public class ReportActivity extends ListActivity {
                     orderTotal += Double.parseDouble(order[4]);
             }
 
-            if (whereLocation == "All") {
+            if (whereLocation == "All locations") {
                 whereClauseLocation = ""; // " and o.StoreMainOrder = 'Geneva' and o.StoreMainOrder = 'Zurich' and o.StoreMainOrder = 'Online'";
             } else if(whereLocation == "Geneva") {
                 whereClauseLocation = " and o.StoreMainOrder = 'Geneva'";
@@ -323,32 +320,7 @@ public class ReportActivity extends ListActivity {
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
                 String[] pmt = new String[10];
- /*               switch (result2.get(i).get("StoreMainOrder")) {
-                    case "Geneva":
-                        " [" + result2.get(i).get("StoreMainOrder") + "]".setForeground(R.color.color_geneva);
-                        break;
-                    case "Zurich":
-                        int colorG = getResources().getColor(R.color.color_zurich);
-
-                        SpannableString spannableStringZ = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
-                        ForegroundColorSpan foregroundColorSpanZ = new ForegroundColorSpan(colorG);
-
-                        spannableStringZ.setSpan(foregroundColorSpanZ, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        orderNo.setText(spannableStringZ);
-                        break;
-                    case "Online":
-                        int colorB = ContextCompat.getColor(context, R.color.color_online);
-
-                        SpannableString spannableStringO = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
-                        ForegroundColorSpan foregroundColorSpanO = new ForegroundColorSpan(colorB);
-
-                        spannableStringO.setSpan(foregroundColorSpanO, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        orderNo.setText(spannableStringO);
-                        break;
-                }
-*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
+                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
                         + result2.get(i).get(Utils.CUST_NAME);
@@ -405,6 +377,8 @@ public class ReportActivity extends ListActivity {
                         .setText("" + orderTotal);
                 ((TextView) ReportActivity.this.findViewById(R.id.date))
                         .setText(Utils.shortDateForDisplay(c.getTime()));
+                ((TextView) ReportActivity.this.findViewById(R.id.fromDate))
+                        .setText(Utils.shortDateForDisplay(c0.getTime()));
             } else {
                 Toast.makeText(ReportActivity.this,
                         getString(R.string.error_retrieving_data),
@@ -436,7 +410,7 @@ public class ReportActivity extends ListActivity {
                         + "# and o.OrderDate >= #" + date0 + "#";
                 String where2 = " and oh.EntryDate <= #" + date
                         + "# and oh.EntryDate >= #" + date0 + "#";
-                new ListReport().execute(Utils.DEADLINE, where1, where2, whereLocation);
+                new ListReport().execute(Utils.DEADLINE, where1, where2);
 
             } else {
                 Toast.makeText(ReportActivity.this,
