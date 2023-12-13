@@ -20,5 +20,10 @@
         android:orderInCategory="98"
         android:showAsAction="always"
         android:title="Scan Inventory" />
+    <item
+        android:id="@+id/scanItem"
+        android:orderInCategory="98"
+        android:showAsAction="always"
+        android:title="Scan Item" />
 
 </menu>

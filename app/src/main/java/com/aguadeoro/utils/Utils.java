@@ -72,6 +72,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -2974,15 +2975,21 @@ public class Utils {
                                           ArrayList<String[]> orderCompList, boolean toView, String name, ArrayList<String> links) {
         Log.e("orderCompList", String.valueOf(orderCompList.size()));
         try {
-            new File(Environment.getExternalStorageDirectory()
+            boolean newF = new File(Environment.getExternalStorageDirectory()
                     + "/03_supplierorders/").mkdir();
-            File pdfFile = new File(Environment.getExternalStorageDirectory()
-                    + "/03_supplierorders/", "Order " + orderInfo.getOrDefault("orderNumber", "") + ".pdf");
-            Document document = new Document(PageSize.A4, 40f, 40f, 0f, 10f);
-            new File(Environment.getExternalStorageDirectory()
-                    + "/03_supplierorders/").mkdir();
+//            Log.e("autorisation new file", String.valueOf(newF));
 
-            PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
+//            File pdfFile = new File(Environment.getExternalStorageDirectory()
+//                    + "/03_supplierorders/", "Order " + orderInfo.getOrDefault("orderNumber", "") + ".pdf");
+            File pdfFile = new File(Environment.getExternalStorageDirectory() +
+                            "/03_supplierorders/", "Order " + orderInfo.getOrDefault("orderNumber", "") + ".pdf");
+            Document document = new Document(PageSize.A4, 40f, 40f, 0f, 10f);
+//            new File(Environment.getExternalStorageDirectory()
+//                    + "/03_supplierorders/").mkdir();
+pdfFile.createNewFile();
+            Log.e("exist ?", String.valueOf(pdfFile.exists()));
+
+            PdfWriter.getInstance(document, Files.newOutputStream(pdfFile.toPath()));
             document.open();
             generateSupplierOrder(document, context, orderType, orderInfo, orderCompList, toView, name, links);
 //            document.newPage();

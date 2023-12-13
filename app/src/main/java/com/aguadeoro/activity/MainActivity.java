@@ -9,9 +9,12 @@ import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
+import android.provider.Settings;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +56,15 @@ public class MainActivity extends Activity {
 
         TextView appVersion = findViewById(R.id.textViewAppVersion);
         appVersion.setText("Version " + BuildConfig.VERSION_NAME);
+
+
+        if (Build.VERSION.SDK_INT >= 30){
+            if (!Environment.isExternalStorageManager()){
+                Intent getpermission = new Intent();
+                getpermission.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+                startActivity(getpermission);
+            }
+        }
 
 
 //        AguaApplication aguaApplication = new AguaApplication();

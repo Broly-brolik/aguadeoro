@@ -1,1 +1,2 @@
-- Test solving bug orderComponent pdf
+- Possibility to scan a single item with the RFID reader
+- Solving problem with sending pdf files

@@ -24,6 +24,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +39,9 @@ import com.aguadeoro.utils.Query;
 import com.aguadeoro.utils.Utils;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -93,6 +98,9 @@ public class StockActivity extends ListActivity {
     Button check;
     Button checkAll;
 
+    boolean scanItem = false;
+    String currentItem = "";
+
     public void showDialog() {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_summary_scan_location, null);
         final Dialog dialog = new Dialog(this);
@@ -108,6 +116,37 @@ public class StockActivity extends ListActivity {
 //        }
     }
 
+
+    public void showDialogScannedItem(String filename, String inventoryCode, String catalog, String name, String stone) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_scanned_item, null);
+        ImageView image = dialogView.findViewById(R.id.imageViewScannedItem);
+        //Picasso.with(context).load(path).placeholder(R.drawable.logo_small).into(img);
+        Picasso.with(getApplicationContext()).load("http://195.15.223.234/aguadeoro/06_inventory toc opy/" + filename).placeholder(R.drawable.logo_small).into(image);
+
+        TextView textViewInventory = dialogView.findViewById(R.id.inventoryCodeScannedItem);
+        textViewInventory.setText("Inventory code: " + inventoryCode);
+
+        TextView textViewCatalog = dialogView.findViewById(R.id.catalogCodeScannedItem);
+        textViewCatalog.setText("Catalog code: " + catalog);
+
+        TextView textViewName = dialogView.findViewById(R.id.nameScannedItem);
+        textViewName.setText("Name: " + name);
+
+        TextView textViewStone = dialogView.findViewById(R.id.stoneScannedItem);
+        textViewStone.setText("Stone: " + stone);
+
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(dialogView);
+        dialog.show();
+    }
+
+    public void launchDetailPage(String id) {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, ViewInventoryActivity.class);
+        intent.putExtra(Utils.ID, id);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -541,6 +580,9 @@ public class StockActivity extends ListActivity {
 
         @Override
         protected void onPostExecute(Boolean success) {
+            if (data == null){
+                return;
+            }
             if (data.size() > 0) {
                 PermissionListener permissionlistener = new PermissionListener() {
                     @Override
@@ -745,6 +787,17 @@ public class StockActivity extends ListActivity {
             scanInventoryHandler(item);
         }
 
+        if (id == R.id.scanItem) {
+            scanItem = !scanItem;
+            if (scanItem) {
+                item.setTitle("Stop scan item");
+                startTimer();
+            } else {
+                item.setTitle("Scan item");
+                timer.cancel();
+            }
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -776,8 +829,6 @@ public class StockActivity extends ListActivity {
                 connectThread.run();
 
 
-//                startTimer();
-
             }
         }
     }
@@ -793,6 +844,11 @@ public class StockActivity extends ListActivity {
         public void run() {
             if (scanStarted) {
                 detectedRFID.add(this.tag);
+            }
+            if (scanItem) {
+                if (currentItem.isEmpty()) {
+                    currentItem = this.tag;
+                }
             }
 //            Log.e("detected", detectedRFID.toString());
 //            StockAdapter stockAdapter = new StockAdapter(StockActivity.this, data, notes, isCheckAll, previousLocs, scanStarted, detectedRFID);
@@ -867,7 +923,7 @@ public class StockActivity extends ListActivity {
         }
         //le scan a fini
         else {
-           showFinishLocationDialog();
+            showFinishLocationDialog();
 
 //                    showDialog();
 //
@@ -886,6 +942,43 @@ public class StockActivity extends ListActivity {
 
                 Set<String> newRFID = new HashSet<>(detectedRFID);
 //                        newRFID.removeAll(previousRFID);
+                Log.e("timer", currentItem);
+
+
+                if (!currentItem.isEmpty() & !busy) {
+                    busy = true;
+                    String q = String.format("select * FROM StockHistory left JOIN Inventory ON StockHistory.InventoryCode = Inventory.InventoryCode" + " where Inventory.rfidTag = '%s' AND StockHistory.Action = 'New' Order By StockHistory.HistoryDate Desc", currentItem);
+                    Query query = new Query(q);
+                    boolean s = query.execute();
+                    if (query.getRes().size() == 0) {
+                        Log.e("no tag with rfid: ", currentItem);
+                        currentItem = "";
+                        busy = false;
+                        return;
+                    }
+                    Map<String, String> res = query.getRes().get(0);
+                    Log.e("scanned item", res.toString());
+
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showDialogScannedItem(
+                                    res.getOrDefault("Image", ""),
+                                    res.getOrDefault("InventoryCode", ""),
+                                    res.getOrDefault("CatalogCode", ""),
+                                    res.getOrDefault("Name", ""),
+                                    res.getOrDefault("Stone", "")
+
+
+                            );
+                        }
+                    });
+
+                    currentItem = "";
+                    busy = false;
+                }
+
 
                 if (!newRFID.isEmpty() & !busy) {
                     busy = true;
@@ -955,8 +1048,6 @@ public class StockActivity extends ListActivity {
                 dialogInterface.cancel();
             }
         });
-
-
 
 
         AlertDialog dialog = builder.create();
