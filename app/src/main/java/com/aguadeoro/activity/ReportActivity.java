@@ -11,9 +11,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,9 +41,10 @@ public class ReportActivity extends ListActivity {
     double payTotal = 0, orderTotal = 0, totalCash = 0, totalPost = 0,
             totalCredit = 0, totalBill = 0, totalOther = 0;
 
-    String date, date0, checkedBy;
-    Calendar c, c0;
+    String date, date0, checkedBy, actlDate;
+    Calendar c, c0, actualC;
     Integer range;
+    String whereLocation;
 
     private View wheelView;
     private View mainView;
@@ -59,21 +57,20 @@ public class ReportActivity extends ListActivity {
         wheelView = findViewById(R.id.animation_layout);
         mainView = findViewById(R.id.main_layout);
         showProgress(true);
+        actualC = Calendar.getInstance();
         c = Calendar.getInstance();
         c0 = Calendar.getInstance();
-        c0.add(Calendar.DAY_OF_MONTH, -7);
-        date = Utils.shortDateForInsert(c.getTime());
-        date0 = Utils.shortDateForInsert(c0.getTime());
         Spinner rangeList = findViewById(R.id.range);
         rangeList.setAdapter(new ArrayAdapter<Integer>(this,
                 android.R.layout.simple_spinner_item, new Integer[]
-                {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
                         21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31}));
-        rangeList.setSelection(6);
+        rangeList.setSelection(5);
         rangeList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                chooseDate(null);
+                //chooseDate(null);
+                chooseRange();
             }
 
             @Override
@@ -81,6 +78,40 @@ public class ReportActivity extends ListActivity {
 
             }
         });
+        range = (Integer) ((Spinner) findViewById(R.id.range))
+                .getSelectedItem();
+        c0.add(Calendar.DAY_OF_MONTH, -range+1);
+        chooseDate(null);
+        actlDate = Utils.shortDateForInsert(actualC.getTime());
+        date = Utils.shortDateForInsert(c.getTime());
+        date0 = Utils.shortDateForInsert(c0.getTime());
+
+        Spinner locationFilter = findViewById(R.id.locationRange);
+        locationFilter.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[]{"All locations","Geneva","Zurich", "Online"}));
+        locationFilter.setSelection(0);
+        locationFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //chooseDate(null);
+                chooseRange();
+                Toast.makeText(ReportActivity.this, locationFilter.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                if (locationFilter.getSelectedItem().toString() == "All locations") {
+                    whereLocation = "All locations";
+                } else if (locationFilter.getSelectedItem().toString() == "Geneva") {
+                    whereLocation = "Geneva";
+                } else if (locationFilter.getSelectedItem().toString() == "Zurich") {
+                    whereLocation = "Zurich";
+                } else if (locationFilter.getSelectedItem().toString() == "Online") {
+                    whereLocation = "Online";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         String where1 = " and OrderDate <= #" + date + "# and OrderDate >= #"
                 + date0 + "#";
         String where2 = " and oh.EntryDate <= #" + date
@@ -158,22 +189,25 @@ public class ReportActivity extends ListActivity {
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, monthOfYear);
                 c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                range = (Integer) ((Spinner) findViewById(R.id.range))
-                        .getSelectedItem();
-                date = Utils.shortDateForInsert(c.getTime());
-                c0 = (Calendar) c.clone();
-                c0.add(Calendar.DAY_OF_MONTH, -range);
-                date0 = Utils.shortDateForInsert(c0.getTime());
-                String where1 = " and OrderDate <= #" + date
-                        + "# and OrderDate >= #" + date0 + "#";
-                String where2 = " and oh.EntryDate <= #" + date
-                        + "# and EntryDate >= #" + date0 + "#";
-                new ListReport().execute(Utils.ORD_DT, where1, where2);
-
+                chooseRange();
             }
         };
         new DatePickerDialog(this, dateListener, c.get(Calendar.YEAR),
                 c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    public void chooseRange() {
+        range = (Integer) ((Spinner) findViewById(R.id.range))
+                .getSelectedItem();
+        date = Utils.shortDateForInsert(c.getTime());
+        c0 = (Calendar) c.clone();
+        c0.add(Calendar.DAY_OF_MONTH, -range+1);
+        date0 = Utils.shortDateForInsert(c0.getTime());
+        String where1 = " and o.OrderDate <= #" + date
+                + "# and o.OrderDate >= #" + date0 + "#";
+        String where2 = " and oh.EntryDate <= #" + date
+                + "# and oh.EntryDate >= #" + date0 + "#";
+        new ListReport().execute(Utils.ORD_DT, where1, where2);
     }
 
     public void validate() {
@@ -218,7 +252,7 @@ public class ReportActivity extends ListActivity {
             if (!Utils.isOnline()) {
                 return false;
             }
-            String whereClause1 = "", whereClause2 = "";
+            String whereClause1 = "", whereClause2 = "", whereClauseLocation = "";
             if (args.length > 2) {
                 whereClause1 = args[1];
                 whereClause2 = args[2];
@@ -252,13 +286,22 @@ public class ReportActivity extends ListActivity {
                     orderTotal += Double.parseDouble(order[4]);
             }
 
+            if (whereLocation == "All locations") {
+                whereClauseLocation = ""; // " and o.StoreMainOrder = 'Geneva' and o.StoreMainOrder = 'Zurich' and o.StoreMainOrder = 'Online'";
+            } else if(whereLocation == "Geneva") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Geneva'";
+            } else if (whereLocation == "Zurich") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Zurich'";
+            } else if (whereLocation == "Online") {
+                whereClauseLocation = " and o.StoreMainOrder = 'Online'";
+            }
             paymentList = new ArrayList<String[]>();
             query = "select "
                     + " o.OrderNumber, o.CustomerNumber, c.CustomerName, "
-                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder "
+                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder, o.OrderDate "
                     + "from MainOrder o, Customer c, OrderHistory oh "
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
-                    + whereClause2 + " and oh.PaymentMode is not null "
+                    + whereClause2 + whereClauseLocation + " and oh.PaymentMode is not null "
                     + "and oh.PaymentMode <> " + Utils.escape(Utils.DISCOUNT)
                     + " order by PaymentDate desc";
             q = new Query(query);
@@ -276,34 +319,8 @@ public class ReportActivity extends ListActivity {
             totalBill = 0;
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
-                String[] pmt = new String[9];
- /*               switch (result2.get(i).get("StoreMainOrder")) {
-                    case "Geneva":
-                        " [" + result2.get(i).get("StoreMainOrder") + "]".setForeground(R.color.color_geneva);
-                        break;
-                    case "Zurich":
-                        int colorG = getResources().getColor(R.color.color_zurich);
-
-                        SpannableString spannableStringZ = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
-                        ForegroundColorSpan foregroundColorSpanZ = new ForegroundColorSpan(colorG);
-
-                        spannableStringZ.setSpan(foregroundColorSpanZ, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        orderNo.setText(spannableStringZ);
-                        break;
-                    case "Online":
-                        int colorB = ContextCompat.getColor(context, R.color.color_online);
-
-                        SpannableString spannableStringO = new SpannableString(" [" + result2.get(i).get("StoreMainOrder") + "]");
-                        ForegroundColorSpan foregroundColorSpanO = new ForegroundColorSpan(colorB);
-
-                        spannableStringO.setSpan(foregroundColorSpanO, 0, result2.get(i).get("StoreMainOrder").length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-                        orderNo.setText(spannableStringO);
-                        break;
-                }
-*/                pmt[0] = result2.get(i).get(Utils.ORDER_NO)
-                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
+                String[] pmt = new String[10];
+                pmt[0] = result2.get(i).get(Utils.ORDER_NO);
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
                         + result2.get(i).get(Utils.CUST_NAME);
@@ -313,6 +330,8 @@ public class ReportActivity extends ListActivity {
                 pmt[6] = result2.get(i).get(Utils.CHECKED_ON);
                 pmt[7] = result2.get(i).get(Utils.ID);
                 pmt[8] = result2.get(i).get("PaymentDate");
+                pmt[9] = result2.get(i).get(Utils.ORDER_NO)
+                        + " [" + result2.get(i).get("StoreMainOrder") + "]";
 
                 paymentList.add(pmt);
                 if (!pmt[4].isEmpty())
@@ -358,6 +377,8 @@ public class ReportActivity extends ListActivity {
                         .setText("" + orderTotal);
                 ((TextView) ReportActivity.this.findViewById(R.id.date))
                         .setText(Utils.shortDateForDisplay(c.getTime()));
+                ((TextView) ReportActivity.this.findViewById(R.id.fromDate))
+                        .setText(Utils.shortDateForDisplay(c0.getTime()));
             } else {
                 Toast.makeText(ReportActivity.this,
                         getString(R.string.error_retrieving_data),
@@ -385,10 +406,10 @@ public class ReportActivity extends ListActivity {
         @Override
         protected void onPostExecute(Boolean s) {
             if (s) {
-                String where1 = " and OrderDate <= #" + date
-                        + "# and OrderDate >= #" + date0 + "#";
+                String where1 = " and o.OrderDate <= #" + date
+                        + "# and o.OrderDate >= #" + date0 + "#";
                 String where2 = " and oh.EntryDate <= #" + date
-                        + "# and EntryDate >= #" + date0 + "#";
+                        + "# and oh.EntryDate >= #" + date0 + "#";
                 new ListReport().execute(Utils.DEADLINE, where1, where2);
 
             } else {

@@ -26,41 +26,63 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Spinner
+                android:id="@+id/locationRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/range"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/until"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/until"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="chooseDate"
+                android:text="Date"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fromLbl"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="from EntryDate:"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fromDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From Date"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <Spinner
-                    android:id="@+id/range"
-                    android:layout_width="75dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/until"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/until"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:onClick="chooseDate"
-                    android:text="Date"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,7 +91,7 @@
                 android:text="@string/cash_flow"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

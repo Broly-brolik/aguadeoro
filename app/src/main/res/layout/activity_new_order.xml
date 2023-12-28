@@ -243,7 +243,7 @@
                     android:layout_toLeftOf="@id/add_button"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:visibility="gone" />
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/remove_button"

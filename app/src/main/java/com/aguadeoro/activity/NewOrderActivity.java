@@ -621,7 +621,7 @@ public class NewOrderActivity extends Activity {
             if (!Utils.isOnline()) {
                 return false;
             }
-            String query = "select c.* from OrderComponent c, MainOrder o where " + "c.OrderNumber = o.OrderNumber and " + "o.CustomerNumber = " + customerNumber;
+            String query = "select c.*, o.OrderDate from OrderComponent c, MainOrder o where " + "c.OrderNumber = o.OrderNumber and " + "o.CustomerNumber = " + customerNumber;
             Query q = new Query(query);
             if (!q.execute()) return false;
             ArrayList<Map<String, String>> result = q.getRes();
@@ -629,7 +629,11 @@ public class NewOrderActivity extends Activity {
             compListLabels[0] = "-";
             compList = new String[result.size()][28];
             for (int i = 0; i < result.size(); i++) {
-                compListLabels[i + 1] = result.get(i).get("2") + " " + result.get(i).get("3") + " " + result.get(i).get("4") + "/" + result.get(i).get("5") + "/" + result.get(i).get("6") + "/" + result.get(i).get("7") + "/" + result.get(i).get("8");
+                //make orderDate without hours and seconds
+                String dbOrderDate = result.get(i).get("OrderDate");
+                String orderDateNoHrs = dbOrderDate.substring(0, dbOrderDate.length()-9);
+
+                compListLabels[i + 1] = orderDateNoHrs + "/" + result.get(i).get("1") + "/" + result.get(i).get("2") + "/" + result.get(i).get("3") + "/" + result.get(i).get("4") + "/" + result.get(i).get("5") + "/" + result.get(i).get("6") + "/" + result.get(i).get("7") + "/" + result.get(i).get("8");
                 for (int j = 0; j < 28; j++) {
                     compList[i][j] = result.get(i).get("" + j);
                 }

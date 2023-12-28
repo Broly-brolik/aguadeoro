@@ -179,11 +179,6 @@ public class OrderDetailActivity extends ListActivity {
             } catch (Exception e) {
             }
 
-
-            Intent i = new Intent(this, CustomerDetailActivity.class);
-            i.putExtra(Utils.CUST_REL_ID,
-                    getIntent().getStringExtra(Utils.CUST_REL_ID));
-            startActivity(i);
             finish();
         }
         if (id == R.id.action_add_payment) {
