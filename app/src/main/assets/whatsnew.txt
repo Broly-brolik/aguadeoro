@@ -1,2 +1,10 @@
-- Possibility to scan a single item with the RFID reader
-- Solving problem with sending pdf files
+Antoine:
+- Test solving bug orderComponent pdf
+
+Diego (last changed App):
+- MainActivity: commented out all finish() methods, otherwise you can't click physical
+back button from tablet to go to last activity (only MainActivity in this case). I think finish() should only be used when you want to go back from the
+current activity, not after going to a new one, right...??
+(only sorderActivity, inventoryActivity and calculatorActivity have already been commented out before)
+- gradle.properties: added "org.gradle.caching=true" for build caching (https://docs.gradle.org/nightly/userguide/build_cache.html)
+and "org.gradle.configuration-cache=true" for configuration caching (https://docs.gradle.org/nightly/userguide/configuration_cache.html).

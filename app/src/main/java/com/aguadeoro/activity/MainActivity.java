@@ -6,7 +6,6 @@ import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -105,7 +104,7 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
-            finish();
+            //finish();
         }
         if (id == R.id.action_lang_en) {
             Utils.setLocale(this, "en");
@@ -120,19 +119,19 @@ public class MainActivity extends Activity {
     public void customerActivity(View view) {
         Intent intent = new Intent(this, CustomerActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void orderActivity(View view) {
         Intent intent = new Intent(this, OrderActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void reportActivity(View view) {
         Intent intent = new Intent(this, ReportActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void sorderActivity(View view) {
@@ -158,19 +157,19 @@ public class MainActivity extends Activity {
     public void sellerActivity(View view) {
         Intent intent = new Intent(this, SellerActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void activitiesActivity(View view) {
         Intent intent = new Intent(this, ActivitiesActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void weddingActivity(View view) {
         Intent intent = new Intent(this, WeddingActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     public void calendarActivity(View view) {
@@ -190,10 +189,10 @@ public class MainActivity extends Activity {
     public void stockActivity(View view) {
         Intent intent = new Intent(this, StockActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
-    public void StonesActivity(View view) {
+    public void stonesActivity(View view) {
         Intent intent = new Intent(this, StonesPricesActivity.class);
         startActivity(intent);
         //finish();
@@ -202,7 +201,7 @@ public class MainActivity extends Activity {
     public void weddingFollowUp(View view) {
         Intent intent = new Intent(this, WeddingFollowUpActivity.class);
         startActivity(intent);
-        finish();
+        //finish();
     }
 
     private class FetchStores extends AsyncTask<Void, Void, ArrayList<Map<String, String>>> {

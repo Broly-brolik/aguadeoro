@@ -193,7 +193,6 @@ public class CustomerDetailActivity extends ListActivity {
         intent.putExtra(Utils.ORDER_NO, object[0]);
         intent.putExtra(Utils.CUST_REL_ID, customerRelationshipID);
         startActivity(intent);
-        finish();
     }
 
     private void showProgress(final boolean show) {
