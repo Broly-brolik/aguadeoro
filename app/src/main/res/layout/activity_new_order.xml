@@ -208,10 +208,9 @@
                     android:id="@+id/storeSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="-183dp"
+                    android:layout_marginStart="185dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_toEndOf="@+id/textView96" />
+                    android:layout_marginTop="54dp" />
 
                 <Button
                     android:id="@+id/copy_button"

@@ -110,7 +110,7 @@
                 android:onClick="sortOrder"
                 android:padding="5dp"
                 android:tag="Seller"
-                android:text="@string/seller"
+                android:text="Store"
                 android:textStyle="bold" />
         </LinearLayout>
 

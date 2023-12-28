@@ -1060,7 +1060,11 @@ public class StockActivity extends ListActivity {
         timer.cancel();
         detectedRFID.clear();
         detectedInventoryCodes.clear();
-        connectThread.closeConnection();
+        try{
+            connectThread.closeConnection();
+        }catch(Exception e){
+
+        }
         super.onDestroy();
     }
 }

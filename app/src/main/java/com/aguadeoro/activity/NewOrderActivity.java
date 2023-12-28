@@ -82,8 +82,8 @@ public class NewOrderActivity extends Activity {
         Spinner stores = findViewById(R.id.storeSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Utils.getSetSetting("Stores"));
         stores.setAdapter(adapter);
-        for(int i = 0; i < Utils.getSetSetting("Stores").length; i++) {
-            if(Utils.getSetSetting("Stores")[i].equals(Utils.getStringSetting("store_selected"))) {
+        for (int i = 0; i < Utils.getSetSetting("Stores").length; i++) {
+            if (Utils.getSetSetting("Stores")[i].equals(Utils.getStringSetting("store_selected"))) {
                 stores.setSelection(i);
                 break;
             }
@@ -367,8 +367,13 @@ public class NewOrderActivity extends Activity {
         inputs[0][7] = ((EditText) findViewById(R.id.order_remaining)).getText().toString();
         inputs[0][8] = ((EditText) findViewById(R.id.order_remark)).getText().toString();
         inputs[0][9] = orderType;
-        inputs[0][10] = ((Spinner) findViewById(R.id.seller)).getSelectedItem().toString();
-        if (inputs[0][10].length() == 0) inputs[0][10] = Utils.ADO;
+        Spinner seller = (Spinner) findViewById(R.id.seller);
+        if (seller.getSelectedItem() == null) {
+            inputs[0][10] = Utils.ADO;
+        } else {
+            inputs[0][10] = seller.getSelectedItem().toString();
+        }
+//        if (inputs[0][10].length() == 0) inputs[0][10] = Utils.ADO;
         //tva included or not?
         inputs[0][11] = ((CheckBox) findViewById(R.id.tva)).isChecked() ? "1" : "0";
         for (int i = 1; i < c + 1; i++) {

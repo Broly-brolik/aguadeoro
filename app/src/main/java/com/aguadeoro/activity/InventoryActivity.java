@@ -733,19 +733,22 @@ public class InventoryActivity extends ListActivity {
     }
 
     public ArrayList<Map<String, String>> FilterLocationData(ArrayList<Map<String, String>> res) {
-        Log.d("filter", "FILTERED");
         ArrayList<String> codes = new ArrayList<>();
         ArrayList<Map<String, String>> data = new ArrayList<>();
         for (int i = 0; i < res.size(); i++) {
             boolean transferred = false;
             Timestamp timestamp1 = new Timestamp(1);
             Timestamp timestamp2 = new Timestamp(0);
+            //if the historic date is not empty
             if (!res.get(i).get("HistoryDate").equals("")) {
+                //if the action is not empty
                 if (res.get(i).get("Action") != null) {
+                    //we check if it is transferred
                     if (res.get(i).get("Action").equals("Transferred")) {
                         transferred = true;
                     }
                 }
+                //if it is not transferred we do a check
                 if (!transferred) {
                     for (int j = 0; j < res.size(); j++) {
                         if (res.get(i).get("InventoryCode").equals(res.get(j).get("InventoryCode"))) {
@@ -779,13 +782,16 @@ public class InventoryActivity extends ListActivity {
                 Log.d("OK", "" + res.get(i).get("InventoryCode") + " " + transferred);
                 if (!codes.contains(res.get(i).get("InventoryCode")) && !transferred) {
                     codes.add(res.get(i).get("InventoryCode"));
-                    Log.d("filter", codes + " " + res.get(i).get("InventoryCode"));
+                    Log.e("in the loop", codes + " " + res.get(i).get("InventoryCode"));
                     data.add(res.get(i));
                 }
-            } else {
+            }
+            //we add if the historic date is empty
+            else {
                 data.add(res.get(i));
             }
         }
+        Log.e("size of data", data.size()+"");
         return data;
     }
 

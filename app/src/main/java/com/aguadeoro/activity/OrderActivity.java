@@ -271,7 +271,7 @@ public class OrderActivity extends ListActivity {
                 order[5] = result.get(i).get(Utils.REMAIN);
                 order[6] = result.get(i).get(Utils.CUST_NAME);
                 order[7] = result.get(i).get(Utils.ORDER_TYPE);
-                order[8] = result.get(i).get(Utils.SELLER);
+                order[8] = result.get(i).get("StoreMainOrder");
                 orderList.add(order);
             }
 
