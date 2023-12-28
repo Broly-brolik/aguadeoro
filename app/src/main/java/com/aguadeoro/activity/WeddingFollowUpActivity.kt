@@ -3,23 +3,25 @@ package com.aguadeoro.activity
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-
+import android.os.Environment
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ListView
-import android.widget.ProgressBar
+import android.widget.*
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aguadeoro.R
 import com.aguadeoro.adapter.WeddingFollowUpListAdapter
 import com.aguadeoro.utils.Query
+import com.aguadeoro.utils.Utils
+import java.io.File
 import java.util.*
+import kotlin.streams.toList
 
 
 class WeddingFollowUpActivity : Activity() {
@@ -31,10 +33,59 @@ class WeddingFollowUpActivity : Activity() {
     private lateinit var lw: ListView
     private lateinit var marriedStatus: String
     private lateinit var toMarry: ArrayList<String>
+    private lateinit var list: RecyclerView
+    private lateinit var weddingFollowUpListAdapter: WeddingFollowUpListAdapter
+    private var wedding_data = arrayListOf<Map<String, String>>()
+    private var current_data = arrayListOf<Map<String, String>>()
+    private lateinit var textViewEntryNumber: TextView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wedding_follow_up)
+
+
+        val spinnerStore = findViewById<Spinner>(R.id.spinnerStore)
+        val stores = mutableListOf("All Stores")
+        stores.addAll(Utils.getSetSetting("Stores").toList())
+        textViewEntryNumber = findViewById(R.id.textViewWeddingFollowUpQuantity)
+        var aa = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            stores
+        )
+        spinnerStore.adapter = aa
+        spinnerStore.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val id = id.toInt()
+                if (id == 0) {
+                    current_data = wedding_data
+                } else {
+                    current_data =
+                        wedding_data.stream().filter { it["StoreMainOrder"] == stores[id] }
+                            .toList() as ArrayList<Map<String, String>>
+                }
+                weddingFollowUpListAdapter = WeddingFollowUpListAdapter(current_data)
+
+
+                list.adapter = weddingFollowUpListAdapter
+                textViewEntryNumber.text = current_data.size.toString() + " entries"
+            }
+        }
+
+        list = findViewById<RecyclerView>(R.id.list)
+
+
+
         actionBar?.setDisplayHomeAsUpEnabled(true)
         val mBuilder = AlertDialog.Builder(this)
         mBuilder.setTitle("Choose a time range")
@@ -77,6 +128,42 @@ class WeddingFollowUpActivity : Activity() {
             toMarry = currentAdapter.toMarry
             UpdateStatus().execute(toMarry)
         }
+
+        if (id == R.id.exportMarry) {
+            var csv_file = "Name,Email,Order Date,Order name,Amount,Store\n"
+            for (data in current_data) {
+                csv_file += "${data["CustomerName"]},${data["Email"]},${data["OrderDate"]},${data["ArticlePrefix"]},${data["Total"]},${data["StoreMainOrder"]}\n"
+            }
+            Log.e("csv", csv_file)
+
+            var printIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
+
+//            printIntent.type = "application/pdf"
+            printIntent.putExtra(Intent.EXTRA_SUBJECT, "Wedding follow up")
+
+            val bcc = arrayOf("prod@aguadeoro.ch")
+            printIntent.putExtra(Intent.EXTRA_BCC, bcc)
+            //            Log.e("autorisation new file", String.valueOf(newF));
+
+//            File pdfFile = new File(Environment.getExternalStorageDirectory()
+//                    + "/03_supplierorders/", "Order " + orderInfo.getOrDefault("orderNumber", "") + ".pdf");
+            val csvFile = File(
+                Environment.getExternalStorageDirectory().toString() +
+                        "/wedding_follow_up.csv"
+            )
+//            csvFile.createNewFile()
+//            csvFile.writeText(csv_file)
+            printIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            printIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//            val uris = ArrayList<Uri>()
+//            uris.add(Uri.fromFile(csvFile))
+//            printIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
+//
+//            uris.add(Uri.fromFile(csvFile))
+            applicationContext.startActivity(printIntent)
+
+        }
+
         return true
     }
 
@@ -135,11 +222,15 @@ class WeddingFollowUpActivity : Activity() {
                     " and OrderDate Between NOW() And #" + java.sql.Date(cal.timeInMillis) + "# "
             }
             val query =
-                "select Customer.CustomerNumber, Customer.CustomerName, Customer.Email, MainOrder.OrderDate, MainOrder.Total, OrderComponent.ArticlePrefix, Customer.PersonalStatus " +
+                "select Customer.CustomerNumber, Customer.CustomerName, Customer.Email, MainOrder.OrderDate, MainOrder.Total, MainOrder.StoreMainOrder, OrderComponent.ArticlePrefix, Customer.PersonalStatus " +
                         " FROM (MainOrder INNER JOIN OrderComponent ON MainOrder.OrderNumber = OrderComponent.OrderNumber) INNER JOIN Customer ON MainOrder.CustomerNumber = Customer.CustomerNumber " +
-                        " WHERE (((Customer.CustomerNumber) Not In (SELECT DISTINCT Customer.CustomerNumber " +
+
+                        " WHERE (((Customer.CustomerNumber) Not In " +
+                        "" +
+                        "(SELECT DISTINCT Customer.CustomerNumber " +
                         " FROM (MainOrder INNER JOIN Customer ON MainOrder.CustomerNumber = Customer.CustomerNumber) INNER JOIN OrderComponent ON MainOrder.OrderNumber = OrderComponent.OrderNumber " +
-                        " WHERE (((OrderComponent.ArticleType)='Bague')))) AND ((MainOrder.Total)>0) AND ((Customer.PersonalStatus) Is Null Or (Customer.PersonalStatus)<>'" + marriedStatus + "') AND ((OrderComponent.ArticleType)='Solitaire') AND ((MainOrder.OrderStatus)='Livré-Fermé' Or (MainOrder.OrderStatus)='Livré') AND ((MainOrder.OrderType)='Commande')) " +
+                        " WHERE (((OrderComponent.ArticleType)='Bague'))))" +
+                        " AND ((MainOrder.Total)>0) AND ((Customer.PersonalStatus) Is Null Or (Customer.PersonalStatus)<>'" + marriedStatus + "') AND ((OrderComponent.ArticleType)='Solitaire' OR (OrderComponent.ArticleType)='Bague de Fiançailles') AND ((MainOrder.OrderStatus)='Livré-Fermé' Or (MainOrder.OrderStatus)='Livré')) " +
                         filter + " order by OrderDate desc"
             Log.d("test", "" + params[0])
             Log.d("test", "" + query)
@@ -150,21 +241,31 @@ class WeddingFollowUpActivity : Activity() {
                 return false
             }
             data = q.res
+            wedding_data = q.res
+            current_data = q.res
+            Log.e("status", data.stream().map { it["PersonalStatus"] }.toList().toString())
+            Log.e("size", data.size.toString())
+            runOnUiThread {
+                textViewEntryNumber.text =
+                    data.size.toString() + " entries"
+            }
             return true
         }
 
         override fun onPostExecute(result: Boolean?) {
             super.onPostExecute(result)
             findViewById<ProgressBar>(R.id.progressBar1).visibility = View.GONE
-            val list = findViewById<RecyclerView>(R.id.list)
-            val adapter = WeddingFollowUpListAdapter(data)
+
             list.addItemDecoration(
                 DividerItemDecoration(
                     list.context,
                     DividerItemDecoration.VERTICAL
                 )
             )
-            list.adapter = adapter
+
+            weddingFollowUpListAdapter = WeddingFollowUpListAdapter(data)
+
+            list.adapter = weddingFollowUpListAdapter
             list.layoutManager = LinearLayoutManager(parent)
         }
     }
@@ -178,6 +279,7 @@ class WeddingFollowUpActivity : Activity() {
                 return false
             }
             marriedStatus = q.res[0]["OptionValue"]!!
+            Log.e("married status", marriedStatus)
             return true
         }
 

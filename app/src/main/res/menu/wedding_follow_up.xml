@@ -11,4 +11,8 @@
         android:id="@+id/saveMarry"
         android:showAsAction="always"
         android:title="SAVE" />
+    <item
+        android:id="@+id/exportMarry"
+        android:showAsAction="always"
+        android:title="EXPORT" />
 </menu>

@@ -19,6 +19,7 @@ class WeddingFollowUpListAdapter(val data: ArrayList<Map<String, String>>) :
         val orderDate: TextView = itemView.findViewById(R.id.customerOrderDate)
         val orderName: TextView = itemView.findViewById(R.id.customerOrderName)
         val amount: TextView = itemView.findViewById(R.id.customerTotal)
+        val store: TextView = itemView.findViewById(R.id.customerOrderStore)
         val isMarried: CheckBox = itemView.findViewById(R.id.isMarried)
     }
 
@@ -36,6 +37,7 @@ class WeddingFollowUpListAdapter(val data: ArrayList<Map<String, String>>) :
         p0.orderDate.text = data[i]["OrderDate"]
         p0.amount.text = data[i]["Total"]
         p0.orderName.text = data[i]["ArticlePrefix"]
+        p0.store.text = data[i]["StoreMainOrder"]
         p0.isMarried.setOnClickListener {
             data[i]["CustomerNumber"]?.let { number ->
                 if (toMarry.contains(number)) {
