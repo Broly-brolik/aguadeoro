@@ -136,31 +136,40 @@ class WeddingFollowUpActivity : Activity() {
             }
             Log.e("csv", csv_file)
 
-            var printIntent = Intent(Intent.ACTION_SEND_MULTIPLE)
 
-//            printIntent.type = "application/pdf"
-            printIntent.putExtra(Intent.EXTRA_SUBJECT, "Wedding follow up")
-
-            val bcc = arrayOf("prod@aguadeoro.ch")
-            printIntent.putExtra(Intent.EXTRA_BCC, bcc)
             //            Log.e("autorisation new file", String.valueOf(newF));
 
 //            File pdfFile = new File(Environment.getExternalStorageDirectory()
 //                    + "/03_supplierorders/", "Order " + orderInfo.getOrDefault("orderNumber", "") + ".pdf");
-            val csvFile = File(
-                Environment.getExternalStorageDirectory().toString() +
-                        "/wedding_follow_up.csv"
+            val pdfFile = File(
+                Environment.getExternalStorageDirectory().toString() + "/wedding.csv"
             )
-//            csvFile.createNewFile()
-//            csvFile.writeText(csv_file)
-            printIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            printIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//            val uris = ArrayList<Uri>()
-//            uris.add(Uri.fromFile(csvFile))
-//            printIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris)
-//
-//            uris.add(Uri.fromFile(csvFile))
-            applicationContext.startActivity(printIntent)
+            pdfFile.writeText(csv_file)
+            val mIntent = Intent(Intent.ACTION_SEND)
+            /*To send an email you need to specify mailto: as URI using setData() method
+            and data type will be to text/plain using setType() method*/
+            mIntent.data = Uri.parse("mailto:")
+            mIntent.type = "text/plain"
+            // put recipient email in intent
+            /* recipient is put as array because you may wanna send email to multiple emails
+               so enter comma(,) separated emails, it will be stored in array*/
+//            mIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("recipient"))
+            //put the Subject in the intent
+            mIntent.putExtra(Intent.EXTRA_SUBJECT, "Wedding list")
+            //put the message in the intent
+//            mIntent.putExtra(Intent.EXTRA_TEXT, "wedding follow up")
+            mIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdfFile))
+
+
+            try {
+                //start email intent
+                startActivity(Intent.createChooser(mIntent, "Choose Email Client..."))
+            } catch (e: Exception) {
+                //if any thing goes wrong for example no email client application or any exception
+                //get and show exception message
+                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+            }
+
 
         }
 
