@@ -259,7 +259,28 @@ public class OrderDetailActivity extends ListActivity {
         if (id == R.id.action_send_review_fr) {
             sendReview("fr");
         }
+        if (id == R.id.action_refund){
+            refund();
+        }
         return true;
+    }
+
+    public void refund(){
+        Log.e("refund", ":(");
+        for (String[] component: componentList) {
+            Log.e("component", Arrays.toString(component));
+//            String id = component[0];
+//
+////            Query query = new Query("select CatalogCode from OrderComponent WHERE ID = " + id);
+////
+////            query.execute();
+////            String catalogCode = query.getRes().get(0).getOrDefault("CatalogCode", "");
+////
+////            query = new Query(String.format("Update Inventory set Status = Stock WHERE CatalogCode = %s", catalogCode));
+//////            query.execute();
+//
+//            Log.e("comè", catalogCode);
+        }
     }
 
     public void sendReview(String lang) {

@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.aguadeoro.utils.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 public class ReportActivity extends ListActivity {
 
@@ -48,6 +50,8 @@ public class ReportActivity extends ListActivity {
 
     private View wheelView;
     private View mainView;
+    String idList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +116,10 @@ public class ReportActivity extends ListActivity {
             }
         });
 
-        String where1 = " and OrderDate <= #" + date + "# and OrderDate >= #"
-                + date0 + "#";
-        String where2 = " and oh.EntryDate <= #" + date
-                + "# and EntryDate >= #" + date0 + "#";
+//        String where1 = " and OrderDate <= #" + date + "# and OrderDate >= #"
+//                + date0 + "#";
+//        String where2 = " and oh.EntryDate <= #" + date
+//                + "# and EntryDate >= #" + date0 + "#";
         //new ListReport().execute(Utils.ORD_DT, where1, where2);
     }
 
@@ -229,7 +233,7 @@ public class ReportActivity extends ListActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         checkedBy = name.getText().toString();
-                        String idList = "(";
+                        idList = "(";
                         ListView list = ReportActivity.this
                                 .findViewById(R.id.payment_list);
                         ArrayList<String> checkedIDs = ((PaymentReportListAdapter) list.getAdapter()).getCheckedIDs();
@@ -298,7 +302,7 @@ public class ReportActivity extends ListActivity {
             paymentList = new ArrayList<String[]>();
             query = "select "
                     + " o.OrderNumber, o.CustomerNumber, c.CustomerName, "
-                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, o.StoreMainOrder, o.OrderDate "
+                    + "oh.ID, oh.Amount, oh.PaymentMode, oh.EntryDate, oh.CheckedBy, oh.CheckedOn, oh.PaymentDate, oh.ReceivedAmount, oh.ReceivedDate, o.StoreMainOrder, o.OrderDate "
                     + "from MainOrder o, Customer c, OrderHistory oh "
                     + "where o.CustomerNumber = c.CustomerNumber and o.OrderNumber = oh.OrderNumber "
                     + whereClause2 + whereClauseLocation + " and oh.PaymentMode is not null "
@@ -319,7 +323,7 @@ public class ReportActivity extends ListActivity {
             totalBill = 0;
             totalOther = 0;
             for (int i = 0; i < result2.size(); i++) {
-                String[] pmt = new String[10];
+                String[] pmt = new String[12];
                 pmt[0] = result2.get(i).get(Utils.ORDER_NO);
                 pmt[1] = result2.get(i).get(Utils.ENTRY_DATE);
                 pmt[2] = "[" + result2.get(i).get(Utils.CUST_NO) + "]"
@@ -332,6 +336,10 @@ public class ReportActivity extends ListActivity {
                 pmt[8] = result2.get(i).get("PaymentDate");
                 pmt[9] = result2.get(i).get(Utils.ORDER_NO)
                         + " [" + result2.get(i).get("StoreMainOrder") + "]";
+                pmt[10] = result2.get(i).get("ReceivedAmount");
+                pmt[11] = result2.get(i).get("ReceivedDate");
+
+                Log.e("received amount", result2.get(i).get("ReceivedAmount"));
 
                 paymentList.add(pmt);
                 if (!pmt[4].isEmpty())
@@ -360,7 +368,17 @@ public class ReportActivity extends ListActivity {
                 ListView pmtList = ReportActivity.this
                         .findViewById(R.id.payment_list);
                 pmtList.setAdapter(new PaymentReportListAdapter(
-                        ReportActivity.this, paymentList));
+                        ReportActivity.this, paymentList, new Callable() {
+                    @Override
+                    public Object call() throws Exception {
+                        String where1 = " and o.OrderDate <= #" + date
+                                + "# and o.OrderDate >= #" + date0 + "#";
+                        String where2 = " and oh.EntryDate <= #" + date
+                                + "# and oh.EntryDate >= #" + date0 + "#";
+                        new ListReport().execute(Utils.DEADLINE, where1, where2);
+                        return null;
+                    }
+                }));
                 ((TextView) ReportActivity.this.findViewById(R.id.pay_total))
                         .setText("" + payTotal);
                 ((TextView) ReportActivity.this.findViewById(R.id.pay_bull))

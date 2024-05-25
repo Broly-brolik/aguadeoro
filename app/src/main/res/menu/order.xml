@@ -9,10 +9,10 @@
         android:title="Home" />
 
     <item
-        android:title="Display ADO"
-        android:orderInCategory="100"
         android:id="@+id/displayADO"
-        android:showAsAction="always" />
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Hide ADO" />
     <item
         android:id="@+id/action_search_order"
         android:orderInCategory="100"

@@ -41,6 +41,7 @@ import com.aguadeoro.utils.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
@@ -542,6 +543,7 @@ public class NewOrderActivity extends Activity {
                 }
             }
             for (int i = 1; i < inputs.length; i++) {
+
                 query = "insert into OrderComponent(OrderNumber, ArticleType, ArticlePrefix, ArticleNumber, " + "Material, Color, Length, Height, Size, Surface, Stone, EngravingText, " + "EngravingType, EngravingFont, EngravingCost, Price, Remark, Fingerprint," + " Microtext, CatalogCode, InventoryID) " + "values";
                 query += "(" + orderNumber + ", " + Utils.escape(inputs[i][0]) // article
                         // type
@@ -569,6 +571,32 @@ public class NewOrderActivity extends Activity {
                 success = q.execute();
                 if (!success) {
                     return false;
+                }
+                if (orderType.equals(Utils.ORD_PURCHASE)) {
+                    String id = inputs[i][19];
+
+                    query = "update Inventory set Status = 'Vendu' Where ID = " + id;
+                    q = new Query(query);
+                    success = q.execute();
+                    if (!success) {
+                        return false;
+                    }
+
+
+
+                    Date utilDate = new Date();
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(utilDate);
+                    cal.set(Calendar.MILLISECOND, 0);
+                    String time = String.valueOf(new java.sql.Timestamp(cal.getTimeInMillis()));
+                    time = time.substring(0, time.length() - 2);
+                    query = "insert into StockHistory (HistoryDate, InventoryCode, Action) values (#" + time + "#," + Utils.escape(inputs[i][2]) + ", " + "'Sold'" + ")";
+
+                    q = new Query(query);
+                    success = q.execute();
+                    if (!success) {
+                        return false;
+                    }
                 }
             }
 
@@ -636,7 +664,7 @@ public class NewOrderActivity extends Activity {
             for (int i = 0; i < result.size(); i++) {
                 //make orderDate without hours and seconds
                 String dbOrderDate = result.get(i).get("OrderDate");
-                String orderDateNoHrs = dbOrderDate.substring(0, dbOrderDate.length()-9);
+                String orderDateNoHrs = dbOrderDate.substring(0, dbOrderDate.length() - 9);
 
                 compListLabels[i + 1] = orderDateNoHrs + "/" + result.get(i).get("1") + "/" + result.get(i).get("2") + "/" + result.get(i).get("3") + "/" + result.get(i).get("4") + "/" + result.get(i).get("5") + "/" + result.get(i).get("6") + "/" + result.get(i).get("7") + "/" + result.get(i).get("8");
                 for (int j = 0; j < 28; j++) {
@@ -705,8 +733,8 @@ public class NewOrderActivity extends Activity {
                 }
                 inventoryInfo[4] = result.get(i).get("Material");
                 inventoryInfo[5] = result.get(i).get("Color");
-                inventoryInfo[6] = result.get(i).get("Width");
-                inventoryInfo[7] = result.get(i).get("Height");
+//                inventoryInfo[6] = result.get(i).get("Width");
+//                inventoryInfo[7] = result.get(i).get("Height");
                 inventoryInfo[8] = result.get(i).get("Size");
                 inventoryInfo[9] = result.get(i).get("Stone");
                 inventoryInfo[10] = result.get(i).get("CatalogCode");

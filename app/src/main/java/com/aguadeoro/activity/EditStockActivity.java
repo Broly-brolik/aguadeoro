@@ -92,7 +92,7 @@ public class EditStockActivity extends ListActivity {
             boolean s;
             String lineFilter = "";
             if (!params[2].equals("ALL")) {
-                lineFilter = " and Line = '" + params[2] + "' ";
+                lineFilter = " and Collection = '" + params[2] + "' ";
             }
             if (!isMissing) {
                 Log.d("-----", "" + params[0] + " " + params[1]);
@@ -349,7 +349,7 @@ public class EditStockActivity extends ListActivity {
             }
             lastDate = q.getRes().get(0).get("HistoryDate");
 
-            query = "select distinct Line from Inventory";
+            query = "select distinct Collection from Inventory";
             q = new Query(query);
             s = q.execute();
             if (!s) {
@@ -358,7 +358,7 @@ public class EditStockActivity extends ListActivity {
             res = q.getRes();
             lines = new String[res.size()];
             for (int i = 0; i < res.size(); i++) {
-                lines[i] = res.get(i).get("Line");
+                lines[i] = res.get(i).get("Collection");
             }
             lines = add2BeginningOfArray(lines, "ALL");
             return true;

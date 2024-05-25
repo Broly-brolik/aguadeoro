@@ -35,7 +35,8 @@ public class OrderActivity extends ListActivity {
     private View mainView;
     private View dialog;
     private String sortOrder;
-    private boolean isDisplayedADO = false;
+    private boolean isDisplayedADO = true;
+    private String previousWhere = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,18 +79,13 @@ public class OrderActivity extends ListActivity {
             sortByRemaining();
         }
         if (id == R.id.displayADO) {
+            displayADO();
             if (isDisplayedADO) {
-                isDisplayedADO = false;
-                Toast toast = Toast.makeText(this, getString(R.string.sorting),
-                        Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.TOP, 0, 100);
-                toast.show();
-                new ListOrders().execute(" order by " + Utils.ORD_DT + sortOrder,
-                        " and OrderStatus not in ('Interessés','Livré-Fermé') ");
+                item.setTitle("Hide ADO");
             } else {
-                isDisplayedADO = true;
-                displayADO();
+                item.setTitle("Show ADO");
             }
+
         }
         return true;
     }
@@ -222,13 +218,18 @@ public class OrderActivity extends ListActivity {
     }
 
     public void displayADO() {
-        String sortBy = "order by OrderDate desc";
-        String where = "and o.CustomerNumber <> 1323 and OrderStatus not in ('Interessés','Livré-Fermé') ";
-        Toast toast = Toast.makeText(this, getString(R.string.sorting),
-                Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0, 100);
-        toast.show();
-        new ListOrders().execute(sortBy, where, "noLimit");
+        Toast.makeText(this, getString(R.string.sorting),
+                Toast.LENGTH_SHORT).show();
+        isDisplayedADO = !isDisplayedADO;
+//        String sortBy = "order by OrderDate desc";
+//        String where = "and not c.IsADO and OrderStatus not in ('Interessés','Livré-Fermé') ";
+//        Toast toast = Toast.makeText(this, getString(R.string.sorting),
+//                Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.TOP, 0, 100);
+//        toast.show();
+//        String sortBy = "order by Seller desc, OrderNumber desc";
+
+        new ListOrders().execute(" order by " + Utils.ORD_DT + sortOrder, previousWhere);
     }
 
     class ListOrders extends MyAsyncTask<String, String, Boolean> {
@@ -238,16 +239,26 @@ public class OrderActivity extends ListActivity {
             if (!Utils.isOnline()) {
                 return false;
             }
+            String sortBy = "";
+
+            if (args.length > 0) {
+                sortBy = args[0];
+            }
+
             String whereClause = "";
             if (args.length > 1) {
                 whereClause = args[1];
+                previousWhere = whereClause;
             }
+            if (!isDisplayedADO) {
+                whereClause += " and not c.IsADO ";
+            }
+
             String limitString = "top " + limit;
             if (args.length > 2) {
                 limitString = "";
             }
             orderList = new ArrayList<String[]>();
-            String sortBy = args[0];
             String query = "select " + limitString
                     + " o.*, c.CustomerName from MainOrder o, Customer c "
                     + "where o.CustomerNumber = c.CustomerNumber "

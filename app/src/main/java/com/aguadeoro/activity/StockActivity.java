@@ -12,6 +12,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.aguadeoro.R;
 import com.aguadeoro.adapter.StockAdapter;
@@ -64,7 +67,8 @@ public class StockActivity extends ListActivity {
 
     private View wheelView;
     private View mainView;
-    private String[] locationID, locationDescription, products, dates, locationImages;
+    private String[] locationID, products, dates, locationImages;
+    ArrayList<String> locationDescription;
     ArrayList<Map<String, String>> notes;
     Map<String, String> previousLocs = new HashMap();
     Set<String> detectedInventoryCodes = new HashSet<>();
@@ -117,7 +121,7 @@ public class StockActivity extends ListActivity {
     }
 
 
-    public void showDialogScannedItem(String filename, String inventoryCode, String catalog, String name, String stone) {
+    public void showDialogScannedItem(String filename, String inventoryCode, String catalog, String name, String stone, String location) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_scanned_item, null);
         ImageView image = dialogView.findViewById(R.id.imageViewScannedItem);
         //Picasso.with(context).load(path).placeholder(R.drawable.logo_small).into(img);
@@ -134,6 +138,9 @@ public class StockActivity extends ListActivity {
 
         TextView textViewStone = dialogView.findViewById(R.id.stoneScannedItem);
         textViewStone.setText("Stone: " + stone);
+
+        TextView textViewLocation = dialogView.findViewById(R.id.locationScannedItem);
+        textViewLocation.setText("Location: " + location);
 
 
         final Dialog dialog = new Dialog(this);
@@ -179,7 +186,7 @@ public class StockActivity extends ListActivity {
                     showProgress(true);
                     int selectedItemPos = Integer.parseInt(locations.getSelectedItem().toString().replaceAll("[^0-9]", ""));
                     Log.e("pos", selectedItemPos + "");
-                    description.setText(locationDescription[selectedItemPos - 1]);
+                    description.setText(locationDescription.get(i));
                     new FetchLocationData().execute(selectedItemPos);
                     location = locations.getSelectedItem().toString();
                     locationId = selectedItemPos;
@@ -436,12 +443,13 @@ public class StockActivity extends ListActivity {
                 return false;
             }
             ArrayList<Map<String, String>> res = q.getRes();
+            Log.e("res . size", res.size() + "");
             locationID = new String[res.size()];
-            locationDescription = new String[res.size()];
+            locationDescription = new ArrayList<String>();
             locationImages = new String[res.size()];
             for (int i = 0; i < res.size(); i++) {
                 locationID[i] = res.get(i).get("PlaceNumber");
-                locationDescription[i] = res.get(i).get("Description");
+                locationDescription.add(res.get(i).get("Description"));
                 locationImages[i] = res.get(i).get("Picture");
             }
             return true;
@@ -580,7 +588,7 @@ public class StockActivity extends ListActivity {
 
         @Override
         protected void onPostExecute(Boolean success) {
-            if (data == null){
+            if (data == null) {
                 return;
             }
             if (data.size() > 0) {
@@ -735,6 +743,7 @@ public class StockActivity extends ListActivity {
         }
 
         if (id == R.id.connectReader) {
+            Log.e("connect", "connard");
             Callable onConnection = new Callable() {
                 @Override
                 public Object call() throws Exception {
@@ -815,6 +824,16 @@ public class StockActivity extends ListActivity {
             Log.e("enabled", "not");
 
         }
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : pairedDevices) {
 
@@ -968,7 +987,8 @@ public class StockActivity extends ListActivity {
                                     res.getOrDefault("InventoryCode", ""),
                                     res.getOrDefault("CatalogCode", ""),
                                     res.getOrDefault("Name", ""),
-                                    res.getOrDefault("Stone", "")
+                                    res.getOrDefault("Stone", ""),
+                                    res.getOrDefault("IDLocation", "")
 
 
                             );

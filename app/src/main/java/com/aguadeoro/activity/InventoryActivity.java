@@ -372,11 +372,8 @@ public class InventoryActivity extends ListActivity {
                     checkBox_search_carat.setChecked(true);
                     break;
                 }
-
             }
-
         }
-
 
         builder.setView(dialog);
         builder.setCancelable(true);

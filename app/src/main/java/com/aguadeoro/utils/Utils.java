@@ -3608,7 +3608,9 @@ pdfFile.createNewFile();
     public static void sendReview(Activity context, String lang, String address) {
         Query q;
         String query;
+        String queryLink;
         boolean success;
+        String store = Utils.getStringSetting("store_selected");
         if (lang.equals("fr")) {
             query = "select OptionValue from Email where OptionKey= 'email_review_subject_fr' or OptionKey= 'email_review_body_fr';";
         } else {
@@ -3616,9 +3618,22 @@ pdfFile.createNewFile();
         }
         q = new Query(query);
         success = q.execute();
+
+        if (store.equals("Zurich")) {
+            queryLink = "select OptionValue from OptionValues WHERE Type = 'GoogleLink' and OptionKey = 'ZRH';";
+        } else {
+            queryLink = "select OptionValue from OptionValues WHERE Type = 'GoogleLink' and OptionKey = 'GVA';";
+        }
+
+        Query qLink = new Query(queryLink);
+        Boolean successLink = qLink.execute();
+        String googleLink = qLink.getRes().get(0).getOrDefault("OptionValue", "");
+
+
         ArrayList<Map<String, String>> result = q.getRes();
         String subject = result.get(0).get("" + 0);
         String body = result.get(1).get("" + 0);
+        body = body.replace("$link$", googleLink);
         Intent it = new Intent(Intent.ACTION_SEND_MULTIPLE);
         it.setType("application/pdf");
         it.putExtra(Intent.EXTRA_SUBJECT, subject);
