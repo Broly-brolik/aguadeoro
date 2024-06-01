@@ -285,7 +285,6 @@ public class OrderActivity extends ListActivity {
                 order[8] = result.get(i).get("StoreMainOrder");
                 orderList.add(order);
             }
-
             return true;
         }
 

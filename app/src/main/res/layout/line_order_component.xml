@@ -153,10 +153,18 @@
             android:maxLines="1" />-->
 
         <ImageView
+            android:id="@+id/buttonViewSummaryOrderComponent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:contentDescription="@string/edit"
+            android:src="@android:drawable/ic_menu_view"
+            android:visibility="visible" />
+
+        <ImageView
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
             android:contentDescription="@string/edit"
             android:src="@android:drawable/ic_menu_edit" />
 

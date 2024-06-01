@@ -11,12 +11,14 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aguadeoro.R;
+import com.aguadeoro.activity.OrderComponentDetailActivity;
 import com.aguadeoro.activity.OrderDetailActivity;
 import com.aguadeoro.utils.EditTextDropdown;
 import com.aguadeoro.utils.EditTextDropdownCustomFont;
@@ -78,6 +81,13 @@ public class OrderComponentListAdapter extends ArrayAdapter<String[]> {
         ((EditText) rowView.findViewById(R.id.engraving_cost)).setText(objects.get(position)[15]);
         ((EditText) rowView.findViewById(R.id.price)).setText(objects.get(position)[16]);
         ((EditText) rowView.findViewById(R.id.remark)).setText(objects.get(position)[17]);
+        (rowView.findViewById(R.id.buttonViewSummaryOrderComponent)).setOnClickListener(
+                view -> {
+                    Log.e("going to summary", "jfsajf");
+                    Intent i = new Intent(context.getApplicationContext(), OrderComponentDetailActivity.class);
+                    context.startActivity(i);
+                }
+        );
         //Log.d("2222222",""+objects.get(position)[29]);
         /*if(!objects.get(position)[29].equals("")){
             ((TextView) rowView.findViewById(R.id.description)).setText("Name");
@@ -100,7 +110,7 @@ public class OrderComponentListAdapter extends ArrayAdapter<String[]> {
         if (objects.get(position)[28].isEmpty()) {
             rowView.findViewById(R.id.inventory_detail_btn).setVisibility(View.GONE);
         }
-        if(objects.get(position)[27].isEmpty()){
+        if (objects.get(position)[27].isEmpty()) {
             rowView.findViewById(R.id.inventory_detail_stock_btn).setVisibility(View.GONE);
         }
 

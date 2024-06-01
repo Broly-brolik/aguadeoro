@@ -141,6 +141,10 @@
         <activity
             android:name=".activity.PricesTearsOfJoyActivity"
             android:label="Tear Of Joy prices" />
+        <activity
+            android:name=".activity.OrderComponentDetailActivity"
+            android:label="Order components detail"
+            android:theme="@style/Theme.AppCompat.Light"    />
     </application>
 
 </manifest>
