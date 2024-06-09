@@ -1,17 +1,24 @@
 package com.aguadeoro.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Text
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import com.aguadeoro.R
+import androidx.lifecycle.ViewModel
 import com.aguadeoro.ui.theme.ManagementTheme
+import com.aguadeoro.viewmodels.OrderComponentViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.aguadeoro.viewmodels.OrderComponentViewModelFactory
 
 
 //import com.example.screens.PaymentListScreen
 
 class OrderComponentDetailFragment : Fragment() {
+
+    lateinit var orderComponent: String
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -27,6 +34,17 @@ class OrderComponentDetailFragment : Fragment() {
 
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.getString("orderComponentID")?.let { orderComponent = it }
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = "Order Component $orderComponent"
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,10 +55,12 @@ class OrderComponentDetailFragment : Fragment() {
 
 
         return ComposeView(requireContext()).apply {
-
             setContent {
-                ManagementTheme() {
-                    Text("heehehe")
+                ManagementTheme {
+                    val viewModel: OrderComponentViewModel =
+                        viewModel(factory = OrderComponentViewModelFactory(orderComponent))
+                    Text(viewModel.orderComponent.value.toString())
+
                 }
             }
         }

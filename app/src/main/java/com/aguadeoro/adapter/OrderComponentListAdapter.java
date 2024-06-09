@@ -35,6 +35,7 @@ import com.aguadeoro.utils.Query;
 import com.aguadeoro.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class OrderComponentListAdapter extends ArrayAdapter<String[]> {
 
@@ -61,6 +62,7 @@ public class OrderComponentListAdapter extends ArrayAdapter<String[]> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final LinearLayout rowView = (LinearLayout) inflater.inflate(R.layout.line_order_component, parent, false);
+        Log.e("objectssss", Arrays.toString(objects.get(position)));
         ((EditText) rowView.findViewById(R.id.article_type)).setText(objects.get(position)[2]);
         ((EditText) rowView.findViewById(R.id.article_prefix)).setText(objects.get(position)[3]);
         if (orderType.equals("Vente")) {
@@ -83,8 +85,8 @@ public class OrderComponentListAdapter extends ArrayAdapter<String[]> {
         ((EditText) rowView.findViewById(R.id.remark)).setText(objects.get(position)[17]);
         (rowView.findViewById(R.id.buttonViewSummaryOrderComponent)).setOnClickListener(
                 view -> {
-                    Log.e("going to summary", "jfsajf");
                     Intent i = new Intent(context.getApplicationContext(), OrderComponentDetailActivity.class);
+                    i.putExtra("orderComponentID", objects.get(position)[0]);
                     context.startActivity(i);
                 }
         );
