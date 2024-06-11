@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.aguadeoro.api.getOrderComponent
+import com.aguadeoro.api.getStockForOrderComponent
 import com.aguadeoro.models.OrderComponent
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,7 @@ class OrderComponentViewModel(orderCompID: String) : ViewModel() {
     init {
         viewModelScope.launch {
             orderComponent.value = getOrderComponent(orderCompID)
+            getStockForOrderComponent(orderCompID)
         }
     }
 }
