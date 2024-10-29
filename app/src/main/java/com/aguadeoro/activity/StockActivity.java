@@ -41,7 +41,7 @@ import com.aguadeoro.threads.ConnectThread;
 import com.aguadeoro.utils.Query;
 import com.aguadeoro.utils.Utils;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -606,7 +606,14 @@ public class StockActivity extends ListActivity {
                     }
 
                 };
-                TedPermission.with(StockActivity.this).setPermissionListener(permissionlistener).setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]").setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE).check();
+                TedPermission.create()
+                        .setPermissionListener(permissionlistener)
+                        .setRationaleMessage("This app requires access to your storage to manage stock data.")
+                        .setDeniedMessage("If you reject permission, you cannot use this service.\n\nPlease enable permissions at [Setting] > [Permission]")
+                        .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .check();
+
 
             } else {
                 Toast.makeText(StockActivity.this, "Empty location", Toast.LENGTH_LONG).show();

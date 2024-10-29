@@ -29,7 +29,7 @@ import com.aguadeoro.utils.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
-
+//
 public class ActivitiesActivity extends ListActivity {
 
     ArrayList<String[]> activityList;

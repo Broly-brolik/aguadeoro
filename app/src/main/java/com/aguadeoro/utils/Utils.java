@@ -46,6 +46,8 @@ import androidx.core.content.FileProvider;
 
 import com.aguadeoro.R;
 import com.aguadeoro.activity.OrderDetailActivity;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -490,9 +492,10 @@ public class Utils {
     }
 
     public static void printNote(final Activity context, String lang) {
-        if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            askForPermission(2);
-        }
+       if (context.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+          askForPermission(2);
+       }
+
         LayoutInflater inflater = context.getLayoutInflater();
         final View screen = inflater.inflate(R.layout.dialog_thankyou, null);
         String msgTemplate = getStringSetting("thankyou_template_" + lang);
@@ -1687,7 +1690,7 @@ public class Utils {
         }
 
     }
-
+//
     public static Uri getImageContentUri(Context context, File imageFile) {
         String filePath = imageFile.getAbsolutePath();
         Cursor cursor = context.getContentResolver().query(

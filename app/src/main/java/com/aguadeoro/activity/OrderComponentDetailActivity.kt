@@ -12,7 +12,7 @@ import com.aguadeoro.R
 class OrderComponentDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.frame_layout)
+        setContentView(R.layout.activity_component_activity)
         val frag = OrderComponentDetailFragment()
         val orderCompID = intent.extras?.getString("orderComponentID")
         val bundle = Bundle()
@@ -20,7 +20,7 @@ class OrderComponentDetailActivity : AppCompatActivity() {
         frag.arguments = bundle
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.frame_layout, frag)
+            add(R.id.main_layout, frag)
         }
 
 

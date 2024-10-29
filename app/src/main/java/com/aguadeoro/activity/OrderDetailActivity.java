@@ -1,5 +1,7 @@
 package com.aguadeoro.activity;
 
+import static com.gun0912.tedpermission.provider.TedPermissionProvider.context;
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -1911,7 +1913,6 @@ public class OrderDetailActivity extends ListActivity {
                     String compHistID = ((String[]) adapter.getItem(position))[0];
                     String compID = ((String[]) adapter.getItem(position))[10];
                     String suppOrdNo = ((String[]) adapter.getItem(position))[9];
-                    trueSuppOrdNo = suppOrdNo;
                     for (int i = 0; i < componentList.size(); i++) {
                         if (componentList.get(i)[0].equals(compID))
                             new getComponentQuantities().execute(suppOrdNo, "" + i, compHistID);
@@ -2030,14 +2031,15 @@ public class OrderDetailActivity extends ListActivity {
                             }
                             outData.add(cost);
                             outData.add(viewHolder.getRemark().getText().toString());
+                            outData.add(viewHolder.getProcess().getSelectedItem().toString());
+                            outData.add(viewHolder.getFlow().getText().toString());
                             outItemsToSend.add(outData);
                         }
                     }
-                    Log.d("items to send", "" + outItemsToSend);
                     StringBuilder outItemsString = new StringBuilder();
                     outItemsString.append("OUT:");
                     for (int i = 0; i < outItemsToSend.size(); i++) {
-                        outItemsString.append(outItemsToSend.get(i).get(0)).append(",").append(outItemsToSend.get(i).get(1)).append(",").append(outItemsToSend.get(i).get(2)).append(",").append(outItemsToSend.get(i).get(3)).append(";");
+                        outItemsString.append(outItemsToSend.get(i).get(0)).append(",").append(outItemsToSend.get(i).get(1)).append(",").append(outItemsToSend.get(i).get(2)).append(",").append(outItemsToSend.get(i).get(3)).append(";").append(outItemsToSend.get(i).get(4)).append(";").append(outItemsToSend.get(i).get(5)).append(";");
                     }
                     ((TextView) window.findViewById(R.id.comp_add_remark)).append(outItemsString.toString());
                     dialog.dismiss();
@@ -2152,7 +2154,12 @@ public class OrderDetailActivity extends ListActivity {
         }
 
         @Override
-        protected void onPostExecute(Boolean sucess) {
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                Toast.makeText(context, "Data successfully inserted!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "Failed to insert data. Please try again.", Toast.LENGTH_SHORT).show();
+            }
             new PostOuts().execute(createdDate, supplier, "" + position);
         }
     }
@@ -2163,6 +2170,11 @@ public class OrderDetailActivity extends ListActivity {
         @Override
         protected Boolean doInBackground(String... args) {
             String suppOrderNo = customerName.substring(customerName.indexOf(' ') + 1);
+            String trueSuppOrdNo = suppOrderNo
+                    + " "
+                    + orderNumber
+                    + "_"
+                    + (position + 1);
             String createdDate = args[0];
             String supplier = args[1];
             position = Integer.parseInt(args[2]);
@@ -2176,19 +2188,17 @@ public class OrderDetailActivity extends ListActivity {
                     quantity = item.get(1);
                     type = "2";
                 }
-                /*suppOrderNo = customerName.substring(customerName.indexOf(' ') + 1)
-                        + " "
-                        + orderNumber
-                        + "_"
-                        + (position + 1);*/
+
                 if (suppOrderNo == null) {
                     suppOrderNo = "error";
                 }
 
-
-                Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID," +
-                        " Supplier, Type, Quantity, Cost, Remark) values " +
-                        "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "')");
+                //Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID," +
+                 //       " Supplier, Type, Quantity, Cost, Remark) values " +
+                  //      "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "')");
+                Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow) values " +
+                       "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "','" + item.get(4) + "','" + item.get(5) + "')");
+                Log.d("query5items", "" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3)+ "','" + item.get(4) + "','" + item.get(5));
                 return q.execute();
             }
             return true;

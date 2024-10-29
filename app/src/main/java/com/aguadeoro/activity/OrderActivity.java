@@ -42,9 +42,9 @@ public class OrderActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_order);
+        setContentView(R.layout.activity_order); //frame_layout
         wheelView = findViewById(R.id.animation_layout);
-        mainView = findViewById(R.id.main_layout);
+        mainView = findViewById(R.id.main_layout); //frame_layout
         showProgress(true);
         sortOrder = " desc ";
         new ListOrders().execute(" order by " + Utils.ORD_DT + sortOrder,
@@ -251,7 +251,7 @@ public class OrderActivity extends ListActivity {
                 previousWhere = whereClause;
             }
             if (!isDisplayedADO) {
-                whereClause += " and not c.IsADO ";
+                whereClause += " and not c.IsADO and not c.CustomerName = 'Ado Stock' ";
             }
 
             String limitString = "top " + limit;

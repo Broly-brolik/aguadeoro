@@ -1,12 +1,17 @@
 package com.aguadeoro.adapter;
 
+import static com.gun0912.tedpermission.provider.TedPermissionProvider.context;
+
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -62,6 +67,8 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
         private final ImageView search;
         private final EditText productCode;
         private final EditText remark;
+        private final Spinner process;
+        private final EditText flow;
 
         public ViewHolder( View itemView) {
             super(itemView);
@@ -70,6 +77,12 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
             search = itemView.findViewById(R.id.search);
             productCode = itemView.findViewById(R.id.productCode);
             remark = itemView.findViewById(R.id.remark);
+            process = itemView.findViewById(R.id.process);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    context, R.array.process_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            process.setAdapter(adapter);
+            flow = itemView.findViewById(R.id.flow);
         }
 
         public EditText getQuantity() {
@@ -91,5 +104,12 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
         public EditText getRemark() {
             return remark;
         }
+
+       public Spinner getProcess() {
+            return process;
+       }
+
+     public EditText getFlow() {return flow;}
+
     }
 }

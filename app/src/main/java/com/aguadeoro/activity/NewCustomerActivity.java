@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -48,7 +49,7 @@ import com.google.api.services.people.v1.model.Name;
 import com.google.api.services.people.v1.model.Person;
 import com.google.api.services.people.v1.model.PhoneNumber;
 import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
+import com.gun0912.tedpermission.normal.TedPermission;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -241,6 +242,7 @@ public class NewCustomerActivity extends Activity {
                 + createdTime.getText().toString();
         showProgress(true);
         final String finalInterest = interest;
+
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
@@ -254,7 +256,7 @@ public class NewCustomerActivity extends Activity {
             }
 
         };
-        TedPermission.with(NewCustomerActivity.this)
+        TedPermission.create()
                 .setPermissionListener(permissionlistener)
                 .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -320,6 +322,7 @@ public class NewCustomerActivity extends Activity {
             if (!Utils.isOnline()) {
                 return false;
             }
+
             boolean success = false;
             String query = "select max(CustomerNumber) from Customer";
             Query q = new Query(query);
@@ -337,6 +340,7 @@ public class NewCustomerActivity extends Activity {
             if (Utils.isInteger(result.get(0).get("0"))) {
                 custNo = Integer.parseInt(result.get(0).get("0")) + 1;
             } else {
+                Log.e("NEW CUSTOMER", "return is integer");
                 return false;
             }
             if (wDate == null || wDate.length() == 0) {
