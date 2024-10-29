@@ -843,18 +843,12 @@ public class StockActivity extends ListActivity {
 //        }
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : pairedDevices) {
-
-
             String deviceName = device.getName();
             Log.e("paired device !", deviceName);
             if (deviceName.equals("RFID0")) {
-
                 MyRunnable r = new MyRunnable("");
-
                 connectThread = new ConnectThread(getApplicationContext(), device, r, onConnection, onDisconnection);
                 connectThread.run();
-
-
             }
         }
     }
