@@ -279,10 +279,10 @@
         <item>F</item>
     </string-array>
     <string-array name="process_array">
-        <item>processName1</item>
-        <item>processName2</item>
-        <item>processName3</item>
-        <item>processName4</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
     </string-array>
     <string name="title_activity_stone_prices" translatable="false">StonePricesActivity</string>
     <string-array name="weddingFollowUpRanges">

@@ -392,7 +392,6 @@ public class Utils {
     private static void askForPermission(int type) {
         if (type == 1) {
             context.requestPermissions(new String[]{Manifest.permission.WRITE_CALENDAR}, 2);
-
         } else if (type == 2) {
             context.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
             context.requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);

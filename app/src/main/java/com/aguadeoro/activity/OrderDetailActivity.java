@@ -2192,13 +2192,8 @@ public class OrderDetailActivity extends ListActivity {
                 if (suppOrderNo == null) {
                     suppOrderNo = "error";
                 }
-
-                //Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID," +
-                 //       " Supplier, Type, Quantity, Cost, Remark) values " +
-                  //      "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "')");
                 Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow) values " +
                        "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "','" + item.get(4) + "','" + item.get(5) + "')");
-                Log.d("query5items", "" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3)+ "','" + item.get(4) + "','" + item.get(5));
                 return q.execute();
             }
             return true;

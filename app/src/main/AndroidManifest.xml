@@ -3,7 +3,7 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-    <uses-sdk android:targetSdkVersion="29" />
+    <uses-sdk android:targetSdkVersion="33" />
 
     <uses-feature android:name="android.hardware.camera" />
 
