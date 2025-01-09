@@ -12,6 +12,8 @@ import com.aguadeoro.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class OrderHistoryListAdapter extends ArrayAdapter<String[]> {
         View rowView = inflater.inflate(R.layout.line_order_history, parent, false);
         TextView date = rowView.findViewById(R.id.pay_date);
         TextView remark = rowView.findViewById(R.id.remark);
+        Log.d("failed to convert data", "HH:mm:ss"+objects.get(position)[0]);
         try {
             Date date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm z").parse(objects.get(position)[0]);
             date.setText(date2.toString());
@@ -39,8 +42,6 @@ public class OrderHistoryListAdapter extends ArrayAdapter<String[]> {
             Log.e("failed to convert date", "" + e);
             date.setText(objects.get(position)[0]);
         }
-
-
         remark.setText(objects.get(position)[1]);
         return rowView;
     }

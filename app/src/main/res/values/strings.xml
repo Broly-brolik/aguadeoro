@@ -279,12 +279,23 @@
         <item>F</item>
     </string-array>
     <string-array name="process_array">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
+        <item>1 Setting</item>
+        <item>2 Cast</item>
+        <item>3 Orf</item>
+        <item>4 Rep</item>
+        <item>5 Pol</item>
+        <item>6 Other</item>
+    </string-array>
+    <string-array name="flow_array">
+        <item>1 Stock</item>
+        <item>2 Returned</item>
+        <item>3 Process</item>
+        <item>4 Finished</item>
+        <item>5 Variance</item>
     </string-array>
     <string name="title_activity_stone_prices" translatable="false">StonePricesActivity</string>
+    <string name="process">Process</string>
+    <string name="flow">Flow</string>
     <string-array name="weddingFollowUpRanges">
         <item></item>
     </string-array>

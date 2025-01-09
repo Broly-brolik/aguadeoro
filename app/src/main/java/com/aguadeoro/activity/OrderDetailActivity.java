@@ -69,8 +69,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -2031,8 +2034,10 @@ public class OrderDetailActivity extends ListActivity {
                             }
                             outData.add(cost);
                             outData.add(viewHolder.getRemark().getText().toString());
-                            outData.add(viewHolder.getProcess().getSelectedItem().toString());
-                            outData.add(viewHolder.getFlow().getText().toString());
+                            int selectedPositionProcess = viewHolder.getProcess().getSelectedItemPosition();
+                            outData.add(String.valueOf(selectedPositionProcess+1));
+                            int selectedPositionFlow = viewHolder.getFlow().getSelectedItemPosition();
+                            outData.add(String.valueOf(selectedPositionFlow+1));
                             outItemsToSend.add(outData);
                         }
                     }
@@ -2174,10 +2179,15 @@ public class OrderDetailActivity extends ListActivity {
                     + " "
                     + orderNumber
                     + "_"
-                    + (position + 1);
+                    + (position + 1)
+                    + "_" + Utils.generateSupplierOrderNumber(compID);
             String createdDate = args[0];
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+            String formattedTimestamp = now.format(formatter);
             String supplier = args[1];
             position = Integer.parseInt(args[2]);
+
             for (ArrayList<String> item : outItemsToSend) {
                 String type;
                 String quantity;
@@ -2188,20 +2198,16 @@ public class OrderDetailActivity extends ListActivity {
                     quantity = item.get(1);
                     type = "2";
                 }
-
-                if (suppOrderNo == null) {
-                    suppOrderNo = "error";
-                }
-                Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow) values " +
-                       "('" + trueSuppOrdNo + "','" + createdDate + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "','" + item.get(4) + "','" + item.get(5) + "')");
+                Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow, SettlementStatus) values " +
+                        "('" + trueSuppOrdNo + "','" + formattedTimestamp + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "','" + item.get(4) + "','" + item.get(5) + "','" + "Unverified" + "'" + ")");
                 return q.execute();
             }
             return true;
         }
 
         @Override
-        protected void onPostExecute(Boolean sucess) {
-            if (sucess) {
+        protected void onPostExecute(Boolean success) {
+            if (success) {
                 // Utils.updateSupplierOrderNumber(supplier, suppOrderNo + 1);
                 //Utils.insertEvent(deadline, title, desc, false);
                 showCompHist(position);

@@ -228,5 +228,6 @@
     <string name="to_invoice">To Invoice</string>
     <string name="select_for_invoice">Select for invoice</string>
     <string name="create_invoice">Create Invoice</string>
+    <string name="process">Process</string>
 
 </resources>

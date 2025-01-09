@@ -64,7 +64,7 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
         private final EditText productCode;
         private final EditText remark;
         private final Spinner process;
-        private final EditText flow;
+        private final Spinner flow;
 
         public ViewHolder( View itemView) {
             super(itemView);
@@ -79,6 +79,10 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             process.setAdapter(adapter);
             flow = itemView.findViewById(R.id.flow);
+            ArrayAdapter<CharSequence> adapter_flow = ArrayAdapter.createFromResource(
+                    context, R.array.flow_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            flow.setAdapter(adapter_flow);
         }
 
         public EditText getQuantity() {
@@ -105,7 +109,9 @@ public class OutItemsAdapter extends RecyclerView.Adapter<OutItemsAdapter.ViewHo
             return process;
        }
 
-     public EditText getFlow() {return flow;}
+        public Spinner getFlow() {
+            return flow;
+        }
 
     }
 }

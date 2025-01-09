@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Process"
+        android:text="@string/process"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,14 +124,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
-        android:text="Flow"
+        android:text="@string/flow"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/process"
         app:layout_constraintTop_toTopOf="@+id/remark" />
 
-    <EditText
+    <Spinner
         android:id="@+id/flow"
-        android:layout_width="40dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"

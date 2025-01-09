@@ -288,7 +288,6 @@ public class Utils {
             return 1;
         }
         return Integer.parseInt(result.get(0).get("0")) + 1;
-
     }
 
     @Deprecated
