@@ -93,8 +93,13 @@ public class PaymentReportListAdapter extends ArrayAdapter<String[]> {
 
         BigDecimal amnt = new BigDecimal(objects.get(position)[4]);
         BigDecimal receivedAmnt = new BigDecimal(receivedAmount.getText().toString());
-        BigDecimal commission = ((amnt.subtract(receivedAmnt)).divide(amnt, MathContext.DECIMAL32)).multiply(BigDecimal.valueOf(100)).
-                setScale(2, RoundingMode.HALF_UP);
+        BigDecimal commission =  BigDecimal.ZERO;
+        if (amnt.compareTo(BigDecimal.ZERO)>0) {
+            ((amnt.subtract(receivedAmnt)).divide(amnt, MathContext.DECIMAL32)).multiply(BigDecimal.valueOf(100)).
+                    setScale(2, RoundingMode.HALF_UP);
+        }
+        //BigDecimal commission = ((amnt.subtract(receivedAmnt)).divide(amnt, MathContext.DECIMAL32)).multiply(BigDecimal.valueOf(100)).
+         //       setScale(2, RoundingMode.HALF_UP);
         if (receivedAmnt.intValue() > 0) {
             textViewCommission.setText(" | "+ commission.toString() + "%");
             if (commission.compareTo(BigDecimal.valueOf(2.5)) == 1){
