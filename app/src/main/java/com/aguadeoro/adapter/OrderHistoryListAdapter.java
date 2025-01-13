@@ -34,9 +34,8 @@ public class OrderHistoryListAdapter extends ArrayAdapter<String[]> {
         View rowView = inflater.inflate(R.layout.line_order_history, parent, false);
         TextView date = rowView.findViewById(R.id.pay_date);
         TextView remark = rowView.findViewById(R.id.remark);
-        Log.d("failed to convert data", "HH:mm:ss"+objects.get(position)[0]);
         try {
-            Date date2 = new SimpleDateFormat("dd-MM-yyyy HH:mm z").parse(objects.get(position)[0]);
+            Date date2 = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(objects.get(position)[0]);
             date.setText(date2.toString());
         } catch (ParseException e) {
             Log.e("failed to convert date", "" + e);

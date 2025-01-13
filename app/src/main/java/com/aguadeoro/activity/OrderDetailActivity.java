@@ -2042,9 +2042,9 @@ public class OrderDetailActivity extends ListActivity {
                         }
                     }
                     StringBuilder outItemsString = new StringBuilder();
-                    outItemsString.append("OUT:");
+                    outItemsString.append("\n OUT:");
                     for (int i = 0; i < outItemsToSend.size(); i++) {
-                        outItemsString.append(outItemsToSend.get(i).get(0)).append(",").append(outItemsToSend.get(i).get(1)).append(",").append(outItemsToSend.get(i).get(2)).append(",").append(outItemsToSend.get(i).get(3)).append(";").append(outItemsToSend.get(i).get(4)).append(";").append(outItemsToSend.get(i).get(5)).append(";");
+                        outItemsString.append("ID").append(outItemsToSend.get(i).get(0)).append(",").append(outItemsToSend.get(i).get(1)).append(",").append(";");
                     }
                     ((TextView) window.findViewById(R.id.comp_add_remark)).append(outItemsString.toString());
                     dialog.dismiss();
@@ -2183,7 +2183,7 @@ public class OrderDetailActivity extends ListActivity {
                     + "_" + Utils.generateSupplierOrderNumber(compID);
             String createdDate = args[0];
             LocalDateTime now = LocalDateTime.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a"); // ici
             String formattedTimestamp = now.format(formatter);
             String supplier = args[1];
             position = Integer.parseInt(args[2]);
@@ -2198,9 +2198,11 @@ public class OrderDetailActivity extends ListActivity {
                     quantity = item.get(1);
                     type = "2";
                 }
-                Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow, SettlementStatus) values " +
+                /*Query q = new Query("insert into StockHistory1 (OrderNumber, HistoricDate, ProductID, Supplier, Type, Quantity, Cost, Remark, Process, Flow, SettlementStatus) values " +
                         "('" + trueSuppOrdNo + "','" + formattedTimestamp + "'," + item.get(0) + ",'" + supplier + "'," + type + "," + quantity + "," + item.get(2) + ",'" + item.get(3) + "','" + item.get(4) + "','" + item.get(5) + "','" + "Unverified" + "'" + ")");
                 return q.execute();
+                ### functionnality desactivated for now ###
+                */
             }
             return true;
         }
